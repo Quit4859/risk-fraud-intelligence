@@ -1,0 +1,9 @@
+artifacts/*.db
+artifacts/*.db-journal
+artifacts/*.db-wal
+artifacts/*.db-shm
+__pycache__/
+*.pyc
+node_modules/
+.vercel/
+.env*

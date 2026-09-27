@@ -1,0 +1,6 @@
+# The copilot serverless runtime uses only the standard library plus these two
+# packages. pandas/streamlit are intentionally NOT serverless dependencies:
+# they are needed for the local Streamlit app (requirements-app.txt) but would
+# bloat the function bundle and slow every cold start.
+pyyaml>=6.0
+requests>=2.31

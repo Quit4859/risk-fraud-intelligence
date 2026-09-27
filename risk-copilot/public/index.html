@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Risk, Fraud &amp; Regulatory Intelligence Copilot</title>
+<style>
+  :root{
+    --bg:#0b1020; --panel:#131a2e; --panel2:#182140; --line:#243055;
+    --ink:#e8ecf8; --muted:#93a0c0; --accent:#5b8cff; --accent2:#38d39f;
+    --high:#ff5470; --med:#ff9f43; --low:#38d39f; --warn:#ffd166;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+       font:14px/1.55 ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  a{color:var(--accent);text-decoration:none}
+  header{padding:18px 24px;border-bottom:1px solid var(--line);
+         display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
+         background:linear-gradient(180deg,#111a33,#0b1020)}
+  header h1{font-size:17px;margin:0;letter-spacing:.2px}
+  header .sub{color:var(--muted);font-size:12px}
+  .pill{border:1px solid var(--line);border-radius:999px;padding:4px 10px;
+        font-size:11px;color:var(--muted);background:var(--panel)}
+  .pill.ok{color:var(--accent2);border-color:#1c5b47}
+  .pill.bad{color:var(--high);border-color:#5c2231}
+  main{display:grid;grid-template-columns:minmax(0,1fr) 380px;gap:18px;padding:18px 24px;align-items:start}
+  @media(max-width:1000px){main{grid-template-columns:minmax(0,1fr)}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px}
+  .card h2{font-size:13px;margin:0 0 10px;text-transform:uppercase;letter-spacing:.9px;color:var(--muted)}
+  textarea{width:100%;min-height:64px;background:var(--panel2);color:var(--ink);
+           border:1px solid var(--line);border-radius:9px;padding:11px;font:inherit;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--accent)}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:10px}
+  button{background:var(--accent);color:#fff;border:0;border-radius:8px;padding:9px 15px;
+         font:inherit;font-weight:600;cursor:pointer}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--muted);font-weight:500}
+  button:disabled{opacity:.55;cursor:progress}
+  .chip{background:var(--panel2);border:1px solid var(--line);color:var(--muted);
+        border-radius:999px;padding:5px 11px;font-size:12px;cursor:pointer}
+  .chip:hover{border-color:var(--accent);color:var(--ink)}
+  .answer{margin-top:14px}
+  .answer-text{white-space:pre-wrap;background:var(--panel2);border:1px solid var(--line);
+               border-left:3px solid var(--accent);border-radius:9px;padding:13px}
+  .meta{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}
+  .tag{font-size:11px;border-radius:6px;padding:3px 8px;border:1px solid var(--line);color:var(--muted)}
+  .tag.PASS{color:var(--accent2);border-color:#1c5b47}
+  .tag.WARN{color:var(--warn);border-color:#5b4a1c}
+  .tag.FAIL{color:var(--high);border-color:#5c2231}
+  h3{font-size:12px;margin:16px 0 7px;text-transform:uppercase;letter-spacing:.8px;color:var(--muted)}
+  table{width:100%;border-collapse:collapse;font-size:12px}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.5px}
+  tbody tr:hover{background:var(--panel2)}
+  .scroll{overflow:auto;max-height:330px;border:1px solid var(--line);border-radius:9px}
+  ul{margin:6px 0;padding-left:18px}li{margin:3px 0}
+  code,.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11.5px}
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;font-size:12.5px}
+  .kv span:nth-child(odd){color:var(--muted)}
+  .hl{color:var(--high);font-weight:600}.md{color:var(--warn);font-weight:600}.lo{color:var(--low);font-weight:600}
+  .cite{font-size:12px;color:var(--muted);margin:2px 0}
+  .cite b{color:var(--accent)}
+  .foot{padding:14px 24px;color:var(--muted);font-size:11.5px;border-top:1px solid var(--line);margin-top:20px}
+  .err{background:#2a1420;border:1px solid #5c2231;color:#ffb3c1;padding:11px;border-radius:9px;white-space:pre-wrap}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>Risk, Fraud &amp; Regulatory Intelligence Copilot</h1>
+    <div class="sub">Governed, evidence-backed answers &middot; signal &rarr; evidence &rarr; finding &rarr; filing</div>
+  </div>
+  <div class="row" style="margin:0">
+    <span class="pill" id="p-status">connecting&hellip;</span>
+    <span class="pill" id="p-asof">as-of &mdash;</span>
+    <span class="pill" id="p-build">cold start &mdash;</span>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="card">
+      <h2>Ask the copilot</h2>
+      <textarea id="q" placeholder="e.g. which customers are structuring cash to avoid the reporting threshold?">which customers are structuring cash to avoid the reporting threshold?</textarea>
+      <div class="row">
+        <button id="go">Ask</button>
+        <button class="ghost" id="scan">Run portfolio scan</button>
+        <button class="ghost" id="board">Board MIAR pack</button>
+        <button class="ghost" id="liq">Liquidity pack</button>
+      </div>
+      <div class="row" id="chips"></div>
+      <div class="answer" id="out"><div class="cite">Loading question suggestions&hellip;</div></div>
+    </div>
+  </section>
+
+  <aside>
+    <div class="card" style="margin-bottom:18px">
+      <h2>Runtime status</h2>
+      <div class="kv" id="runtime"><span>copilot</span><span>&mdash;</span></div>
+    </div>
+    <div class="card">
+      <h2>Policy corpus</h2>
+      <div class="kv" id="corpus"><span>documents</span><span>&mdash;</span></div>
+    </div>
+  </aside>
+</main>
+
+<div class="foot">
+  Every answer is returned with the SQL executed, the clauses relied upon, the
+  evidence manifest hash and a guardrail verdict. Draft filings are machine-generated
+  and require a named human approver before submission (clause FILE-2.1.1).
+  Synthetic data only &mdash; no production or personal data.
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+async function api(action, payload){
+  const res = await fetch('/api', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({action, ...(payload||{})})
+  });
+  const body = await res.json().catch(()=>({error:'bad response'}));
+  if(!res.ok && !body.answer_text) throw new Error(body.error || res.statusText);
+  return body;
+}
+
+function renderAnswer(a){
+  const g = a.guardrail || {};
+  const m = a.metrics || {};
+  const lines = [];
+  lines.push(`<div class="answer-text">${esc(a.answer_text)}</div>`);
+  lines.push(`<div class="meta">
+    <span class="tag">intent: ${esc(a.intent?.intent||'-')}</span>
+    <span class="tag">confidence: ${a.confidence ?? '-'}</span>
+    <span class="tag ${esc(g.status||'')}">guardrail: ${esc(g.status||'-')}</span>
+    <span class="tag">rows: ${a.row_count ?? 0}</span>
+    <span class="tag">data as-of: ${esc(a.provenance?.data_as_of||'-')}</span>
+    <span class="tag">run: <code>${esc(a.provenance?.run_id||'-')}</code></span>
+  </div>`);
+
+  for(const s of a.sections || []){
+    lines.push(`<h3>${esc(s.title||'')}</h3>`);
+    if(s.type === 'table' && (s.rows||[]).length){
+      const cols = s.columns || Object.keys(s.rows[0]).map(k=>[k,k]);
+      lines.push(`<div class="scroll"><table><thead><tr>${cols.map(c=>`<th>${esc(c[1])}</th>`).join('')}</tr></thead><tbody>` +
+        s.rows.slice(0,25).map(r=>`<tr>${cols.map(c=>`<td>${esc(r[c[0]])}</td>`).join('')}</tr>`).join('') +
+        `</tbody></table></div>`);
+    } else if(s.type === 'kv'){
+      lines.push(`<div class="kv">${(s.items||[]).map(i=>`<span>${esc(i.label)}</span><span>${esc(i.value)}</span>`).join('')}</div>`);
+    } else if(s.type === 'bullets'){
+      lines.push(`<ul>${(s.items||[]).map(i=>`<li>${esc(i)}</li>`).join('')}</ul>`);
+    } else if(s.type === 'clause'){
+      lines.push(`<div class="cite"><b>${esc(s.title)}</b><br>${esc(s.text)}</div>`);
+    } else if(s.type === 'text'){
+      lines.push(`<div class="cite">${esc(s.text)}</div>`);
+    }
+  }
+
+  if((a.citations||[]).length){
+    lines.push('<h3>Cited clauses</h3>');
+    lines.push((a.citations||[]).slice(0,8).map(c =>
+      `<div class="cite"><b>${esc(c.clause_ref)}</b> — ${esc(c.citation)}<br>${esc((c.text||'').slice(0,320))}…</div>`).join(''));
+  }
+  if((a.sql||[]).length){
+    lines.push('<h3>Queries executed</h3>');
+    lines.push((a.sql||[]).slice(0,3).map(q=>`<div class="cite mono">${esc(q.trim().replace(/\s+/g,' ').slice(0,240))}</div>`).join(''));
+  }
+  if((a.limitations||[]).length){
+    lines.push('<h3>Limitations</h3><ul>' + a.limitations.slice(0,5).map(l=>`<li>${esc(l)}</li>`).join('') + '</ul>');
+  }
+  if((a.next_actions||[]).length){
+    lines.push('<h3>Next actions</h3><ul>' + a.next_actions.slice(0,5).map(l=>`<li>${esc(l)}</li>`).join('') + '</ul>');
+  }
+  $('out').innerHTML = lines.join('');
+}
+
+function renderCases(d){
+  const rows = (d.top||[]).map(c =>
+    `<tr><td><code>${esc(c.customer_id)}</code></td>
+      <td class="${c.risk_level==='high'?'hl':c.risk_level==='medium'?'md':'lo'}">${esc(c.risk_level)}</td>
+      <td>${(c.composite_score??0).toFixed(3)}</td><td>${(c.confidence??0).toFixed(2)}</td>
+      <td>${esc((c.fired_rules||[]).join(', ')||'-')}</td><td>${esc((c.primary_reason||'').slice(0,110))}</td></tr>`).join('');
+  $('out').innerHTML = `<h3>Portfolio scan — run ${esc(d.run_id)}</h3>
+    <div class="meta"><span class="tag">assessed: ${d.assessed}</span>
+    <span class="tag">escalated: ${d.escalated}</span>
+    <span class="tag">high: ${d.risk_distribution?.high ?? 0}</span>
+    <span class="tag">medium: ${d.risk_distribution?.medium ?? 0}</span>
+    <span class="tag">blocked by guardrail: ${(d.blocked||[]).length}</span></div>
+    <div class="scroll"><table><thead><tr><th>Customer</th><th>Level</th><th>Score</th><th>Conf</th><th>Rules</th><th>Driver</th></tr></thead>
+    <tbody>${rows}</tbody></table></div>`;
+}
+
+function renderReport(d, title){
+  const r = d.report || {};
+  const g = r.governance || {};
+  const basis = (r.regulatory_basis||[]).map(c =>
+    `<div class="cite"><b>${esc(c.clause_ref)}</b> — ${esc(c.citation||'')}<br>${esc((c.requirement||c.text||'').slice(0,300))}…</div>`).join('');
+  $('out').innerHTML = `<h3>${esc(title)} — ${esc(d.report_id||'')}</h3>
+    <div class="meta"><span class="tag ${g.status==='PENDING_REVIEW'?'':'PASS'}">status: ${esc(g.status||'-')}</span>
+      <span class="tag">citation coverage: ${g.citation_coverage!=null?Math.round(g.citation_coverage*100)+'%':'-'}</span>
+      <span class="tag">four-eyes required: ${g.four_eyes_required?'yes':'no'}</span>
+      <span class="tag">content hash: <code>${esc((g.content_hash||'').slice(0,12))}</code></span></div>
+    ${r.suspicious_activity?`<div class="answer-text">${esc(r.suspicious_activity.narrative||'')}</div>`:''}
+    <h3>Regulatory basis</h3>${basis}
+    <h3>Attestation</h3><div class="cite">${esc(r.attestation?.statement||'')}</div>
+    ${d.error?`<div class="err">${esc(d.error)} — ${esc(d.detail||'')}</div>`:''}`;
+}
+
+async function boot(){
+  try{
+    const h = await api('health');
+    if(!h.ready){ $('p-status').textContent='building…'; $('p-status').className='pill'; setTimeout(boot,2500); return; }
+    $('p-status').textContent='ready'; $('p-status').className='pill ok';
+    $('p-asof').textContent='as-of '+(h.status?.as_of_date||'-');
+    $('p-build').textContent='cold start '+(h.build_seconds??'-')+'s';
+    const s = h.status||{};
+    $('runtime').innerHTML = `
+      <span>version</span><span>${esc(s.config_version)}</span>
+      <span>environment</span><span>${esc(s.environment)}</span>
+      <span>customers</span><span>${(s.tables?.customers||0).toLocaleString()}</span>
+      <span>transactions</span><span>${(s.tables?.transactions||0).toLocaleString()}</span>
+      <span>findings</span><span>${(s.tables?.findings||0).toLocaleString()}</span>
+      <span>filings</span><span>${(s.tables?.filings||0).toLocaleString()}</span>
+      <span>fingerprint</span><span class="mono">${esc(s.data_fingerprint)}</span>
+      <span>high band</span><span>${s.thresholds?.high}</span>
+      <span>medium band</span><span>${s.thresholds?.medium}</span>`;
+    $('corpus').innerHTML = `
+      <span>documents</span><span>${s.corpus?.documents ?? '-'}</span>
+      <span>clauses</span><span>${s.corpus?.clauses ?? '-'}</span>
+      <span>policy bindings</span><span>${s.corpus?.policies ?? '-'}</span>`;
+  }catch(e){
+    $('p-status').textContent='error: '+e.message; $('p-status').className='pill bad';
+  }
+  try{
+    const ex = await api('examples');
+    $('chips').innerHTML = (ex.questions||[]).map(q=>`<span class="chip">${esc(q)}</span>`).join('');
+    $('chips').onclick = ev => { if(ev.target.classList.contains('chip')){ $('q').value = ev.target.textContent; ask(); } };
+  }catch(_){}
+}
+
+async function ask(){
+  const btn = $('go'); btn.disabled = true; $('out').innerHTML = '<div class="cite">Working…</div>';
+  try{ renderAnswer(await api('ask', {question: $('q').value})); }
+  catch(e){ $('out').innerHTML = `<div class="err">${esc(e.message)}</div>`; }
+  finally{ btn.disabled = false; }
+}
+
+$('go').onclick = ask;
+$('q').addEventListener('keydown', e => { if(e.key==='Enter' && (e.metaKey||e.ctrlKey)) ask(); });
+$('scan').onclick = async () => { $('out').innerHTML='<div class="cite">Scoring portfolio…</div>';
+  try{ renderCases(await api('scan', {limit:200})); }catch(e){ $('out').innerHTML=`<div class="err">${esc(e.message)}</div>`; } };
+$('board').onclick = async () => { $('out').innerHTML='<div class="cite">Building board pack…</div>';
+  try{ renderReport(await api('board_pack'), 'Board MIAR'); }catch(e){ $('out').innerHTML=`<div class="err">${esc(e.message)}</div>`; } };
+$('liq').onclick = async () => { $('out').innerHTML='<div class="cite">Building liquidity pack…</div>';
+  try{ renderReport(await api('liquidity'), 'Liquidity & prudential'); }catch(e){ $('out').innerHTML=`<div class="err">${esc(e.message)}</div>`; } };
+
+boot();
+</script>
+</body>
+</html>

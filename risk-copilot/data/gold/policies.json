@@ -1,0 +1,391 @@
+[
+  {
+    "policy_id": "POL-AML-CTR",
+    "framework": "AML",
+    "name": "Cash Transaction Reporting threshold and aggregation",
+    "jurisdiction": "International",
+    "regulatory_body": "FATF / Global Policy Committee",
+    "description": "Cash transactions must be aggregated per customer per business day and reported at USD 10,000 or above.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "4.2",
+    "key_thresholds": {
+      "reporting_amount": 10000,
+      "currency": "USD",
+      "window": "business_day"
+    },
+    "binding_rule_code": "STRUCTURING",
+    "obligation": "FILE_CTR",
+    "source_doc_id": "GLOBAL-AML-001"
+  },
+  {
+    "policy_id": "POL-AML-STR",
+    "framework": "AML",
+    "name": "Structuring / threshold avoidance prohibition",
+    "jurisdiction": "International",
+    "regulatory_body": "FATF / Global Policy Committee",
+    "description": "Sub-threshold cash deposits aggregating above the reporting threshold within a rolling 72-hour period are a single reportable transaction.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "4.2",
+    "key_thresholds": {
+      "reporting_amount": 10000,
+      "min_deposits": 3,
+      "window_hours": 72,
+      "profile_multiple": 3.0
+    },
+    "binding_rule_code": "STRUCTURING",
+    "obligation": "ESCALATE",
+    "source_doc_id": "GLOBAL-AML-001"
+  },
+  {
+    "policy_id": "POL-AML-SAR",
+    "framework": "AML",
+    "name": "Suspicious Activity Reporting",
+    "jurisdiction": "International",
+    "regulatory_body": "FATF / Global Policy Committee",
+    "description": "A SAR is mandatory on formed suspicion with an aggregate amount at or above USD 5,000, supported by retained records for five years.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [
+      "medium",
+      "high"
+    ],
+    "effective_date": "2025-01-01",
+    "version": "4.2",
+    "key_thresholds": {
+      "reporting_amount": 5000,
+      "retention_years": 5
+    },
+    "binding_rule_code": "COMPOSITE",
+    "obligation": "FILE_SAR",
+    "source_doc_id": "GLOBAL-AML-001"
+  },
+  {
+    "policy_id": "POL-SAN-GEO",
+    "framework": "Sanctions",
+    "name": "Geographic concentration and inconsistent location",
+    "jurisdiction": "International",
+    "regulatory_body": "OFAC / UN Security Council",
+    "description": "Over 30% elevated-risk jurisdiction share in 90 days is concentrated; two or more jurisdictions in 24 hours is an identity inconsistency.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-03-01",
+    "version": "2.7",
+    "key_thresholds": {
+      "high_risk_share": 0.3,
+      "window_days": 90,
+      "impossible_travel_hours": 24
+    },
+    "binding_rule_code": "GEOGRAPHIC",
+    "obligation": "ESCALATE",
+    "source_doc_id": "SAN-1"
+  },
+  {
+    "policy_id": "POL-SAN-ATO",
+    "framework": "Sanctions",
+    "name": "Account takeover / compromised credentials monitoring",
+    "jurisdiction": "International",
+    "regulatory_body": "OFAC / UN Security Council",
+    "description": "New device plus new network country followed by above-normal ticket within 14 days requires enhanced monitoring.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-03-01",
+    "version": "2.7",
+    "key_thresholds": {
+      "window_days": 14,
+      "ticket_multiple": 2.0
+    },
+    "binding_rule_code": "ACCOUNT_TAKEOVER",
+    "obligation": "MONITOR_ENHANCED",
+    "source_doc_id": "SAN-1"
+  },
+  {
+    "policy_id": "POL-MON-VEL",
+    "framework": "AML",
+    "name": "Behavioural velocity monitoring",
+    "jurisdiction": "International",
+    "regulatory_body": "Global Policy Committee",
+    "description": "Baselines use 90 days of history with a robust dispersion measure; alert at robust z-score of 3.0 or more.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-03-01",
+    "version": "2.7",
+    "key_thresholds": {
+      "baseline_days": 90,
+      "zscore": 3.0,
+      "alert_zscore": 3.0
+    },
+    "binding_rule_code": "VELOCITY",
+    "obligation": "MONITOR",
+    "source_doc_id": "SAN-1"
+  },
+  {
+    "policy_id": "POL-BASEL-CAP",
+    "framework": "Basel3",
+    "name": "Minimum capital and conservation buffer",
+    "jurisdiction": "International",
+    "regulatory_body": "Basel Committee",
+    "description": "CET1 4.5%, Tier 1 6.0%, total capital 8.0%, plus a 2.5% conservation buffer.",
+    "applies_to": [
+      "corporate",
+      "nbfc"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "3.1",
+    "key_thresholds": {
+      "cet1": 0.045,
+      "tier1": 0.06,
+      "total_capital": 0.08,
+      "buffer": 0.025
+    },
+    "binding_rule_code": null,
+    "obligation": "REPORT",
+    "source_doc_id": "BASEL-3"
+  },
+  {
+    "policy_id": "POL-BASEL-LARGE",
+    "framework": "Basel3",
+    "name": "Large exposure limit",
+    "jurisdiction": "International",
+    "regulatory_body": "Basel Committee",
+    "description": "Single counterparty or connected-counterparty group capped at 25% of Tier 1 capital; board reporting above 80% utilisation.",
+    "applies_to": [
+      "corporate",
+      "nbfc"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "3.1",
+    "key_thresholds": {
+      "limit_pct": 0.25,
+      "board_report_pct": 0.8
+    },
+    "binding_rule_code": null,
+    "obligation": "REPORT",
+    "source_doc_id": "BASEL-3"
+  },
+  {
+    "policy_id": "POL-BASEL-LCR",
+    "framework": "Basel3",
+    "name": "Liquidity coverage ratio and NSFR",
+    "jurisdiction": "International",
+    "regulatory_body": "Basel Committee",
+    "description": "LCR and NSFR each maintained at a minimum of 100%.",
+    "applies_to": [
+      "corporate",
+      "nbfc"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "3.1",
+    "key_thresholds": {
+      "lcr_min": 1.0,
+      "nsfr_min": 1.0
+    },
+    "binding_rule_code": null,
+    "obligation": "REPORT",
+    "source_doc_id": "BASEL-3"
+  },
+  {
+    "policy_id": "POL-BASEL-ECL",
+    "framework": "Basel3",
+    "name": "Expected credit loss and vulnerable obligor threshold",
+    "jurisdiction": "International",
+    "regulatory_body": "Basel Committee",
+    "description": "12-month PD above 10% requires vulnerable obligor classification and escalation to credit risk review.",
+    "applies_to": [
+      "sme",
+      "corporate",
+      "nbfc",
+      "retail"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "3.1",
+    "key_thresholds": {
+      "pd_high": 0.1,
+      "stage_boundary": 0.03
+    },
+    "binding_rule_code": "CREDIT",
+    "obligation": "ESCALATE",
+    "source_doc_id": "BASEL-3"
+  },
+  {
+    "policy_id": "POL-IN-CDD",
+    "framework": "LocalReg",
+    "name": "Customer due diligence and beneficial ownership (PMLA)",
+    "jurisdiction": "IN",
+    "regulatory_body": "FIU-India / RBI",
+    "description": "CDD with beneficial owner identification before relationship; EDD for high-risk and PEP relationships reviewed at least annually.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2024-10-01",
+    "version": "6.0",
+    "key_thresholds": {
+      "ubo_threshold": 0.1,
+      "edd_review_months": 12
+    },
+    "binding_rule_code": "KYC",
+    "obligation": "REVIEW",
+    "source_doc_id": "IN-NBFC"
+  },
+  {
+    "policy_id": "POL-IN-STR",
+    "framework": "LocalReg",
+    "name": "Suspicious transaction reporting to the FIU",
+    "jurisdiction": "IN",
+    "regulatory_body": "FIU-India",
+    "description": "STR within 24 hours of reasonable belief; cash aggregation at or above INR 10,00,000 in a day is reportable.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2024-10-01",
+    "version": "6.0",
+    "key_thresholds": {
+      "cash_threshold_inr": 1000000,
+      "hours": 24
+    },
+    "binding_rule_code": "STRUCTURING",
+    "obligation": "FILE_STR",
+    "source_doc_id": "IN-NBFC"
+  },
+  {
+    "policy_id": "POL-UK-SMCR",
+    "framework": "Prudential",
+    "name": "Financial crime systems and controls",
+    "jurisdiction": "GB",
+    "regulatory_body": "FCA",
+    "description": "Proportionate and effective systems and controls covering CDD, monitoring, transaction monitoring, screening and reporting of suspicions.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-02-01",
+    "version": "3.4",
+    "key_thresholds": {},
+    "binding_rule_code": "COMPOSITE",
+    "obligation": "ATTEST",
+    "source_doc_id": "UK-PRA"
+  },
+  {
+    "policy_id": "POL-INT-ESC",
+    "framework": "Internal",
+    "name": "Escalation severity matrix and SLA",
+    "jurisdiction": "Internal",
+    "regulatory_body": "Group Financial Crime Committee",
+    "description": "Composite score >= 0.70 HIGH (1 business day), 0.42-0.70 MEDIUM (3 business days), below 0.42 LOW (monitoring only).",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-06-01",
+    "version": "9.1",
+    "key_thresholds": {
+      "high": 0.7,
+      "medium": 0.42
+    },
+    "binding_rule_code": "COMPOSITE",
+    "obligation": "ESCALATE",
+    "source_doc_id": "INT-FRAUD-01"
+  },
+  {
+    "policy_id": "POL-INT-FOUR-EYES",
+    "framework": "Internal",
+    "name": "Four-eyes filing and explainability requirement",
+    "jurisdiction": "Internal",
+    "regulatory_body": "Group Financial Crime Committee",
+    "description": "Every filing is a machine-generated draft plus an independent human approval; every regulatory assertion must name its clause.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-06-01",
+    "version": "9.1",
+    "key_thresholds": {},
+    "binding_rule_code": null,
+    "obligation": "APPROVAL",
+    "source_doc_id": "INT-FRAUD-01"
+  },
+  {
+    "policy_id": "POL-INT-FALLBACK",
+    "framework": "Internal",
+    "name": "Graceful degradation and model risk management",
+    "jurisdiction": "Internal",
+    "regulatory_body": "Group Financial Crime Committee",
+    "description": "On insufficient data quality or unassemblable evidence, fall back to human review and record the reason; never silently return low risk.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-06-01",
+    "version": "9.1",
+    "key_thresholds": {
+      "min_evidence_quality": "medium"
+    },
+    "binding_rule_code": null,
+    "obligation": "FALLBACK_REVIEW",
+    "source_doc_id": "INT-FRAUD-01"
+  },
+  {
+    "policy_id": "POL-TBM-MULE",
+    "framework": "AML",
+    "name": "Pass-through mule network detection and interdiction",
+    "jurisdiction": "International",
+    "regulatory_body": "Global Policy Committee",
+    "description": "Fan-in from multiple senders on a shared device followed by rapid onward pass-through within 24-48 hours is a pass-through mule pattern and supports an interdiction decision.",
+    "applies_to": [
+      "all"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "4.2",
+    "key_thresholds": {
+      "min_senders": 2,
+      "pass_through_hours": 48,
+      "inflow_outflow_ratio": 1.2
+    },
+    "binding_rule_code": "MULE_NETWORK",
+    "obligation": "ESCALATE",
+    "source_doc_id": "GLOBAL-AML-001"
+  },
+  {
+    "policy_id": "POL-TBM-TRADE",
+    "framework": "AML",
+    "name": "Trade-based money laundering indicators",
+    "jurisdiction": "International",
+    "regulatory_body": "Global Policy Committee",
+    "description": "Repeated round-value cross-border wires with no matching inbound settlement, or with a counterparty in an elevated-risk jurisdiction, are TBML indicators requiring enhanced due diligence.",
+    "applies_to": [
+      "sme",
+      "corporate"
+    ],
+    "risk_levels": [],
+    "effective_date": "2025-01-01",
+    "version": "4.2",
+    "key_thresholds": {
+      "round_amount": 5000,
+      "min_wires": 3
+    },
+    "binding_rule_code": "TRADE_BASED",
+    "obligation": "EDD",
+    "source_doc_id": "GLOBAL-AML-001"
+  }
+]

@@ -1,0 +1,207 @@
+version: "1.0.0"
+name: Risk & Regulatory Intelligence Ontology
+description: >
+  Domain ontology for retail/banking and NBFC fraud, credit, liquidity and
+  regulatory reporting. Authored with CoCo from the generated warehouse schema,
+  then validated against the natural-language question suite in
+  ontology/verified_queries.yaml. `sql/04_semantic_views.sql` materialises each
+  metric/dimension below as a governed semantic view.
+
+entities:
+  - name: Customer
+    description: A legal person or sole trader onboarded by the bank or NBFC.
+    key: customer_id
+    attributes:
+      - name: segment
+        type: categorical
+        values: [retail, sme, corporate, nbfc, individual_high_networth]
+      - name: jurisdiction
+        type: categorical
+      - name: kyc_status
+        type: categorical
+        values: [current, due_diligence, overdue, enhanced]
+      - name: is_pep
+        type: boolean
+      - name: risk_rating
+        type: ordinal
+        values: [low, medium, high]
+
+  - name: Account
+    description: A bank account or ledger held by a Customer.
+    key: account_id
+    relations:
+      - rel: owned_by
+        target: Customer
+        cardinality: many-to-one
+
+  - name: Transaction
+    description: A single movement on an account. The atomic evidence record.
+    key: transaction_id
+    attributes:
+      - name: txn_type
+        type: categorical
+        values: [cash_deposit, cash_withdrawal, card_purchase, wire_out, wire_in, transfer, cheque, atm_deposit]
+      - name: channel
+        type: categorical
+        values: [ATM, POS, ONLINE, MOBILE, BRANCH, WIRE, ACH]
+      - name: is_cash
+        type: boolean
+      - name: amount
+        type: measure
+        unit: currency
+    relations:
+      - rel: posted_to
+        target: Account
+        cardinality: many-to-one
+      - rel: initiated_by
+        target: Customer
+        cardinality: many-to-one
+
+  - name: FraudSignal
+    description: >
+      A derived, explainable indicator produced by a detection rule over
+      transactions. Never a verdict on its own; always paired with evidence.
+    key: signal_id
+    attributes:
+      - name: rule_code
+        type: categorical
+      - name: severity
+        type: ordinal
+        values: [info, low, medium, high, critical]
+      - name: score
+        type: measure
+        range: [0.0, 1.0]
+    relations:
+      - rel: derived_from
+        target: Transaction
+        cardinality: many-to-many
+
+  - name: PolicyDocument
+    description: An authoritative regulation, circular or internal policy.
+    key: doc_id
+    attributes:
+      - name: framework
+        type: categorical
+        values: [AML, KYC, Basel3, Prudential, LocalReg, Sanctions]
+      - name: jurisdiction
+        type: categorical
+
+  - name: PolicyClause
+    description: >
+      The citable atomic unit of a PolicyDocument. Every regulatory statement
+      the copilot makes is anchored to clause_id; unanchored statements are
+      suppressed by the guardrail layer.
+    key: clause_id
+    relations:
+      - rel: part_of
+        target: PolicyDocument
+        cardinality: many-to-one
+
+  - name: RuleBinding
+    description: >
+      The link that makes a PolicyClause actionable: it binds a detection rule
+      to a threshold and an obligation. This is the audit-defensible bridge
+      between "what the rule says" and "what we did".
+    key: binding_id
+    relations:
+      - rel: binds
+        target: PolicyClause
+      - rel: applied_as
+        target: FraudSignal
+
+  - name: Finding
+    description: >
+      An investigation-ready conclusion: a customer, an aggregated risk score,
+      contributing signals, the governing clauses, and the evidence set.
+    key: finding_id
+    relations:
+      - rel: about
+        target: Customer
+      - rel: supported_by
+        target: EvidenceItem
+
+  - name: EvidenceItem
+    description: >
+      A hash-addressed, immutable reference to the exact records relied upon
+      (transaction rows, clause text, profile snapshot).
+    key: evidence_id
+    attributes:
+      - name: content_hash
+        type: string
+
+  - name: RegulatoryFiling
+    description: A SAR, CTR/STR, MIAR or liquidity report ready for submission.
+    key: filing_id
+    attributes:
+      - name: filing_type
+        type: categorical
+        values: [SAR, CTR, STR, MIAR, LIQUIDITY]
+      - name: status
+        type: categorical
+        values: [DRAFT, PENDING_REVIEW, APPROVED, FILED, REJECTED]
+
+metrics:
+  - name: composite_risk_score
+    type: derived
+    definition: >
+      Weighted sum of normalised detector scores, weights sourced from
+      config/settings.yaml -> detection.weights.
+    grain: customer
+  - name: cash_aggregate_1d
+    type: measure
+    definition: SUM(amount) of cash transactions per customer per business day.
+    grain: [customer, day]
+  - name: daily_spend_zscore
+    type: derived
+    definition: (daily_aggregate - median(baseline)) / (1.4826 * MAD(baseline))
+    grain: [customer, day]
+  - name: high_risk_jurisdiction_share
+    type: measure
+    definition: Share of customer transactions booked in risk_country countries.
+    grain: [customer, window]
+  - name: ecl_12m
+    type: measure
+    definition: Probability of default x exposure at default x loss given default, stage 1.
+    grain: [customer, month]
+  - name: liquidity_coverage_ratio
+    type: measure
+    definition: HQLA / net cash outflows over 30 days.
+    grain: [entity, day]
+  - name: large_exposure_ratio
+    type: measure
+    definition: Counterparty exposure / eligible capital, Basel large exposure limit 25%.
+    grain: [entity, counterparty]
+  - name: filing_obligations_met
+    type: measure
+    definition: Count of RuleBindings satisfied by the current finding set.
+    grain: finding
+
+dimensions:
+  - [jurisdiction]
+  - [framework]
+  - [segment]
+  - [txn_type]
+  - [channel]
+  - [severity]
+  - [risk_rating]
+
+workflow:
+  signal -> evidence -> finding -> regulatory_output
+  transitions:
+    - from: signal
+      to: evidence
+      gate: evidence_count >= 3 and evidence_quality in [medium, high]
+    - from: evidence
+      to: finding
+      gate: composite_risk_score >= detection.risk_bands.medium
+    - from: finding
+      to: regulatory_output
+      gate: >
+        every regulatory claim carries a clause_id AND guardrails pass AND
+        (auto_approval OR human_approval_present)
+
+provenance:
+  every_metric_requires:
+    - source_table
+    - as_of_timestamp
+    - run_id

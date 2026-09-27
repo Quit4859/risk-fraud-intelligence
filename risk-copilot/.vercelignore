@@ -1,0 +1,50 @@
+# Keep the serverless bundle small without removing anything the runtime needs.
+#
+# EXCLUDED (regenerable, or local-only):
+#   - the 44MB raw transaction extract and the built sqlite warehouse, both of
+#     which the cold-start bootstrap regenerates into /tmp in ~2.5s
+#   - local artefacts, tests, scratch/debug scripts, the Streamlit app
+#   - the Next.js scaffold, kept in the repo for local work but excluded so
+#     Vercel builds exactly one frontend
+#
+# INCLUDED (the runtime imports or reads these):
+#   api/, backend/, config/, docs/corpus/, ontology/, sql/, public/,
+#   scripts/__init__.py, scripts/generate_synthetic_data.py,
+#   scripts/generate_corpus.py, data/gold/policies.json
+
+.git
+.github
+.kilo
+artifacts
+node_modules
+__pycache__
+**/__pycache__
+*.pyc
+.venv
+venv
+.env
+.env.*
+README.md
+DEPLOY.md
+
+# local-only
+tests
+app
+scripts/_smoke_*.py
+scripts/run_pipeline.py
+scripts/evaluate.py
+scripts/verify_vercel.py
+
+# regenerated at cold start
+data/raw
+
+# Next.js scaffold: excluded so Vercel builds only the static UI + function
+package.json
+package-lock.json
+next.config.js
+postcss.config.js
+tailwind.config.js
+pages
+components
+lib
+deployment

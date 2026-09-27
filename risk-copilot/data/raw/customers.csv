@@ -1,0 +1,601 @@
+customer_id,name,segment,business_type,jurisdiction,jurisdiction_name,domestic_currency,industry,is_pep,kyc_status,kyc_last_review,onboarded_at,ubo_count,risk_rating,expected_monthly_volume,expected_monthly_txns,data_classification
+CUST-000001,Hassan Silva IN658 Ltd,sme,sme,IN,India,INR,Trading,0,current,2025-01-20,2023-02-20,4,,131971.8,17,SYNTHETIC_NO_PII
+CUST-000002,Mei Ortega,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-12-06,2023-05-31,1,low,3238674.67,6,SYNTHETIC_NO_PII
+CUST-000003,Hiro Ricci IN199 Ltd,corporate,corporate,IN,India,INR,Agriculture,0,enhanced,2024-05-02,2022-07-11,3,low,2416885.5,11,SYNTHETIC_NO_PII
+CUST-000004,Aisha Al-Rashid UN470 Ltd,corporate,corporate,US,United States,USD,Real Estate,0,current,2024-09-25,2019-06-14,1,,188068.41,35,SYNTHETIC_NO_PII
+CUST-000005,Amara Petrova GE314 Ltd,corporate,corporate,DE,Germany,EUR,Technology,0,current,2024-09-28,2021-05-19,1,low,2438478.37,27,SYNTHETIC_NO_PII
+CUST-000006,Ibrahim Diallo IN801 Ltd,sme,sme,IN,India,INR,Agriculture,0,current,2024-05-06,2022-08-13,1,,920047.05,10,SYNTHETIC_NO_PII
+CUST-000007,Ananya Wei UN505 Ltd,corporate,corporate,GB,United Kingdom,GBP,Logistics,0,current,2026-04-23,2019-04-13,3,,562823.13,77,SYNTHETIC_NO_PII
+CUST-000008,Hiro Bello UN873 Ltd,sme,sme,AE,United Arab Emirates,AED,Financial Services,0,enhanced,2024-04-18,2021-03-01,1,low,615601.07,26,SYNTHETIC_NO_PII
+CUST-000009,Ananya Diallo UN111 Ltd,corporate,corporate,GB,United Kingdom,GBP,Trading,0,current,2024-10-18,2021-05-12,3,low,3075551.94,49,SYNTHETIC_NO_PII
+CUST-000010,Ibrahim Sharma,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-05-31,2017-07-18,1,low,3482721.69,44,SYNTHETIC_NO_PII
+CUST-000011,Rahul Nair UN643 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2026-09-16,2021-06-13,1,,2397783.61,68,SYNTHETIC_NO_PII
+CUST-000012,Jonas Silva,retail,retail,NG,Nigeria,NGN,N/A,0,current,2024-06-03,2024-12-28,1,medium,281504.01,74,SYNTHETIC_NO_PII
+CUST-000013,Freya Ortega IN652 Ltd,corporate,corporate,IN,India,INR,Real Estate,0,due_diligence,2024-09-16,2023-10-16,3,low,1598974.24,89,SYNTHETIC_NO_PII
+CUST-000014,Rosa Mensah,retail,retail,SG,Singapore,SGD,N/A,0,current,2026-01-24,2022-11-11,1,,2355818.26,6,SYNTHETIC_NO_PII
+CUST-000015,Amara Iyer,retail,retail,US,United States,USD,N/A,0,current,2026-02-09,2025-04-16,1,medium,2159239.56,79,SYNTHETIC_NO_PII
+CUST-000016,Freya Eze IN984 Ltd,sme,sme,IN,India,INR,Financial Services,0,current,2024-10-27,2023-07-05,1,low,247147.63,49,SYNTHETIC_NO_PII
+CUST-000017,Rahul Kapoor IN177 Ltd,corporate,corporate,IN,India,INR,Logistics,0,current,2024-06-11,2019-08-18,1,low,207100.38,75,SYNTHETIC_NO_PII
+CUST-000018,Lucas Novak GE488 Ltd,corporate,corporate,DE,Germany,EUR,Financial Services,0,current,2025-08-13,2021-01-31,3,low,3706439.7,64,SYNTHETIC_NO_PII
+CUST-000019,Santiago Costa,retail,retail,US,United States,USD,N/A,0,current,2026-07-16,2023-11-27,1,medium,2993162.36,13,SYNTHETIC_NO_PII
+CUST-000020,Andrei Novak,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-10-25,2025-01-02,1,low,3447967.71,57,SYNTHETIC_NO_PII
+CUST-000021,Lucas Bello,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-02-15,2018-12-22,1,,2093516.95,39,SYNTHETIC_NO_PII
+CUST-000022,Lucas Larsen,retail,retail,US,United States,USD,N/A,0,current,2026-07-04,2021-03-15,1,high,42215.25,85,SYNTHETIC_NO_PII
+CUST-000023,Ananya Saleh,individual_high_networth,individual_high_networth,DE,Germany,EUR,N/A,0,enhanced,2025-11-29,2023-04-02,1,low,635198.6,75,SYNTHETIC_NO_PII
+CUST-000024,Luca Ivanov UN206 Ltd,sme,sme,US,United States,USD,Manufacturing,0,current,2025-12-20,2025-07-21,1,,3559402.26,76,SYNTHETIC_NO_PII
+CUST-000025,Chen Ricci,retail,retail,IN,India,INR,N/A,0,due_diligence,2024-05-03,2023-05-12,1,low,207941.58,87,SYNTHETIC_NO_PII
+CUST-000026,Aarav Ricci,retail,retail,IN,India,INR,N/A,0,enhanced,2024-09-24,2016-12-29,1,low,1713609.24,7,SYNTHETIC_NO_PII
+CUST-000027,Priya Saleh,retail,retail,NG,Nigeria,NGN,N/A,0,current,2025-11-05,2025-03-28,1,low,1461782.8,11,SYNTHETIC_NO_PII
+CUST-000028,Lucas Petrova IN258 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,due_diligence,2026-01-17,2021-09-04,1,medium,3459099.76,28,SYNTHETIC_NO_PII
+CUST-000029,Marco Eze IN210 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,due_diligence,2025-08-21,2018-02-17,1,medium,3489306.3,66,SYNTHETIC_NO_PII
+CUST-000030,Ibrahim Ahmed,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2025-08-04,2022-03-21,1,medium,1316406.5,14,SYNTHETIC_NO_PII
+CUST-000031,Luca Farooq,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2025-12-23,2021-02-27,1,medium,718378.43,39,SYNTHETIC_NO_PII
+CUST-000032,Zara Rahman,retail,retail,US,United States,USD,N/A,0,current,2025-12-30,2020-09-30,1,low,182324.2,61,SYNTHETIC_NO_PII
+CUST-000033,Noor Kapoor,retail,retail,NG,Nigeria,NGN,N/A,0,enhanced,2024-12-17,2021-07-23,1,,1259093.0,21,SYNTHETIC_NO_PII
+CUST-000034,Jonas Eze IN488 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2024-12-25,2021-12-25,3,low,1627270.3,6,SYNTHETIC_NO_PII
+CUST-000035,Idris Almeida,retail,retail,IN,India,INR,N/A,0,current,2025-04-11,2018-04-20,1,,1895378.81,27,SYNTHETIC_NO_PII
+CUST-000036,Thandi Petrov IN925 Ltd,sme,sme,IN,India,INR,Real Estate,0,enhanced,2026-04-19,2021-11-19,1,low,189623.8,66,SYNTHETIC_NO_PII
+CUST-000037,Ibrahim Eze UN251 Ltd,sme,sme,AE,United Arab Emirates,AED,Financial Services,0,current,2024-08-09,2018-07-31,1,low,3114789.53,34,SYNTHETIC_NO_PII
+CUST-000038,Andrei Rahman,retail,retail,DE,Germany,EUR,N/A,0,overdue,2025-05-29,2025-01-29,1,low,2671973.04,77,SYNTHETIC_NO_PII
+CUST-000039,Rosa Petrov GE556 Ltd,sme,sme,DE,Germany,EUR,Manufacturing,0,current,2024-08-16,2017-07-29,4,,1803028.68,37,SYNTHETIC_NO_PII
+CUST-000040,Andrei Costa IN340 Ltd,corporate,corporate,IN,India,INR,Technology,0,current,2025-10-08,2018-08-12,3,,3572642.2,16,SYNTHETIC_NO_PII
+CUST-000041,Priya Wei,retail,retail,IN,India,INR,N/A,0,current,2024-05-17,2024-12-02,1,low,1683473.35,80,SYNTHETIC_NO_PII
+CUST-000042,Keiko Diallo,individual_high_networth,individual_high_networth,IN,India,INR,N/A,1,current,2024-05-14,2020-04-17,1,,1678990.02,75,SYNTHETIC_NO_PII
+CUST-000043,Rafael Okonkwo SI514 Ltd,corporate,corporate,SG,Singapore,SGD,Manufacturing,0,current,2024-05-09,2022-08-01,4,medium,3678568.77,85,SYNTHETIC_NO_PII
+CUST-000044,Idris Yamamoto NI488 Ltd,sme,sme,NG,Nigeria,NGN,Agriculture,1,enhanced,2026-02-12,2018-03-17,4,low,1310748.99,54,SYNTHETIC_NO_PII
+CUST-000045,Chioma Larsen,retail,retail,DE,Germany,EUR,N/A,0,current,2026-01-30,2024-09-21,1,high,2602325.65,89,SYNTHETIC_NO_PII
+CUST-000046,Lucas Kapoor,retail,retail,IN,India,INR,N/A,0,current,2026-02-05,2025-05-31,1,low,1862810.76,38,SYNTHETIC_NO_PII
+CUST-000047,Beatriz Mensah IN419 Ltd,corporate,corporate,IN,India,INR,Healthcare,0,enhanced,2025-08-06,2016-12-02,2,low,308605.93,86,SYNTHETIC_NO_PII
+CUST-000048,Jonas Almeida,retail,retail,US,United States,USD,N/A,0,current,2024-11-08,2024-04-14,1,low,1485430.65,70,SYNTHETIC_NO_PII
+CUST-000049,Chioma Costa IN570 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-06-28,2024-06-16,2,,2936512.24,89,SYNTHETIC_NO_PII
+CUST-000050,Noor Lindqvist,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2024-05-19,2020-06-05,1,medium,3738814.41,41,SYNTHETIC_NO_PII
+CUST-000051,Ibrahim Yamamoto IN599 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2026-02-11,2018-10-19,1,low,1422525.74,39,SYNTHETIC_NO_PII
+CUST-000052,Hassan Ortega,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-02-25,2025-07-12,1,low,3033867.79,66,SYNTHETIC_NO_PII
+CUST-000053,Mei Al-Rashid UN584 Ltd,sme,sme,GB,United Kingdom,GBP,Education,0,current,2025-03-22,2022-05-05,3,low,1704887.73,76,SYNTHETIC_NO_PII
+CUST-000054,Hassan Berger,retail,retail,US,United States,USD,N/A,0,current,2024-07-28,2022-10-28,1,medium,2762203.4,30,SYNTHETIC_NO_PII
+CUST-000055,Idris Ivanov,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-03-17,2018-12-13,1,low,1212559.02,74,SYNTHETIC_NO_PII
+CUST-000056,Diego Ortega,retail,retail,IN,India,INR,N/A,0,current,2025-05-02,2022-05-14,1,,414837.65,7,SYNTHETIC_NO_PII
+CUST-000057,Rosa Ricci UN216 Ltd,sme,sme,GB,United Kingdom,GBP,Trading,0,current,2025-08-02,2023-07-29,4,,300958.27,86,SYNTHETIC_NO_PII
+CUST-000058,Keiko Berger IN720 Ltd,sme,sme,IN,India,INR,Real Estate,0,current,2024-07-14,2024-09-08,4,,1804805.29,62,SYNTHETIC_NO_PII
+CUST-000059,Hiro Berger,retail,retail,US,United States,USD,N/A,0,current,2024-07-27,2019-04-07,1,,835112.68,33,SYNTHETIC_NO_PII
+CUST-000060,Lucas Rossi,retail,retail,IN,India,INR,N/A,0,current,2025-11-22,2019-06-15,1,low,135396.22,42,SYNTHETIC_NO_PII
+CUST-000061,Ibrahim Iyer UN703 Ltd,sme,sme,US,United States,USD,Real Estate,0,current,2025-07-08,2017-12-07,1,,2180526.7,88,SYNTHETIC_NO_PII
+CUST-000062,Priya Iyer,retail,retail,IN,India,INR,N/A,0,current,2025-02-11,2024-12-21,1,,3685164.15,62,SYNTHETIC_NO_PII
+CUST-000063,Dmitri Fahmy,retail,retail,US,United States,USD,N/A,0,current,2025-07-01,2020-01-12,1,,2939463.02,83,SYNTHETIC_NO_PII
+CUST-000064,Keiko Bello,retail,retail,IN,India,INR,N/A,0,current,2024-08-03,2025-05-30,1,low,704886.96,72,SYNTHETIC_NO_PII
+CUST-000065,Sofia Bello NI441 Ltd,sme,sme,NG,Nigeria,NGN,Agriculture,0,current,2024-10-30,2020-10-02,1,low,3431643.71,48,SYNTHETIC_NO_PII
+CUST-000066,Dmitri Ortega,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-07-30,2025-03-25,1,high,3460317.78,6,SYNTHETIC_NO_PII
+CUST-000067,Chioma Morales UN152 Ltd,sme,sme,US,United States,USD,Real Estate,0,current,2025-12-17,2023-07-16,2,low,3711052.68,62,SYNTHETIC_NO_PII
+CUST-000068,Mei Mokoena UN517 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2026-06-13,2018-10-25,1,low,902679.13,20,SYNTHETIC_NO_PII
+CUST-000069,Priya Costa IN583 Ltd,sme,sme,IN,India,INR,Real Estate,0,current,2025-06-06,2017-08-09,2,low,1537426.12,82,SYNTHETIC_NO_PII
+CUST-000070,Ananya Fahmy SI619 Ltd,sme,sme,SG,Singapore,SGD,Technology,0,current,2024-05-29,2016-12-23,1,,1134941.74,44,SYNTHETIC_NO_PII
+CUST-000071,Rafael Nair UN656 Ltd,corporate,corporate,US,United States,USD,Healthcare,0,current,2025-06-07,2020-08-19,3,,3479058.72,36,SYNTHETIC_NO_PII
+CUST-000072,Chioma Haddad IN495 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-04-27,2022-01-27,1,,509353.85,81,SYNTHETIC_NO_PII
+CUST-000073,Rosa Petrova,retail,retail,IN,India,INR,N/A,0,current,2026-04-11,2019-09-29,1,medium,303938.85,39,SYNTHETIC_NO_PII
+CUST-000074,Luca Al-Rashid,retail,retail,US,United States,USD,N/A,0,due_diligence,2024-09-11,2021-12-16,1,low,3550317.54,68,SYNTHETIC_NO_PII
+CUST-000075,Ananya Silva IN200 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-07-30,2018-07-25,1,low,2536822.58,18,SYNTHETIC_NO_PII
+CUST-000076,Mei Haddad,retail,retail,US,United States,USD,N/A,0,current,2025-03-22,2022-01-02,1,low,1651146.74,29,SYNTHETIC_NO_PII
+CUST-000077,Aisha Petrov,retail,retail,IN,India,INR,N/A,0,overdue,2025-12-30,2017-12-24,1,low,1840984.14,7,SYNTHETIC_NO_PII
+CUST-000078,Nadia Saleh UN406 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,enhanced,2024-12-01,2023-11-14,1,,3848306.15,38,SYNTHETIC_NO_PII
+CUST-000079,Aisha Lindqvist,retail,retail,IN,India,INR,N/A,0,current,2024-09-30,2024-06-12,1,,1184446.86,90,SYNTHETIC_NO_PII
+CUST-000080,Diego Almeida,retail,retail,IN,India,INR,N/A,0,overdue,2025-01-03,2017-04-14,1,medium,3208718.17,34,SYNTHETIC_NO_PII
+CUST-000081,Yuki Mokoena UN693 Ltd,sme,sme,US,United States,USD,Agriculture,0,current,2024-08-28,2024-07-21,2,low,365082.84,43,SYNTHETIC_NO_PII
+CUST-000082,Rahul Tanaka,retail,retail,GB,United Kingdom,GBP,N/A,0,enhanced,2024-05-19,2016-10-27,1,high,662354.96,67,SYNTHETIC_NO_PII
+CUST-000083,Marco Mensah,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,current,2024-09-05,2020-05-22,1,,2699252.89,56,SYNTHETIC_NO_PII
+CUST-000084,Victor Al-Rashid,individual_high_networth,individual_high_networth,AE,United Arab Emirates,AED,N/A,0,enhanced,2025-12-22,2016-10-10,1,medium,2340317.57,87,SYNTHETIC_NO_PII
+CUST-000085,Amara Lindqvist,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2024-11-22,2025-05-12,1,,257552.08,65,SYNTHETIC_NO_PII
+CUST-000086,Chioma Mensah IN218 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2026-06-09,2024-01-28,1,,943026.13,74,SYNTHETIC_NO_PII
+CUST-000087,Noor Eze,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-05-03,2019-01-21,1,low,2464530.6,41,SYNTHETIC_NO_PII
+CUST-000088,Rosa Fernandez,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-03-08,2022-12-29,1,,3607276.37,88,SYNTHETIC_NO_PII
+CUST-000089,Rahul Mensah,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-08-26,2020-07-17,1,,207061.15,48,SYNTHETIC_NO_PII
+CUST-000090,Keiko Wei,retail,retail,IN,India,INR,N/A,0,current,2024-06-06,2024-11-14,1,,3479433.23,48,SYNTHETIC_NO_PII
+CUST-000091,Beatriz Sharma UN278 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Trading,0,current,2024-11-09,2022-07-14,1,low,531553.9,51,SYNTHETIC_NO_PII
+CUST-000092,Leila Chen IN165 Ltd,corporate,corporate,IN,India,INR,Logistics,0,current,2025-06-14,2023-09-09,3,low,2055385.64,19,SYNTHETIC_NO_PII
+CUST-000093,Viktor Haddad,retail,retail,IN,India,INR,N/A,0,due_diligence,2026-08-16,2017-06-27,1,low,247997.5,67,SYNTHETIC_NO_PII
+CUST-000094,Elena Costa UN167 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2026-05-10,2017-08-27,1,low,1103688.92,87,SYNTHETIC_NO_PII
+CUST-000095,Aisha Almeida UN217 Ltd,sme,sme,US,United States,USD,Education,0,current,2024-09-08,2019-09-10,2,medium,1723129.42,35,SYNTHETIC_NO_PII
+CUST-000096,Dmitri Eze,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-08-29,2017-06-17,1,,3814602.11,66,SYNTHETIC_NO_PII
+CUST-000097,Omar Sato,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-02-18,2024-07-23,1,low,2248925.11,21,SYNTHETIC_NO_PII
+CUST-000098,Hiro Morales,retail,retail,SG,Singapore,SGD,N/A,0,current,2026-02-11,2022-06-01,1,,623147.05,67,SYNTHETIC_NO_PII
+CUST-000099,Santiago Novak,retail,retail,IN,India,INR,N/A,0,current,2024-05-04,2024-05-09,1,,2246057.98,85,SYNTHETIC_NO_PII
+CUST-000100,Mei Almeida UN416 Ltd,sme,sme,US,United States,USD,Agriculture,0,current,2025-09-22,2018-04-07,1,medium,729715.21,24,SYNTHETIC_NO_PII
+CUST-000101,Priya Mokoena UN261 Ltd,sme,sme,GB,United Kingdom,GBP,Agriculture,0,current,2025-11-01,2025-04-19,3,low,3108458.3,78,SYNTHETIC_NO_PII
+CUST-000102,Priya Novak SI597 Ltd,sme,sme,SG,Singapore,SGD,Logistics,0,current,2025-07-19,2017-03-07,3,medium,866198.02,71,SYNTHETIC_NO_PII
+CUST-000103,Nadia Bello,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-07-22,2020-03-08,1,high,35709.91,44,SYNTHETIC_NO_PII
+CUST-000104,Ingrid Kovacs,individual_high_networth,individual_high_networth,AE,United Arab Emirates,AED,N/A,0,enhanced,2026-01-24,2021-12-18,1,low,2003548.07,51,SYNTHETIC_NO_PII
+CUST-000105,Fatima Sato,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-07-29,2025-06-07,1,low,2839448.35,59,SYNTHETIC_NO_PII
+CUST-000106,Leila Novak,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-05-31,2018-09-17,1,low,977049.32,81,SYNTHETIC_NO_PII
+CUST-000107,Jonas Ricci,retail,retail,IN,India,INR,N/A,0,current,2025-04-12,2023-02-27,1,low,779645.31,50,SYNTHETIC_NO_PII
+CUST-000108,Luca Nair,retail,retail,DE,Germany,EUR,N/A,0,current,2024-07-31,2022-12-29,1,low,2623758.5,28,SYNTHETIC_NO_PII
+CUST-000109,Ibrahim Yamamoto,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,current,2024-12-16,2017-02-13,1,,1296216.93,86,SYNTHETIC_NO_PII
+CUST-000110,Freya Fernandez,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-11-03,2018-07-24,1,low,1849661.23,10,SYNTHETIC_NO_PII
+CUST-000111,Ananya Conti,retail,retail,SG,Singapore,SGD,N/A,0,current,2024-06-28,2024-08-18,1,low,2956989.58,11,SYNTHETIC_NO_PII
+CUST-000112,Luca Kapoor,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-06-12,2022-01-14,1,,418490.0,49,SYNTHETIC_NO_PII
+CUST-000113,Luca Rossi,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2025-08-31,2025-03-15,1,low,3672157.47,55,SYNTHETIC_NO_PII
+CUST-000114,Beatriz Morales,retail,retail,IN,India,INR,N/A,0,current,2025-08-17,2016-10-16,1,low,1140167.16,90,SYNTHETIC_NO_PII
+CUST-000115,Priya Ricci,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2024-10-01,2024-09-23,1,,2650229.95,22,SYNTHETIC_NO_PII
+CUST-000116,Jonas Ortega NI856 Ltd,sme,sme,NG,Nigeria,NGN,Education,0,current,2026-06-13,2021-06-02,4,medium,2036411.5,8,SYNTHETIC_NO_PII
+CUST-000117,Chen Ricci,retail,retail,IN,India,INR,N/A,0,current,2024-05-05,2017-01-18,1,low,3153540.09,70,SYNTHETIC_NO_PII
+CUST-000118,Andrei Haddad SI266 Ltd,corporate,corporate,SG,Singapore,SGD,Manufacturing,0,current,2024-05-18,2018-03-21,2,low,2886126.08,11,SYNTHETIC_NO_PII
+CUST-000119,Lucas Fernandez,retail,retail,US,United States,USD,N/A,0,current,2025-11-04,2018-10-18,1,low,3862558.57,66,SYNTHETIC_NO_PII
+CUST-000120,Keiko Fernandez IN265 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-06-02,2020-06-18,1,low,802792.44,83,SYNTHETIC_NO_PII
+CUST-000121,Luca Lindqvist,retail,retail,IN,India,INR,N/A,0,current,2024-04-28,2021-06-24,1,,503087.7,16,SYNTHETIC_NO_PII
+CUST-000122,Sana Nair IN457 Ltd,corporate,corporate,IN,India,INR,Financial Services,0,overdue,2025-07-19,2020-09-26,1,,1588833.59,53,SYNTHETIC_NO_PII
+CUST-000123,Victor Okonkwo,retail,retail,DE,Germany,EUR,N/A,0,current,2025-10-08,2025-04-29,1,,3166565.65,23,SYNTHETIC_NO_PII
+CUST-000124,Freya Tanaka,retail,retail,NG,Nigeria,NGN,N/A,0,current,2025-12-28,2017-02-17,1,low,866540.7,25,SYNTHETIC_NO_PII
+CUST-000125,Andrei Sato UN754 Ltd,sme,sme,AE,United Arab Emirates,AED,Logistics,0,current,2026-07-14,2024-05-24,1,low,3347567.44,69,SYNTHETIC_NO_PII
+CUST-000126,Sana Yamamoto IN684 Ltd,sme,sme,IN,India,INR,Healthcare,0,current,2026-03-09,2022-12-06,1,low,2096320.81,52,SYNTHETIC_NO_PII
+CUST-000127,Sana Farooq,retail,retail,US,United States,USD,N/A,1,enhanced,2024-08-12,2019-06-06,1,low,69887.71,14,SYNTHETIC_NO_PII
+CUST-000128,Thandi Petrova,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-10-05,2016-12-27,1,low,3254967.92,28,SYNTHETIC_NO_PII
+CUST-000129,Freya Mokoena UN568 Ltd,corporate,corporate,US,United States,USD,Financial Services,0,current,2025-11-20,2023-08-07,2,,180006.07,31,SYNTHETIC_NO_PII
+CUST-000130,Jonas Farooq IN295 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-11-28,2021-03-05,1,medium,1431111.83,12,SYNTHETIC_NO_PII
+CUST-000131,Kwame Novak IN495 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-10-04,2020-09-28,1,,3895025.72,69,SYNTHETIC_NO_PII
+CUST-000132,Andrei Fahmy UN942 Ltd,sme,sme,GB,United Kingdom,GBP,Manufacturing,0,current,2025-03-07,2024-09-18,3,,1288239.66,16,SYNTHETIC_NO_PII
+CUST-000133,Rosa Almeida,retail,retail,IN,India,INR,N/A,0,current,2024-04-09,2017-08-05,1,low,3646870.89,84,SYNTHETIC_NO_PII
+CUST-000134,Diego Iyer,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,current,2026-08-16,2018-02-11,1,,575403.98,83,SYNTHETIC_NO_PII
+CUST-000135,Yuki Iyer UN719 Ltd,sme,sme,GB,United Kingdom,GBP,Manufacturing,0,current,2024-10-21,2022-12-30,4,low,3795550.0,53,SYNTHETIC_NO_PII
+CUST-000136,Yuki Ivanov,retail,retail,IN,India,INR,N/A,0,current,2024-08-24,2021-07-11,1,low,748261.96,72,SYNTHETIC_NO_PII
+CUST-000137,Ingrid Larsen,retail,retail,US,United States,USD,N/A,0,enhanced,2025-05-02,2017-09-30,1,high,804712.47,23,SYNTHETIC_NO_PII
+CUST-000138,Rosa Al-Rashid UN826 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,enhanced,2026-07-12,2017-12-29,1,,2202238.6,43,SYNTHETIC_NO_PII
+CUST-000139,Thandi Rossi SI911 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2026-04-27,2016-09-28,1,,950761.06,69,SYNTHETIC_NO_PII
+CUST-000140,Victor Rahman,retail,retail,US,United States,USD,N/A,0,due_diligence,2024-09-12,2019-06-16,1,low,2876884.29,73,SYNTHETIC_NO_PII
+CUST-000141,Keiko Iyer,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-09-29,2024-03-27,1,medium,517696.77,76,SYNTHETIC_NO_PII
+CUST-000142,Yuki Sato IN268 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-10-21,2020-01-02,2,low,1387362.21,72,SYNTHETIC_NO_PII
+CUST-000143,Ingrid Kapoor SI729 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2025-03-19,2018-07-09,1,,378246.49,88,SYNTHETIC_NO_PII
+CUST-000144,Priya Novak,retail,retail,NG,Nigeria,NGN,N/A,0,overdue,2026-08-05,2018-04-03,1,high,3301818.89,9,SYNTHETIC_NO_PII
+CUST-000145,Keiko Larsen,retail,retail,NG,Nigeria,NGN,N/A,0,current,2026-08-16,2018-05-04,1,,1994662.05,86,SYNTHETIC_NO_PII
+CUST-000146,Jonas Lindqvist UN161 Ltd,sme,sme,US,United States,USD,Manufacturing,0,current,2025-06-23,2022-11-23,4,low,1939583.26,32,SYNTHETIC_NO_PII
+CUST-000147,Leila Ahmed,retail,retail,IN,India,INR,N/A,0,current,2025-10-25,2021-03-03,1,,970742.75,21,SYNTHETIC_NO_PII
+CUST-000148,Elena Morales,retail,retail,IN,India,INR,N/A,0,due_diligence,2026-04-06,2022-05-22,1,high,3254844.0,79,SYNTHETIC_NO_PII
+CUST-000149,Tomas Costa IN502 Ltd,corporate,corporate,IN,India,INR,Education,0,due_diligence,2025-06-05,2019-11-14,2,low,864501.97,51,SYNTHETIC_NO_PII
+CUST-000150,Beatriz Conti,retail,retail,IN,India,INR,N/A,0,current,2025-07-02,2018-02-06,1,,540070.1,39,SYNTHETIC_NO_PII
+CUST-000151,Victor Haddad UN495 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Education,0,current,2025-06-12,2021-02-24,3,low,3302118.72,85,SYNTHETIC_NO_PII
+CUST-000152,Elena Volkov IN873 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2026-02-25,2021-06-16,4,,2002811.22,11,SYNTHETIC_NO_PII
+CUST-000153,Freya Ivanov,retail,retail,US,United States,USD,N/A,0,due_diligence,2025-10-25,2020-07-08,1,high,654195.67,84,SYNTHETIC_NO_PII
+CUST-000154,Marco Farooq IN477 Ltd,corporate,corporate,IN,India,INR,Agriculture,0,current,2024-10-27,2019-12-05,1,medium,3919692.63,80,SYNTHETIC_NO_PII
+CUST-000155,Thandi Chen,retail,retail,SG,Singapore,SGD,N/A,0,enhanced,2024-07-14,2018-12-13,1,,2316004.96,35,SYNTHETIC_NO_PII
+CUST-000156,Tomas Ivanov UN348 Ltd,corporate,corporate,US,United States,USD,Financial Services,0,current,2025-02-07,2018-08-03,1,medium,767183.39,62,SYNTHETIC_NO_PII
+CUST-000157,Chen Eze,retail,retail,IN,India,INR,N/A,0,overdue,2024-08-24,2020-01-06,1,,2910971.39,23,SYNTHETIC_NO_PII
+CUST-000158,Freya Ivanov UN450 Ltd,sme,sme,US,United States,USD,Education,0,current,2025-09-19,2021-06-01,3,,2442255.94,30,SYNTHETIC_NO_PII
+CUST-000159,Jonas Okonkwo,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,current,2025-02-20,2022-04-21,1,low,3735133.0,41,SYNTHETIC_NO_PII
+CUST-000160,Noor Diallo,retail,retail,US,United States,USD,N/A,0,enhanced,2025-11-23,2021-03-20,1,,173055.61,16,SYNTHETIC_NO_PII
+CUST-000161,Ingrid Lindqvist,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-10-04,2023-03-30,1,,1090127.76,19,SYNTHETIC_NO_PII
+CUST-000162,Lucas Morales UN438 Ltd,sme,sme,US,United States,USD,Logistics,0,current,2026-06-06,2018-02-17,2,low,25699.88,76,SYNTHETIC_NO_PII
+CUST-000163,Luca Lindqvist,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2024-07-21,2020-04-15,1,low,362395.58,79,SYNTHETIC_NO_PII
+CUST-000164,Fatima Rossi,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2024-05-13,2020-12-15,1,,1590993.32,69,SYNTHETIC_NO_PII
+CUST-000165,Nadia Haddad,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-10-08,2025-07-16,1,,1141823.8,88,SYNTHETIC_NO_PII
+CUST-000166,Yuki Farooq UN763 Ltd,sme,sme,GB,United Kingdom,GBP,Technology,0,due_diligence,2024-09-11,2020-05-23,2,medium,61266.36,49,SYNTHETIC_NO_PII
+CUST-000167,Rahul Rossi UN627 Ltd,corporate,corporate,US,United States,USD,Agriculture,0,due_diligence,2026-06-20,2018-10-16,4,,2678677.13,29,SYNTHETIC_NO_PII
+CUST-000168,Lucas Sharma,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,enhanced,2025-02-07,2022-09-19,1,low,50685.76,89,SYNTHETIC_NO_PII
+CUST-000169,Kwame Rahman,retail,retail,IN,India,INR,N/A,0,current,2024-09-26,2022-03-15,1,,3080514.98,21,SYNTHETIC_NO_PII
+CUST-000170,Victor Petrov NI720 Ltd,sme,sme,NG,Nigeria,NGN,Agriculture,0,current,2025-07-18,2023-03-02,4,medium,3030615.34,33,SYNTHETIC_NO_PII
+CUST-000171,Beatriz Al-Rashid UN163 Ltd,corporate,corporate,US,United States,USD,Education,0,current,2025-04-17,2019-10-01,2,low,2292943.19,25,SYNTHETIC_NO_PII
+CUST-000172,Rosa Mensah,retail,retail,SG,Singapore,SGD,N/A,0,current,2024-06-10,2018-01-05,1,low,227265.04,22,SYNTHETIC_NO_PII
+CUST-000173,Diego Ortega UN103 Ltd,sme,sme,GB,United Kingdom,GBP,Real Estate,0,current,2025-02-01,2020-06-16,1,low,185932.76,50,SYNTHETIC_NO_PII
+CUST-000174,Diego Iyer UN846 Ltd,sme,sme,US,United States,USD,Healthcare,1,current,2025-08-29,2020-05-07,4,,1796905.84,54,SYNTHETIC_NO_PII
+CUST-000175,Noor Tanaka,retail,retail,US,United States,USD,N/A,0,current,2025-08-10,2018-04-25,1,,2117725.95,34,SYNTHETIC_NO_PII
+CUST-000176,Jonas Rahman UN571 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Agriculture,0,current,2026-04-11,2018-02-02,3,low,757979.4,20,SYNTHETIC_NO_PII
+CUST-000177,Viktor Chen,retail,retail,US,United States,USD,N/A,0,current,2024-09-26,2022-12-11,1,low,3489488.61,37,SYNTHETIC_NO_PII
+CUST-000178,Amara Saleh UN339 Ltd,corporate,corporate,GB,United Kingdom,GBP,Agriculture,0,current,2025-02-02,2023-03-17,3,high,951431.62,24,SYNTHETIC_NO_PII
+CUST-000179,Chioma Berger,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,current,2024-12-14,2022-07-22,1,,2716606.74,77,SYNTHETIC_NO_PII
+CUST-000180,Luca Diallo GE288 Ltd,sme,sme,DE,Germany,EUR,Education,0,current,2025-05-20,2016-10-30,2,low,3398117.02,44,SYNTHETIC_NO_PII
+CUST-000181,Ibrahim Morales IN361 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2026-02-20,2019-05-03,1,low,1324400.66,16,SYNTHETIC_NO_PII
+CUST-000182,Omar Saleh SI140 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2026-07-04,2017-07-08,1,low,756712.36,81,SYNTHETIC_NO_PII
+CUST-000183,Freya Wei UN859 Ltd,corporate,corporate,US,United States,USD,Trading,0,overdue,2024-08-13,2021-11-28,4,low,3658192.98,83,SYNTHETIC_NO_PII
+CUST-000184,Lucas Ortega UN367 Ltd,sme,sme,GB,United Kingdom,GBP,Agriculture,0,current,2025-04-09,2022-01-13,4,low,1866686.25,66,SYNTHETIC_NO_PII
+CUST-000185,Chen Novak IN367 Ltd,corporate,corporate,IN,India,INR,Education,0,current,2025-01-26,2022-02-18,4,low,1184293.19,31,SYNTHETIC_NO_PII
+CUST-000186,Lucas Costa,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-09-06,2019-06-20,1,medium,2568569.35,68,SYNTHETIC_NO_PII
+CUST-000187,Zara Novak UN655 Ltd,sme,sme,AE,United Arab Emirates,AED,Financial Services,0,current,2025-03-29,2024-01-27,1,,3357078.63,15,SYNTHETIC_NO_PII
+CUST-000188,Aarav Eze,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,current,2025-08-30,2024-02-06,1,low,246498.23,87,SYNTHETIC_NO_PII
+CUST-000189,Freya Costa UN393 Ltd,sme,sme,US,United States,USD,Financial Services,1,enhanced,2025-04-20,2025-06-19,4,low,3225639.96,28,SYNTHETIC_NO_PII
+CUST-000190,Priya Silva,retail,retail,IN,India,INR,N/A,0,current,2026-06-28,2023-06-28,1,medium,1495341.08,57,SYNTHETIC_NO_PII
+CUST-000191,Amara Berger,retail,retail,IN,India,INR,N/A,0,current,2024-11-20,2017-12-21,1,,3039545.47,17,SYNTHETIC_NO_PII
+CUST-000192,Freya Morales,retail,retail,GB,United Kingdom,GBP,N/A,1,enhanced,2025-02-14,2018-07-02,1,medium,3909430.25,18,SYNTHETIC_NO_PII
+CUST-000193,Amara Wei NI387 Ltd,nbfc,nbfc,NG,Nigeria,NGN,N/A,0,current,2025-03-09,2017-11-17,1,low,2256221.91,10,SYNTHETIC_NO_PII
+CUST-000194,Mei Wei,retail,retail,SG,Singapore,SGD,N/A,0,due_diligence,2026-06-30,2019-01-22,1,,1200611.17,78,SYNTHETIC_NO_PII
+CUST-000195,Aisha Saleh,retail,retail,SG,Singapore,SGD,N/A,0,current,2024-10-11,2021-12-03,1,,2898033.46,70,SYNTHETIC_NO_PII
+CUST-000196,Elena Sato UN709 Ltd,corporate,corporate,GB,United Kingdom,GBP,Healthcare,0,current,2024-07-16,2023-01-15,3,,123354.51,40,SYNTHETIC_NO_PII
+CUST-000197,Amara Ahmed UN776 Ltd,corporate,corporate,GB,United Kingdom,GBP,Healthcare,0,current,2026-06-21,2019-06-10,3,,3193230.42,15,SYNTHETIC_NO_PII
+CUST-000198,Thandi Nair,retail,retail,IN,India,INR,N/A,0,current,2025-06-18,2017-05-07,1,high,1442870.4,40,SYNTHETIC_NO_PII
+CUST-000199,Hiro Fernandez,retail,retail,IN,India,INR,N/A,0,current,2026-06-13,2019-05-25,1,low,2389713.6,47,SYNTHETIC_NO_PII
+CUST-000200,Chioma Diallo IN348 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,overdue,2025-02-08,2016-11-26,1,,2086812.6,54,SYNTHETIC_NO_PII
+CUST-000201,Hassan Costa,retail,retail,IN,India,INR,N/A,0,current,2026-06-30,2024-01-03,1,low,1447694.02,37,SYNTHETIC_NO_PII
+CUST-000202,Viktor Kapoor UN440 Ltd,corporate,corporate,GB,United Kingdom,GBP,Healthcare,0,current,2024-06-15,2020-07-04,3,,1763690.57,61,SYNTHETIC_NO_PII
+CUST-000203,Beatriz Tanaka SI507 Ltd,corporate,corporate,SG,Singapore,SGD,Agriculture,0,enhanced,2025-11-22,2022-04-10,4,low,3871213.53,37,SYNTHETIC_NO_PII
+CUST-000204,Dmitri Novak,retail,retail,IN,India,INR,N/A,0,current,2026-03-16,2024-05-13,1,,2728441.97,76,SYNTHETIC_NO_PII
+CUST-000205,Chen Fernandez,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2024-06-24,2022-05-17,1,,1639520.65,69,SYNTHETIC_NO_PII
+CUST-000206,Ingrid Nair,retail,retail,IN,India,INR,N/A,0,current,2025-01-28,2017-08-15,1,low,1606216.36,70,SYNTHETIC_NO_PII
+CUST-000207,Chioma Saleh SI649 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2025-01-16,2025-03-25,1,,2554530.57,16,SYNTHETIC_NO_PII
+CUST-000208,Zara Novak,retail,retail,IN,India,INR,N/A,0,current,2024-11-23,2018-05-21,1,,1601472.9,48,SYNTHETIC_NO_PII
+CUST-000209,Aarav Petrova,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,enhanced,2026-02-02,2022-09-28,1,,1785885.31,56,SYNTHETIC_NO_PII
+CUST-000210,Sana Nair UN187 Ltd,sme,sme,US,United States,USD,Trading,0,current,2024-05-18,2021-10-10,2,high,1396572.97,49,SYNTHETIC_NO_PII
+CUST-000211,Freya Ahmed,retail,retail,IN,India,INR,N/A,0,current,2026-08-02,2020-04-20,1,low,3241692.82,20,SYNTHETIC_NO_PII
+CUST-000212,Elena Novak,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-05-31,2017-05-03,1,low,931262.91,57,SYNTHETIC_NO_PII
+CUST-000213,Hiro Volkov IN104 Ltd,sme,sme,IN,India,INR,Real Estate,0,due_diligence,2026-02-18,2025-04-25,3,low,3010540.35,14,SYNTHETIC_NO_PII
+CUST-000214,Noor Rossi UN640 Ltd,sme,sme,AE,United Arab Emirates,AED,Agriculture,0,current,2025-01-13,2021-07-16,4,medium,2447177.14,81,SYNTHETIC_NO_PII
+CUST-000215,Ibrahim Petrov,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-06-22,2023-09-16,1,low,2690079.78,46,SYNTHETIC_NO_PII
+CUST-000216,Sofia Novak,retail,retail,IN,India,INR,N/A,0,current,2025-02-05,2017-11-12,1,,1537921.3,29,SYNTHETIC_NO_PII
+CUST-000217,Luca Rossi UN734 Ltd,sme,sme,US,United States,USD,Financial Services,0,current,2024-04-13,2019-06-03,3,medium,3807608.59,68,SYNTHETIC_NO_PII
+CUST-000218,Santiago Farooq,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-05-04,2018-04-27,1,medium,673177.68,78,SYNTHETIC_NO_PII
+CUST-000219,Nadia Haddad,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-02-14,2022-07-24,1,,2971360.42,69,SYNTHETIC_NO_PII
+CUST-000220,Kwame Fahmy IN878 Ltd,sme,sme,IN,India,INR,Logistics,0,enhanced,2025-03-06,2016-12-13,2,medium,3959154.03,19,SYNTHETIC_NO_PII
+CUST-000221,Lucas Berger UN549 Ltd,corporate,corporate,US,United States,USD,Trading,0,current,2024-07-14,2025-04-12,2,,843463.28,81,SYNTHETIC_NO_PII
+CUST-000222,Viktor Mokoena SI160 Ltd,sme,sme,SG,Singapore,SGD,Agriculture,0,current,2025-03-20,2020-11-03,3,low,2389446.46,27,SYNTHETIC_NO_PII
+CUST-000223,Nadia Yamamoto,retail,retail,US,United States,USD,N/A,0,current,2024-06-04,2022-08-23,1,,385424.53,58,SYNTHETIC_NO_PII
+CUST-000224,Luca Tanaka GE948 Ltd,nbfc,nbfc,DE,Germany,EUR,N/A,0,current,2026-01-06,2017-10-10,1,,3047086.98,56,SYNTHETIC_NO_PII
+CUST-000225,Hassan Mokoena UN887 Ltd,sme,sme,US,United States,USD,Trading,0,current,2025-07-31,2020-12-30,3,,2780340.94,53,SYNTHETIC_NO_PII
+CUST-000226,Idris Sharma,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-12-05,2016-12-17,1,,2658254.56,51,SYNTHETIC_NO_PII
+CUST-000227,Dmitri Wei UN660 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2025-02-02,2020-10-28,1,low,526724.03,68,SYNTHETIC_NO_PII
+CUST-000228,Diego Haddad SI261 Ltd,corporate,corporate,SG,Singapore,SGD,Logistics,0,due_diligence,2025-06-06,2024-07-11,1,high,3967393.76,60,SYNTHETIC_NO_PII
+CUST-000229,Yuki Conti,retail,retail,US,United States,USD,N/A,0,overdue,2026-01-03,2022-04-04,1,medium,334270.02,89,SYNTHETIC_NO_PII
+CUST-000230,Jonas Okonkwo,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-05-04,2020-10-29,1,low,2376749.59,72,SYNTHETIC_NO_PII
+CUST-000231,Marco Mensah IN925 Ltd,sme,sme,IN,India,INR,Trading,0,current,2026-06-03,2020-11-27,3,low,1473408.95,44,SYNTHETIC_NO_PII
+CUST-000232,Yuki Conti,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-06-23,2018-01-18,1,medium,1407994.94,33,SYNTHETIC_NO_PII
+CUST-000233,Chioma Petrov IN243 Ltd,sme,sme,IN,India,INR,Trading,0,current,2025-01-21,2017-12-10,4,,1409384.88,60,SYNTHETIC_NO_PII
+CUST-000234,Hassan Conti,retail,retail,IN,India,INR,N/A,0,current,2025-11-29,2024-09-11,1,,3116983.76,9,SYNTHETIC_NO_PII
+CUST-000235,Jonas Wei UN902 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,current,2024-06-26,2019-11-02,1,medium,3818912.69,69,SYNTHETIC_NO_PII
+CUST-000236,Thandi Almeida,retail,retail,IN,India,INR,N/A,0,enhanced,2025-10-27,2024-11-05,1,,532271.61,78,SYNTHETIC_NO_PII
+CUST-000237,Sofia Lindqvist,retail,retail,US,United States,USD,N/A,0,current,2026-07-17,2017-01-01,1,low,3794976.59,56,SYNTHETIC_NO_PII
+CUST-000238,Sana Eze UN384 Ltd,sme,sme,US,United States,USD,Trading,0,current,2025-11-03,2020-11-22,1,low,2047662.27,32,SYNTHETIC_NO_PII
+CUST-000239,Leila Volkov,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,current,2024-08-30,2019-01-24,1,medium,3813944.77,36,SYNTHETIC_NO_PII
+CUST-000240,Hiro Mensah,retail,retail,IN,India,INR,N/A,0,current,2024-11-12,2020-07-22,1,,2963929.43,21,SYNTHETIC_NO_PII
+CUST-000241,Aarav Novak,retail,retail,IN,India,INR,N/A,0,current,2024-09-08,2020-01-28,1,,1040691.61,53,SYNTHETIC_NO_PII
+CUST-000242,Hassan Mensah,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-12-21,2016-12-28,1,low,2850731.38,79,SYNTHETIC_NO_PII
+CUST-000243,Sana Novak UN205 Ltd,sme,sme,GB,United Kingdom,GBP,Trading,0,current,2026-01-26,2025-01-07,1,low,180931.44,7,SYNTHETIC_NO_PII
+CUST-000244,Aisha Nair,retail,retail,GB,United Kingdom,GBP,N/A,0,due_diligence,2024-09-15,2023-08-20,1,,2963959.98,59,SYNTHETIC_NO_PII
+CUST-000245,Leila Fahmy,retail,retail,IN,India,INR,N/A,0,current,2026-07-25,2024-10-07,1,,721480.68,72,SYNTHETIC_NO_PII
+CUST-000246,Ananya Rahman,individual_high_networth,individual_high_networth,DE,Germany,EUR,N/A,0,enhanced,2025-11-22,2022-06-23,1,low,2257407.93,44,SYNTHETIC_NO_PII
+CUST-000247,Victor Bello IN659 Ltd,corporate,corporate,IN,India,INR,Real Estate,0,current,2026-04-15,2020-02-10,1,,3729928.14,9,SYNTHETIC_NO_PII
+CUST-000248,Aarav Ricci,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-11-06,2025-08-17,1,,420276.33,73,SYNTHETIC_NO_PII
+CUST-000249,Diego Nair,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,enhanced,2025-07-21,2017-08-30,1,,2804883.4,53,SYNTHETIC_NO_PII
+CUST-000250,Idris Petrova,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2025-06-28,2019-12-22,1,low,2651463.49,22,SYNTHETIC_NO_PII
+CUST-000251,Leila Volkov,retail,retail,IN,India,INR,N/A,0,current,2026-02-21,2017-10-13,1,low,548766.83,80,SYNTHETIC_NO_PII
+CUST-000252,Rosa Rahman,retail,retail,IN,India,INR,N/A,0,current,2026-02-16,2022-02-13,1,,1810408.72,65,SYNTHETIC_NO_PII
+CUST-000253,Tomas Berger,retail,retail,IN,India,INR,N/A,0,current,2025-10-16,2017-09-27,1,,597553.57,37,SYNTHETIC_NO_PII
+CUST-000254,Diego Berger,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,current,2025-02-24,2022-09-22,1,,2993573.4,37,SYNTHETIC_NO_PII
+CUST-000255,Yuki Mensah,retail,retail,IN,India,INR,N/A,0,current,2025-08-02,2025-07-05,1,low,1492097.78,86,SYNTHETIC_NO_PII
+CUST-000256,Idris Larsen IN967 Ltd,nbfc,nbfc,IN,India,INR,N/A,1,current,2024-05-20,2024-10-19,1,low,3236504.4,21,SYNTHETIC_NO_PII
+CUST-000257,Tomas Yamamoto,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-03-24,2020-10-13,1,medium,1419003.29,29,SYNTHETIC_NO_PII
+CUST-000258,Priya Haddad,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-03-02,2018-10-03,1,low,1918728.57,17,SYNTHETIC_NO_PII
+CUST-000259,Rahul Conti,retail,retail,IN,India,INR,N/A,0,enhanced,2025-08-21,2019-09-30,1,low,3128753.49,51,SYNTHETIC_NO_PII
+CUST-000260,Zara Yamamoto UN130 Ltd,sme,sme,AE,United Arab Emirates,AED,Technology,0,current,2026-07-19,2020-01-04,4,low,2120082.01,80,SYNTHETIC_NO_PII
+CUST-000261,Elena Silva,individual_high_networth,individual_high_networth,DE,Germany,EUR,N/A,0,current,2024-07-26,2018-04-11,1,,3985586.23,34,SYNTHETIC_NO_PII
+CUST-000262,Aisha Ahmed GE814 Ltd,sme,sme,DE,Germany,EUR,Agriculture,0,current,2025-01-19,2023-09-11,1,,2815294.27,51,SYNTHETIC_NO_PII
+CUST-000263,Keiko Kapoor,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2026-08-27,2020-02-14,1,low,2108161.81,6,SYNTHETIC_NO_PII
+CUST-000264,Yuki Ricci,retail,retail,US,United States,USD,N/A,0,due_diligence,2026-07-18,2017-08-08,1,,92542.02,81,SYNTHETIC_NO_PII
+CUST-000265,Kwame Ivanov IN505 Ltd,sme,sme,IN,India,INR,Trading,0,current,2025-10-07,2021-07-20,3,,1293799.8,26,SYNTHETIC_NO_PII
+CUST-000266,Thandi Costa UN728 Ltd,corporate,corporate,GB,United Kingdom,GBP,Agriculture,0,current,2026-01-31,2018-05-12,2,,1516644.51,43,SYNTHETIC_NO_PII
+CUST-000267,Keiko Volkov,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2024-06-10,2016-12-30,1,,3870289.08,34,SYNTHETIC_NO_PII
+CUST-000268,Rafael Nair IN271 Ltd,sme,sme,IN,India,INR,Trading,0,current,2024-05-28,2021-12-05,3,,1789286.59,39,SYNTHETIC_NO_PII
+CUST-000269,Zara Larsen,retail,retail,US,United States,USD,N/A,0,current,2026-03-30,2016-10-25,1,medium,3538785.23,69,SYNTHETIC_NO_PII
+CUST-000270,Aisha Petrova UN330 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2026-04-03,2020-04-07,1,,1807893.24,10,SYNTHETIC_NO_PII
+CUST-000271,Elena Iyer,retail,retail,IN,India,INR,N/A,0,current,2025-03-05,2021-10-22,1,,3767627.4,17,SYNTHETIC_NO_PII
+CUST-000272,Freya Chen,retail,retail,DE,Germany,EUR,N/A,0,current,2026-04-09,2020-10-21,1,,218955.19,48,SYNTHETIC_NO_PII
+CUST-000273,Santiago Saleh,retail,retail,IN,India,INR,N/A,0,current,2025-03-03,2022-09-01,1,low,3360218.75,25,SYNTHETIC_NO_PII
+CUST-000274,Omar Kovacs,retail,retail,IN,India,INR,N/A,0,current,2024-12-02,2018-03-21,1,low,1170786.81,16,SYNTHETIC_NO_PII
+CUST-000275,Dmitri Lindqvist IN496 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-09-02,2020-02-27,4,,1480759.65,63,SYNTHETIC_NO_PII
+CUST-000276,Ingrid Okonkwo,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-06-09,2022-08-18,1,,347400.71,50,SYNTHETIC_NO_PII
+CUST-000277,Idris Okonkwo UN803 Ltd,corporate,corporate,GB,United Kingdom,GBP,Logistics,0,current,2025-02-07,2019-06-08,2,high,1907667.81,16,SYNTHETIC_NO_PII
+CUST-000278,Fatima Farooq,retail,retail,SG,Singapore,SGD,N/A,0,due_diligence,2024-12-20,2019-03-28,1,,594053.38,63,SYNTHETIC_NO_PII
+CUST-000279,Chen Kapoor,retail,retail,DE,Germany,EUR,N/A,0,current,2026-02-22,2024-03-24,1,,3989090.56,86,SYNTHETIC_NO_PII
+CUST-000280,Leila Iyer,retail,retail,US,United States,USD,N/A,0,current,2025-06-04,2024-08-31,1,low,3669061.83,7,SYNTHETIC_NO_PII
+CUST-000281,Andrei Eze UN876 Ltd,corporate,corporate,US,United States,USD,Trading,0,current,2026-05-31,2024-05-19,1,,3144053.79,74,SYNTHETIC_NO_PII
+CUST-000282,Ingrid Diallo SI247 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2024-12-22,2018-04-19,1,low,2436577.78,57,SYNTHETIC_NO_PII
+CUST-000283,Marco Silva,retail,retail,SG,Singapore,SGD,N/A,0,overdue,2026-08-27,2025-02-02,1,,1354775.0,44,SYNTHETIC_NO_PII
+CUST-000284,Elena Okonkwo,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-10-23,2024-02-19,1,,1081332.82,59,SYNTHETIC_NO_PII
+CUST-000285,Rosa Wei IN940 Ltd,sme,sme,IN,India,INR,Financial Services,0,current,2025-04-07,2021-01-28,2,,267139.79,70,SYNTHETIC_NO_PII
+CUST-000286,Andrei Yamamoto,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2026-08-14,2025-04-26,1,low,1828512.43,52,SYNTHETIC_NO_PII
+CUST-000287,Ibrahim Farooq IN708 Ltd,sme,sme,IN,India,INR,Logistics,0,current,2026-03-19,2021-03-11,4,low,2349586.59,50,SYNTHETIC_NO_PII
+CUST-000288,Ingrid Al-Rashid,retail,retail,SG,Singapore,SGD,N/A,1,current,2026-02-09,2022-06-12,1,,3429159.19,88,SYNTHETIC_NO_PII
+CUST-000289,Luca Eze,retail,retail,IN,India,INR,N/A,1,current,2024-11-23,2019-11-20,1,high,696936.62,7,SYNTHETIC_NO_PII
+CUST-000290,Jonas Conti,retail,retail,US,United States,USD,N/A,0,current,2025-05-27,2022-07-22,1,low,1212069.64,72,SYNTHETIC_NO_PII
+CUST-000291,Elena Sharma UN674 Ltd,corporate,corporate,GB,United Kingdom,GBP,Technology,0,enhanced,2025-11-15,2019-11-27,1,,1929544.98,49,SYNTHETIC_NO_PII
+CUST-000292,Hassan Larsen,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2026-07-20,2018-04-14,1,medium,3222692.14,82,SYNTHETIC_NO_PII
+CUST-000293,Yuki Chen,retail,retail,IN,India,INR,N/A,0,current,2025-07-29,2018-04-17,1,,1556158.31,10,SYNTHETIC_NO_PII
+CUST-000294,Rahul Ricci GE587 Ltd,sme,sme,DE,Germany,EUR,Agriculture,0,current,2025-04-15,2017-06-30,3,,3382449.88,90,SYNTHETIC_NO_PII
+CUST-000295,Elena Lindqvist IN287 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-10-20,2024-03-16,1,,3598866.68,89,SYNTHETIC_NO_PII
+CUST-000296,Jonas Eze,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-05-30,2016-10-20,1,,3405599.48,66,SYNTHETIC_NO_PII
+CUST-000297,Idris Petrov,retail,retail,US,United States,USD,N/A,0,current,2025-03-23,2024-11-04,1,medium,1196931.24,12,SYNTHETIC_NO_PII
+CUST-000298,Rahul Ricci IN246 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,due_diligence,2025-10-28,2021-01-19,1,,3450263.8,29,SYNTHETIC_NO_PII
+CUST-000299,Thandi Rossi UN272 Ltd,corporate,corporate,GB,United Kingdom,GBP,Manufacturing,0,current,2025-05-03,2022-02-16,1,medium,521976.8,61,SYNTHETIC_NO_PII
+CUST-000300,Freya Diallo UN429 Ltd,sme,sme,GB,United Kingdom,GBP,Education,0,current,2026-03-05,2025-08-03,1,low,2708608.83,86,SYNTHETIC_NO_PII
+CUST-000301,Zara Berger IN146 Ltd,corporate,corporate,IN,India,INR,Technology,0,current,2025-11-23,2024-03-12,4,low,2912688.49,82,SYNTHETIC_NO_PII
+CUST-000302,Yuki Ricci UN931 Ltd,sme,sme,GB,United Kingdom,GBP,Healthcare,0,current,2026-08-28,2020-02-23,2,,901163.85,22,SYNTHETIC_NO_PII
+CUST-000303,Sana Novak,retail,retail,IN,India,INR,N/A,0,current,2025-12-29,2024-04-05,1,medium,3086142.41,85,SYNTHETIC_NO_PII
+CUST-000304,Elena Conti,retail,retail,DE,Germany,EUR,N/A,0,current,2026-01-01,2025-06-03,1,low,1900213.37,25,SYNTHETIC_NO_PII
+CUST-000305,Aarav Berger,retail,retail,US,United States,USD,N/A,0,current,2026-04-29,2020-12-03,1,low,1678208.88,19,SYNTHETIC_NO_PII
+CUST-000306,Nadia Mensah UN635 Ltd,sme,sme,US,United States,USD,Real Estate,0,current,2025-09-15,2016-11-03,4,low,1184928.05,11,SYNTHETIC_NO_PII
+CUST-000307,Freya Ricci NI785 Ltd,sme,sme,NG,Nigeria,NGN,Logistics,1,current,2026-04-17,2023-01-05,1,,3119207.26,15,SYNTHETIC_NO_PII
+CUST-000308,Ingrid Conti IN932 Ltd,corporate,corporate,IN,India,INR,Manufacturing,0,enhanced,2026-08-07,2023-01-19,3,low,1444057.58,46,SYNTHETIC_NO_PII
+CUST-000309,Fatima Sharma,retail,retail,IN,India,INR,N/A,0,current,2024-12-19,2024-02-03,1,low,1076896.05,17,SYNTHETIC_NO_PII
+CUST-000310,Kwame Volkov,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-06-19,2021-02-25,1,medium,1689850.59,27,SYNTHETIC_NO_PII
+CUST-000311,Diego Novak,retail,retail,US,United States,USD,N/A,0,current,2024-10-22,2024-06-24,1,,1755460.41,84,SYNTHETIC_NO_PII
+CUST-000312,Mei Tanaka,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-12-23,2020-03-23,1,low,2621619.41,7,SYNTHETIC_NO_PII
+CUST-000313,Keiko Yamamoto UN817 Ltd,sme,sme,US,United States,USD,Trading,0,current,2025-06-30,2023-02-17,2,low,1930309.06,90,SYNTHETIC_NO_PII
+CUST-000314,Santiago Petrov UN269 Ltd,sme,sme,GB,United Kingdom,GBP,Trading,1,enhanced,2024-08-08,2025-01-11,4,low,1285932.09,48,SYNTHETIC_NO_PII
+CUST-000315,Amara Ortega,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2026-06-18,2018-06-05,1,low,3427073.95,63,SYNTHETIC_NO_PII
+CUST-000316,Luca Chen,retail,retail,DE,Germany,EUR,N/A,0,current,2024-06-28,2024-06-28,1,medium,2418792.09,85,SYNTHETIC_NO_PII
+CUST-000317,Santiago Wei SI328 Ltd,sme,sme,SG,Singapore,SGD,Logistics,0,enhanced,2025-10-12,2018-04-20,4,low,2868048.98,52,SYNTHETIC_NO_PII
+CUST-000318,Amara Sharma IN660 Ltd,sme,sme,IN,India,INR,Education,0,current,2025-08-30,2021-10-24,1,,187883.55,27,SYNTHETIC_NO_PII
+CUST-000319,Chioma Petrova SI502 Ltd,sme,sme,SG,Singapore,SGD,Real Estate,0,current,2025-06-05,2022-10-16,2,,2868567.72,19,SYNTHETIC_NO_PII
+CUST-000320,Thandi Bello IN616 Ltd,corporate,corporate,IN,India,INR,Manufacturing,0,current,2025-04-24,2024-04-05,1,,2123805.57,12,SYNTHETIC_NO_PII
+CUST-000321,Idris Lindqvist UN277 Ltd,sme,sme,GB,United Kingdom,GBP,Manufacturing,0,overdue,2026-06-02,2019-12-10,4,,2631799.64,83,SYNTHETIC_NO_PII
+CUST-000322,Aisha Eze UN401 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2025-06-10,2018-10-24,1,high,3220163.34,23,SYNTHETIC_NO_PII
+CUST-000323,Sana Berger,retail,retail,US,United States,USD,N/A,0,current,2025-02-27,2017-10-10,1,,2532170.22,31,SYNTHETIC_NO_PII
+CUST-000324,Zara Tanaka,retail,retail,US,United States,USD,N/A,0,enhanced,2025-10-21,2017-09-04,1,medium,2842859.14,51,SYNTHETIC_NO_PII
+CUST-000325,Chioma Saleh UN490 Ltd,sme,sme,US,United States,USD,Manufacturing,0,current,2026-07-24,2022-06-08,1,low,803610.16,26,SYNTHETIC_NO_PII
+CUST-000326,Priya Morales,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2024-12-25,2017-11-24,1,low,3472801.32,77,SYNTHETIC_NO_PII
+CUST-000327,Santiago Diallo UN809 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2024-11-05,2022-12-23,1,,192684.63,54,SYNTHETIC_NO_PII
+CUST-000328,Leila Ortega,retail,retail,DE,Germany,EUR,N/A,1,enhanced,2025-06-20,2025-01-14,1,,3320784.01,87,SYNTHETIC_NO_PII
+CUST-000329,Idris Saleh UN401 Ltd,sme,sme,US,United States,USD,Logistics,0,current,2026-03-19,2017-05-12,1,,751971.44,28,SYNTHETIC_NO_PII
+CUST-000330,Fatima Sato IN361 Ltd,corporate,corporate,IN,India,INR,Financial Services,0,current,2025-10-13,2022-07-06,4,,2840208.74,25,SYNTHETIC_NO_PII
+CUST-000331,Beatriz Morales,retail,retail,NG,Nigeria,NGN,N/A,0,current,2025-05-02,2016-12-19,1,,3160683.19,76,SYNTHETIC_NO_PII
+CUST-000332,Leila Ivanov,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-04-06,2023-03-06,1,,1666645.32,74,SYNTHETIC_NO_PII
+CUST-000333,Chen Ricci,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-03-22,2021-12-05,1,,1902054.47,77,SYNTHETIC_NO_PII
+CUST-000334,Aarav Mensah GE736 Ltd,corporate,corporate,DE,Germany,EUR,Real Estate,0,current,2026-08-07,2018-02-21,3,,1528583.57,20,SYNTHETIC_NO_PII
+CUST-000335,Nadia Chen,retail,retail,US,United States,USD,N/A,0,current,2025-06-17,2019-11-05,1,,1949784.81,43,SYNTHETIC_NO_PII
+CUST-000336,Sana Al-Rashid IN167 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,enhanced,2026-02-13,2024-07-25,1,low,2682988.83,33,SYNTHETIC_NO_PII
+CUST-000337,Elena Wei UN545 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,due_diligence,2024-11-23,2019-08-12,1,,3267933.62,15,SYNTHETIC_NO_PII
+CUST-000338,Ibrahim Ricci IN671 Ltd,corporate,corporate,IN,India,INR,Trading,0,current,2025-02-05,2025-03-20,2,,3644391.36,58,SYNTHETIC_NO_PII
+CUST-000339,Hiro Rahman,retail,retail,US,United States,USD,N/A,0,current,2026-07-14,2025-06-14,1,medium,3025062.58,80,SYNTHETIC_NO_PII
+CUST-000340,Zara Farooq,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-12-02,2024-06-14,1,,3062270.59,62,SYNTHETIC_NO_PII
+CUST-000341,Mei Lindqvist,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-03-07,2023-11-21,1,medium,1183438.98,87,SYNTHETIC_NO_PII
+CUST-000342,Luca Novak,retail,retail,US,United States,USD,N/A,0,current,2025-01-14,2025-07-08,1,low,1579356.39,76,SYNTHETIC_NO_PII
+CUST-000343,Zara Wei,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2026-01-01,2021-01-05,1,low,781333.23,29,SYNTHETIC_NO_PII
+CUST-000344,Diego Ortega UN356 Ltd,sme,sme,US,United States,USD,Trading,0,current,2026-02-26,2020-06-20,4,,3806401.93,51,SYNTHETIC_NO_PII
+CUST-000345,Elena Kovacs,retail,retail,US,United States,USD,N/A,0,current,2024-11-10,2018-09-11,1,low,1226173.58,80,SYNTHETIC_NO_PII
+CUST-000346,Leila Sato,retail,retail,US,United States,USD,N/A,1,enhanced,2025-06-27,2023-10-02,1,,1110335.94,52,SYNTHETIC_NO_PII
+CUST-000347,Freya Rahman,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-03-21,2020-08-24,1,,2583978.66,16,SYNTHETIC_NO_PII
+CUST-000348,Yuki Saleh SI119 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,due_diligence,2024-04-30,2023-06-10,1,low,2031177.35,9,SYNTHETIC_NO_PII
+CUST-000349,Idris Wei UN583 Ltd,corporate,corporate,US,United States,USD,Manufacturing,0,current,2025-09-07,2025-03-25,4,,897110.06,81,SYNTHETIC_NO_PII
+CUST-000350,Ibrahim Farooq IN925 Ltd,corporate,corporate,IN,India,INR,Manufacturing,0,current,2024-08-02,2019-12-02,2,low,1787650.67,28,SYNTHETIC_NO_PII
+CUST-000351,Priya Lindqvist UN339 Ltd,sme,sme,US,United States,USD,Financial Services,0,current,2024-11-01,2021-08-14,2,low,2073951.49,52,SYNTHETIC_NO_PII
+CUST-000352,Fatima Haddad,retail,retail,NG,Nigeria,NGN,N/A,0,current,2024-05-15,2018-05-15,1,medium,2968929.28,80,SYNTHETIC_NO_PII
+CUST-000353,Luca Diallo IN328 Ltd,sme,sme,IN,India,INR,Education,0,due_diligence,2025-07-28,2021-07-18,3,low,3269860.88,50,SYNTHETIC_NO_PII
+CUST-000354,Beatriz Sharma UN387 Ltd,sme,sme,GB,United Kingdom,GBP,Real Estate,0,current,2026-04-16,2020-01-06,2,low,633642.62,83,SYNTHETIC_NO_PII
+CUST-000355,Amara Eze IN265 Ltd,sme,sme,IN,India,INR,Healthcare,0,current,2026-08-25,2021-12-09,2,low,177361.6,79,SYNTHETIC_NO_PII
+CUST-000356,Sana Haddad IN629 Ltd,sme,sme,IN,India,INR,Healthcare,0,current,2025-01-11,2019-03-23,1,,3514643.39,90,SYNTHETIC_NO_PII
+CUST-000357,Chen Fernandez NI715 Ltd,corporate,corporate,NG,Nigeria,NGN,Manufacturing,0,due_diligence,2024-06-25,2018-11-03,2,medium,2494730.9,71,SYNTHETIC_NO_PII
+CUST-000358,Marco Rahman,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-02-21,2018-12-14,1,low,2093231.82,70,SYNTHETIC_NO_PII
+CUST-000359,Beatriz Petrova SI615 Ltd,sme,sme,SG,Singapore,SGD,Trading,0,current,2026-06-13,2023-08-27,4,medium,2639273.48,83,SYNTHETIC_NO_PII
+CUST-000360,Luca Sato IN539 Ltd,sme,sme,IN,India,INR,Real Estate,0,due_diligence,2024-06-17,2019-10-15,4,,3159274.56,54,SYNTHETIC_NO_PII
+CUST-000361,Keiko Petrova,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-11-30,2020-11-14,1,medium,2395177.94,75,SYNTHETIC_NO_PII
+CUST-000362,Aarav Yamamoto,retail,retail,IN,India,INR,N/A,0,current,2024-10-12,2019-10-13,1,,3218127.18,58,SYNTHETIC_NO_PII
+CUST-000363,Luca Bello,retail,retail,IN,India,INR,N/A,0,current,2024-12-29,2022-10-19,1,,1105864.37,56,SYNTHETIC_NO_PII
+CUST-000364,Santiago Lindqvist UN452 Ltd,corporate,corporate,GB,United Kingdom,GBP,Healthcare,0,current,2024-08-24,2023-08-21,2,low,3420720.7,90,SYNTHETIC_NO_PII
+CUST-000365,Tomas Petrova,retail,retail,IN,India,INR,N/A,0,current,2024-12-27,2023-03-28,1,,2789744.35,12,SYNTHETIC_NO_PII
+CUST-000366,Aarav Al-Rashid,retail,retail,DE,Germany,EUR,N/A,0,current,2025-09-02,2024-01-05,1,low,324758.75,10,SYNTHETIC_NO_PII
+CUST-000367,Dmitri Petrov NI892 Ltd,corporate,corporate,NG,Nigeria,NGN,Manufacturing,0,current,2024-11-30,2018-04-14,4,,1758693.33,31,SYNTHETIC_NO_PII
+CUST-000368,Andrei Kovacs NI136 Ltd,nbfc,nbfc,NG,Nigeria,NGN,N/A,1,enhanced,2025-09-13,2023-06-17,1,low,960830.22,6,SYNTHETIC_NO_PII
+CUST-000369,Hassan Volkov,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2026-06-16,2021-09-06,1,medium,2200622.65,77,SYNTHETIC_NO_PII
+CUST-000370,Hassan Okonkwo UN279 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2025-07-27,2018-11-04,1,low,2027421.19,77,SYNTHETIC_NO_PII
+CUST-000371,Kwame Farooq,retail,retail,IN,India,INR,N/A,0,due_diligence,2024-10-06,2022-10-02,1,,1773860.72,54,SYNTHETIC_NO_PII
+CUST-000372,Marco Rahman UN169 Ltd,sme,sme,AE,United Arab Emirates,AED,Healthcare,0,current,2024-12-07,2017-12-31,2,low,2709267.34,35,SYNTHETIC_NO_PII
+CUST-000373,Zara Ivanov UN940 Ltd,corporate,corporate,GB,United Kingdom,GBP,Agriculture,1,enhanced,2026-07-01,2019-08-20,2,medium,1908839.04,51,SYNTHETIC_NO_PII
+CUST-000374,Sofia Kapoor,retail,retail,US,United States,USD,N/A,0,current,2026-01-25,2020-01-18,1,low,815052.4,37,SYNTHETIC_NO_PII
+CUST-000375,Elena Mensah UN882 Ltd,corporate,corporate,GB,United Kingdom,GBP,Education,0,current,2026-08-04,2024-10-05,4,,1487930.16,46,SYNTHETIC_NO_PII
+CUST-000376,Keiko Fahmy GE868 Ltd,sme,sme,DE,Germany,EUR,Manufacturing,0,current,2026-07-23,2020-02-20,4,low,1915888.71,75,SYNTHETIC_NO_PII
+CUST-000377,Sofia Rahman,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-09-04,2024-04-16,1,,2698041.73,54,SYNTHETIC_NO_PII
+CUST-000378,Viktor Larsen IN474 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-04-24,2023-07-18,4,low,846077.27,53,SYNTHETIC_NO_PII
+CUST-000379,Rosa Rossi,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-12-14,2019-03-27,1,low,3217329.89,77,SYNTHETIC_NO_PII
+CUST-000380,Priya Nair,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-04-30,2020-05-03,1,high,2524454.68,74,SYNTHETIC_NO_PII
+CUST-000381,Jonas Larsen UN320 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Technology,0,current,2025-05-17,2019-05-04,1,low,1802170.0,48,SYNTHETIC_NO_PII
+CUST-000382,Santiago Larsen,retail,retail,GB,United Kingdom,GBP,N/A,1,current,2026-02-25,2021-10-13,1,,2309530.76,89,SYNTHETIC_NO_PII
+CUST-000383,Nadia Ahmed IN180 Ltd,sme,sme,IN,India,INR,Healthcare,0,current,2024-12-27,2021-12-30,3,,1857689.56,24,SYNTHETIC_NO_PII
+CUST-000384,Marco Eze UN181 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,current,2026-04-04,2018-07-25,1,,1377783.82,46,SYNTHETIC_NO_PII
+CUST-000385,Hassan Almeida,retail,retail,IN,India,INR,N/A,0,due_diligence,2025-09-10,2018-05-31,1,,2992842.52,72,SYNTHETIC_NO_PII
+CUST-000386,Sofia Chen,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,current,2026-06-27,2024-03-28,1,,846233.11,56,SYNTHETIC_NO_PII
+CUST-000387,Freya Ortega,retail,retail,IN,India,INR,N/A,1,current,2026-04-10,2025-01-14,1,low,341823.51,55,SYNTHETIC_NO_PII
+CUST-000388,Nadia Fernandez,retail,retail,IN,India,INR,N/A,0,current,2025-09-16,2018-08-13,1,low,3442173.43,47,SYNTHETIC_NO_PII
+CUST-000389,Noor Fahmy UN281 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,enhanced,2025-01-19,2019-06-29,1,,2392348.87,86,SYNTHETIC_NO_PII
+CUST-000390,Hiro Ivanov SI924 Ltd,corporate,corporate,SG,Singapore,SGD,Trading,0,current,2025-06-21,2018-06-20,3,low,1466304.37,39,SYNTHETIC_NO_PII
+CUST-000391,Andrei Tanaka,retail,retail,IN,India,INR,N/A,0,current,2025-05-01,2021-10-14,1,,3788095.26,67,SYNTHETIC_NO_PII
+CUST-000392,Nadia Almeida,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-06-26,2023-01-18,1,medium,1582034.56,26,SYNTHETIC_NO_PII
+CUST-000393,Aisha Okonkwo UN727 Ltd,sme,sme,US,United States,USD,Technology,0,current,2025-11-29,2022-09-10,3,medium,1654550.99,14,SYNTHETIC_NO_PII
+CUST-000394,Thandi Rahman,retail,retail,IN,India,INR,N/A,0,current,2026-04-14,2018-09-18,1,low,203280.13,74,SYNTHETIC_NO_PII
+CUST-000395,Nadia Fahmy,retail,retail,DE,Germany,EUR,N/A,0,current,2025-04-29,2024-03-28,1,low,872666.4,59,SYNTHETIC_NO_PII
+CUST-000396,Victor Rahman,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-04-20,2017-10-29,1,,228873.19,56,SYNTHETIC_NO_PII
+CUST-000397,Rahul Larsen,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-01-05,2021-05-13,1,,1542267.61,62,SYNTHETIC_NO_PII
+CUST-000398,Rahul Rahman,retail,retail,DE,Germany,EUR,N/A,0,current,2025-05-20,2017-05-25,1,,1559546.23,45,SYNTHETIC_NO_PII
+CUST-000399,Fatima Ortega IN153 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-04-15,2019-10-20,1,low,2668445.66,20,SYNTHETIC_NO_PII
+CUST-000400,Aarav Novak,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-01-29,2022-07-19,1,high,3134983.58,66,SYNTHETIC_NO_PII
+CUST-000401,Omar Silva IN877 Ltd,sme,sme,IN,India,INR,Financial Services,0,current,2026-07-17,2023-11-16,3,high,2580076.71,74,SYNTHETIC_NO_PII
+CUST-000402,Amara Rahman IN549 Ltd,corporate,corporate,IN,India,INR,Real Estate,0,current,2026-08-26,2019-05-19,4,,1435879.15,23,SYNTHETIC_NO_PII
+CUST-000403,Rosa Ortega,retail,retail,IN,India,INR,N/A,0,current,2025-03-09,2022-05-03,1,,1393920.39,65,SYNTHETIC_NO_PII
+CUST-000404,Santiago Novak,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-03-11,2024-11-13,1,,1471615.26,6,SYNTHETIC_NO_PII
+CUST-000405,Sofia Chen UN774 Ltd,corporate,corporate,GB,United Kingdom,GBP,Education,0,current,2024-05-31,2018-09-10,4,medium,763528.46,69,SYNTHETIC_NO_PII
+CUST-000406,Nadia Rahman IN955 Ltd,corporate,corporate,IN,India,INR,Manufacturing,0,current,2026-03-18,2021-01-17,1,low,812305.72,68,SYNTHETIC_NO_PII
+CUST-000407,Luca Diallo,retail,retail,IN,India,INR,N/A,0,current,2026-07-28,2018-04-07,1,,1468584.31,83,SYNTHETIC_NO_PII
+CUST-000408,Chen Conti IN469 Ltd,sme,sme,IN,India,INR,Education,0,due_diligence,2024-08-16,2020-02-18,4,medium,3288995.93,13,SYNTHETIC_NO_PII
+CUST-000409,Fatima Iyer IN336 Ltd,corporate,corporate,IN,India,INR,Education,0,current,2025-08-18,2022-03-27,2,low,776512.19,90,SYNTHETIC_NO_PII
+CUST-000410,Sofia Ortega,retail,retail,US,United States,USD,N/A,0,current,2025-02-03,2017-03-29,1,,1435063.65,64,SYNTHETIC_NO_PII
+CUST-000411,Elena Novak UN714 Ltd,sme,sme,GB,United Kingdom,GBP,Logistics,0,current,2025-09-21,2016-10-03,3,low,2202574.96,47,SYNTHETIC_NO_PII
+CUST-000412,Thandi Sato UN663 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2024-08-15,2017-07-02,1,low,1020086.06,63,SYNTHETIC_NO_PII
+CUST-000413,Fatima Kovacs,retail,retail,GB,United Kingdom,GBP,N/A,1,current,2026-02-09,2018-12-17,1,high,3423603.1,8,SYNTHETIC_NO_PII
+CUST-000414,Hassan Ortega NI464 Ltd,corporate,corporate,NG,Nigeria,NGN,Manufacturing,0,overdue,2026-04-28,2019-11-28,3,low,1471496.16,80,SYNTHETIC_NO_PII
+CUST-000415,Jonas Al-Rashid,retail,retail,IN,India,INR,N/A,0,overdue,2024-09-06,2019-03-31,1,,1302144.76,67,SYNTHETIC_NO_PII
+CUST-000416,Keiko Petrova,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-08-22,2018-12-19,1,,318517.2,13,SYNTHETIC_NO_PII
+CUST-000417,Hiro Eze IN716 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2026-09-05,2024-04-16,1,,2537378.98,86,SYNTHETIC_NO_PII
+CUST-000418,Fatima Rahman,retail,retail,IN,India,INR,N/A,0,current,2026-04-13,2019-08-03,1,,206826.66,56,SYNTHETIC_NO_PII
+CUST-000419,Keiko Farooq,individual_high_networth,individual_high_networth,AE,United Arab Emirates,AED,N/A,0,enhanced,2025-02-08,2024-08-19,1,low,2982533.58,76,SYNTHETIC_NO_PII
+CUST-000420,Sana Sato,retail,retail,IN,India,INR,N/A,0,current,2025-08-08,2016-12-18,1,low,2610732.51,31,SYNTHETIC_NO_PII
+CUST-000421,Andrei Silva GE191 Ltd,sme,sme,DE,Germany,EUR,Trading,0,current,2024-10-29,2022-12-04,4,high,1697044.71,50,SYNTHETIC_NO_PII
+CUST-000422,Luca Chen,retail,retail,GB,United Kingdom,GBP,N/A,0,enhanced,2024-06-16,2017-01-04,1,,1771629.37,24,SYNTHETIC_NO_PII
+CUST-000423,Amara Kapoor,retail,retail,NG,Nigeria,NGN,N/A,0,current,2026-05-24,2017-12-15,1,,2959628.61,37,SYNTHETIC_NO_PII
+CUST-000424,Nadia Sharma,individual_high_networth,individual_high_networth,NG,Nigeria,NGN,N/A,0,enhanced,2025-03-15,2021-10-16,1,low,851441.88,75,SYNTHETIC_NO_PII
+CUST-000425,Freya Petrov IN485 Ltd,sme,sme,IN,India,INR,Education,0,current,2026-08-03,2017-06-16,3,,685426.99,42,SYNTHETIC_NO_PII
+CUST-000426,Hassan Morales,retail,retail,US,United States,USD,N/A,0,current,2024-04-27,2020-06-05,1,low,3651910.78,52,SYNTHETIC_NO_PII
+CUST-000427,Luca Diallo IN423 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-05-08,2023-01-19,1,,3467757.12,74,SYNTHETIC_NO_PII
+CUST-000428,Ibrahim Ortega,retail,retail,IN,India,INR,N/A,1,enhanced,2026-04-09,2017-08-26,1,low,78397.04,51,SYNTHETIC_NO_PII
+CUST-000429,Sana Fahmy,retail,retail,IN,India,INR,N/A,0,due_diligence,2024-06-04,2024-12-12,1,,3961494.54,77,SYNTHETIC_NO_PII
+CUST-000430,Marco Volkov,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2024-12-15,2018-04-11,1,,2747660.63,59,SYNTHETIC_NO_PII
+CUST-000431,Jonas Almeida,retail,retail,IN,India,INR,N/A,0,current,2025-01-30,2021-12-13,1,,2167708.54,31,SYNTHETIC_NO_PII
+CUST-000432,Andrei Tanaka IN261 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,enhanced,2025-10-26,2020-10-26,1,high,275917.1,74,SYNTHETIC_NO_PII
+CUST-000433,Leila Nair,individual_high_networth,individual_high_networth,IN,India,INR,N/A,1,current,2025-11-10,2017-06-27,1,,1774802.93,87,SYNTHETIC_NO_PII
+CUST-000434,Rahul Petrova IN373 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-01-04,2024-03-02,1,,2270337.16,35,SYNTHETIC_NO_PII
+CUST-000435,Mei Ahmed IN829 Ltd,sme,sme,IN,India,INR,Agriculture,0,current,2026-03-12,2024-10-01,4,low,1968325.16,23,SYNTHETIC_NO_PII
+CUST-000436,Chioma Sharma,retail,retail,IN,India,INR,N/A,0,current,2026-02-21,2022-08-13,1,,3032317.48,14,SYNTHETIC_NO_PII
+CUST-000437,Rosa Petrov,retail,retail,DE,Germany,EUR,N/A,0,due_diligence,2025-07-06,2020-02-24,1,,1622442.74,11,SYNTHETIC_NO_PII
+CUST-000438,Leila Volkov SI821 Ltd,sme,sme,SG,Singapore,SGD,Financial Services,0,current,2025-04-01,2018-10-14,1,medium,1809180.32,11,SYNTHETIC_NO_PII
+CUST-000439,Noor Volkov IN150 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2026-03-06,2017-05-25,1,,1168261.55,56,SYNTHETIC_NO_PII
+CUST-000440,Nadia Rahman UN245 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2025-05-30,2023-10-11,1,low,3320424.55,63,SYNTHETIC_NO_PII
+CUST-000441,Sofia Bello,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-06-09,2017-11-01,1,low,2363310.32,31,SYNTHETIC_NO_PII
+CUST-000442,Leila Conti IN560 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-12-06,2017-08-30,1,low,1454958.84,73,SYNTHETIC_NO_PII
+CUST-000443,Sana Petrov UN443 Ltd,sme,sme,AE,United Arab Emirates,AED,Manufacturing,0,current,2026-04-03,2023-11-07,2,,719572.72,12,SYNTHETIC_NO_PII
+CUST-000444,Rosa Kovacs,retail,retail,IN,India,INR,N/A,0,due_diligence,2026-09-13,2018-08-14,1,,2492128.51,38,SYNTHETIC_NO_PII
+CUST-000445,Rafael Saleh,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-06-09,2025-07-30,1,medium,1643554.71,16,SYNTHETIC_NO_PII
+CUST-000446,Santiago Fahmy IN156 Ltd,sme,sme,IN,India,INR,Agriculture,0,due_diligence,2026-08-10,2018-09-10,2,low,3416048.0,79,SYNTHETIC_NO_PII
+CUST-000447,Omar Morales IN725 Ltd,corporate,corporate,IN,India,INR,Education,0,current,2026-03-19,2024-06-02,4,,2998592.56,52,SYNTHETIC_NO_PII
+CUST-000448,Jonas Rahman IN963 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,due_diligence,2025-03-02,2021-07-05,1,,264378.84,66,SYNTHETIC_NO_PII
+CUST-000449,Hassan Ricci,retail,retail,US,United States,USD,N/A,0,current,2025-02-08,2019-09-25,1,low,2920265.44,86,SYNTHETIC_NO_PII
+CUST-000450,Beatriz Kovacs IN462 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2024-12-26,2020-11-07,4,high,2081224.67,86,SYNTHETIC_NO_PII
+CUST-000451,Viktor Okonkwo UN915 Ltd,sme,sme,AE,United Arab Emirates,AED,Trading,0,current,2024-08-22,2017-09-11,2,low,3199259.58,59,SYNTHETIC_NO_PII
+CUST-000452,Santiago Mokoena,retail,retail,IN,India,INR,N/A,1,enhanced,2025-11-05,2023-04-06,1,,1204634.56,76,SYNTHETIC_NO_PII
+CUST-000453,Marco Ricci,retail,retail,IN,India,INR,N/A,0,current,2025-10-13,2021-03-14,1,low,3336132.07,67,SYNTHETIC_NO_PII
+CUST-000454,Luca Tanaka UN443 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2025-05-31,2020-03-29,1,,3137036.19,58,SYNTHETIC_NO_PII
+CUST-000455,Andrei Berger IN801 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-10-12,2019-04-22,1,low,3199143.66,51,SYNTHETIC_NO_PII
+CUST-000456,Mei Ricci,retail,retail,IN,India,INR,N/A,0,due_diligence,2025-08-14,2021-06-08,1,,753578.75,20,SYNTHETIC_NO_PII
+CUST-000457,Leila Haddad UN409 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2026-02-07,2022-08-06,1,low,2102776.18,28,SYNTHETIC_NO_PII
+CUST-000458,Rahul Al-Rashid,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-04-12,2020-08-31,1,,764895.66,67,SYNTHETIC_NO_PII
+CUST-000459,Leila Nair UN792 Ltd,corporate,corporate,US,United States,USD,Manufacturing,0,due_diligence,2026-02-18,2017-01-05,1,,1840176.8,72,SYNTHETIC_NO_PII
+CUST-000460,Fatima Almeida,retail,retail,IN,India,INR,N/A,0,due_diligence,2024-08-14,2024-08-31,1,medium,1253360.8,79,SYNTHETIC_NO_PII
+CUST-000461,Chen Rahman UN220 Ltd,corporate,corporate,US,United States,USD,Technology,0,current,2026-04-17,2023-05-24,2,low,1098179.36,7,SYNTHETIC_NO_PII
+CUST-000462,Elena Wei,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2025-11-30,2019-07-23,1,,2298461.36,27,SYNTHETIC_NO_PII
+CUST-000463,Marco Saleh,retail,retail,US,United States,USD,N/A,0,current,2026-07-27,2020-08-31,1,,428178.04,12,SYNTHETIC_NO_PII
+CUST-000464,Beatriz Bello,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2025-11-01,2018-08-01,1,,1332666.72,31,SYNTHETIC_NO_PII
+CUST-000465,Noor Al-Rashid UN815 Ltd,sme,sme,US,United States,USD,Logistics,0,current,2026-06-09,2017-03-02,4,medium,1245014.78,88,SYNTHETIC_NO_PII
+CUST-000466,Amara Okonkwo UN501 Ltd,sme,sme,GB,United Kingdom,GBP,Manufacturing,0,current,2024-09-30,2024-01-12,3,,3156170.93,47,SYNTHETIC_NO_PII
+CUST-000467,Freya Mensah,retail,retail,IN,India,INR,N/A,0,due_diligence,2025-02-05,2021-09-13,1,low,513939.04,19,SYNTHETIC_NO_PII
+CUST-000468,Elena Rahman,retail,retail,US,United States,USD,N/A,0,current,2025-07-20,2019-05-29,1,low,958108.29,37,SYNTHETIC_NO_PII
+CUST-000469,Aisha Iyer GE680 Ltd,sme,sme,DE,Germany,EUR,Agriculture,0,current,2025-03-08,2021-10-27,2,high,696476.4,15,SYNTHETIC_NO_PII
+CUST-000470,Rafael Mensah UN415 Ltd,corporate,corporate,US,United States,USD,Healthcare,0,current,2026-07-07,2019-01-01,1,low,2743607.18,82,SYNTHETIC_NO_PII
+CUST-000471,Rafael Conti UN873 Ltd,corporate,corporate,GB,United Kingdom,GBP,Financial Services,0,current,2024-08-02,2018-03-28,2,low,2645221.17,63,SYNTHETIC_NO_PII
+CUST-000472,Keiko Fernandez UN795 Ltd,sme,sme,GB,United Kingdom,GBP,Technology,0,due_diligence,2025-06-28,2023-06-13,3,medium,3961205.58,80,SYNTHETIC_NO_PII
+CUST-000473,Dmitri Tanaka,retail,retail,DE,Germany,EUR,N/A,0,overdue,2026-09-16,2022-05-06,1,,2814899.73,51,SYNTHETIC_NO_PII
+CUST-000474,Mei Silva,retail,retail,IN,India,INR,N/A,0,current,2025-08-22,2020-10-19,1,low,1743584.24,33,SYNTHETIC_NO_PII
+CUST-000475,Rahul Ortega UN993 Ltd,sme,sme,GB,United Kingdom,GBP,Manufacturing,0,current,2026-05-02,2021-04-30,1,low,291625.26,8,SYNTHETIC_NO_PII
+CUST-000476,Hiro Tanaka,retail,retail,SG,Singapore,SGD,N/A,0,due_diligence,2024-07-01,2024-09-10,1,,2783085.13,60,SYNTHETIC_NO_PII
+CUST-000477,Hiro Ortega UN610 Ltd,sme,sme,GB,United Kingdom,GBP,Real Estate,0,current,2024-09-17,2020-08-05,3,low,1646297.07,75,SYNTHETIC_NO_PII
+CUST-000478,Fatima Yamamoto IN245 Ltd,sme,sme,IN,India,INR,Education,0,current,2024-04-20,2020-03-22,3,medium,1862420.63,16,SYNTHETIC_NO_PII
+CUST-000479,Lucas Lindqvist UN917 Ltd,sme,sme,US,United States,USD,Technology,0,enhanced,2024-12-28,2018-07-27,1,medium,3614823.16,74,SYNTHETIC_NO_PII
+CUST-000480,Sana Lindqvist UN917 Ltd,corporate,corporate,GB,United Kingdom,GBP,Technology,0,current,2025-11-24,2019-03-17,2,,146128.33,82,SYNTHETIC_NO_PII
+CUST-000481,Keiko Larsen UN772 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Technology,0,current,2024-06-10,2024-12-14,1,,1150828.54,16,SYNTHETIC_NO_PII
+CUST-000482,Hassan Larsen,retail,retail,IN,India,INR,N/A,0,current,2025-01-06,2024-02-27,1,medium,702582.32,81,SYNTHETIC_NO_PII
+CUST-000483,Victor Rossi UN133 Ltd,corporate,corporate,US,United States,USD,Agriculture,0,current,2026-06-22,2022-09-17,2,low,2384198.65,25,SYNTHETIC_NO_PII
+CUST-000484,Chioma Diallo UN962 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Agriculture,0,current,2026-07-23,2022-12-22,3,low,3023158.31,20,SYNTHETIC_NO_PII
+CUST-000485,Freya Berger,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-09-24,2020-04-20,1,low,1563331.59,39,SYNTHETIC_NO_PII
+CUST-000486,Aarav Kovacs,retail,retail,SG,Singapore,SGD,N/A,0,current,2026-06-09,2020-08-10,1,high,3671260.0,87,SYNTHETIC_NO_PII
+CUST-000487,Viktor Conti,retail,retail,SG,Singapore,SGD,N/A,0,current,2025-08-12,2022-08-02,1,medium,1847128.83,36,SYNTHETIC_NO_PII
+CUST-000488,Rahul Ivanov UN108 Ltd,corporate,corporate,US,United States,USD,Trading,0,enhanced,2026-09-04,2021-11-09,4,low,395306.54,19,SYNTHETIC_NO_PII
+CUST-000489,Nadia Larsen UN955 Ltd,sme,sme,GB,United Kingdom,GBP,Real Estate,1,enhanced,2025-01-11,2023-06-24,1,,2833760.05,21,SYNTHETIC_NO_PII
+CUST-000490,Aisha Conti,retail,retail,US,United States,USD,N/A,0,current,2025-11-19,2019-04-18,1,low,1870487.53,15,SYNTHETIC_NO_PII
+CUST-000491,Hassan Sato NI175 Ltd,sme,sme,NG,Nigeria,NGN,Technology,0,current,2024-07-13,2017-11-17,1,low,1534282.01,48,SYNTHETIC_NO_PII
+CUST-000492,Ingrid Rossi,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2026-05-28,2020-09-13,1,medium,579771.04,61,SYNTHETIC_NO_PII
+CUST-000493,Rosa Larsen,retail,retail,US,United States,USD,N/A,1,current,2026-08-28,2024-06-25,1,,3586567.01,25,SYNTHETIC_NO_PII
+CUST-000494,Fatima Diallo IN824 Ltd,sme,sme,IN,India,INR,Logistics,0,current,2025-05-15,2022-08-27,4,low,1618631.44,14,SYNTHETIC_NO_PII
+CUST-000495,Freya Mensah IN156 Ltd,sme,sme,IN,India,INR,Trading,0,enhanced,2025-09-07,2019-04-13,3,low,326424.85,64,SYNTHETIC_NO_PII
+CUST-000496,Rahul Rossi IN209 Ltd,corporate,corporate,IN,India,INR,Agriculture,0,current,2025-05-06,2019-06-04,1,medium,3541430.55,62,SYNTHETIC_NO_PII
+CUST-000497,Rahul Chen IN758 Ltd,corporate,corporate,IN,India,INR,Technology,0,current,2025-04-23,2017-07-27,4,medium,3866463.69,8,SYNTHETIC_NO_PII
+CUST-000498,Fatima Volkov,retail,retail,IN,India,INR,N/A,0,current,2025-03-16,2024-04-25,1,high,600069.75,80,SYNTHETIC_NO_PII
+CUST-000499,Priya Costa,retail,retail,IN,India,INR,N/A,1,enhanced,2026-09-02,2018-04-23,1,medium,693134.79,12,SYNTHETIC_NO_PII
+CUST-000500,Elena Rahman SI208 Ltd,nbfc,nbfc,SG,Singapore,SGD,N/A,0,current,2026-05-23,2018-10-15,1,,1991088.27,84,SYNTHETIC_NO_PII
+CUST-000501,Hiro Ricci,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-02-04,2017-05-14,1,,2185809.76,47,SYNTHETIC_NO_PII
+CUST-000502,Fatima Bello UN813 Ltd,corporate,corporate,AE,United Arab Emirates,AED,Agriculture,0,current,2025-02-27,2023-09-12,2,low,1757451.54,80,SYNTHETIC_NO_PII
+CUST-000503,Thandi Petrov,retail,retail,IN,India,INR,N/A,0,current,2026-03-17,2021-06-04,1,low,3704917.14,89,SYNTHETIC_NO_PII
+CUST-000504,Freya Tanaka IN278 Ltd,sme,sme,IN,India,INR,Financial Services,0,current,2025-01-14,2023-05-01,2,low,2870209.03,84,SYNTHETIC_NO_PII
+CUST-000505,Jonas Ahmed,individual_high_networth,individual_high_networth,US,United States,USD,N/A,1,enhanced,2025-09-11,2020-12-11,1,low,3451610.59,75,SYNTHETIC_NO_PII
+CUST-000506,Thandi Wei UN585 Ltd,sme,sme,GB,United Kingdom,GBP,Logistics,0,current,2026-03-20,2022-07-17,2,medium,2682219.83,11,SYNTHETIC_NO_PII
+CUST-000507,Chen Sato,retail,retail,GB,United Kingdom,GBP,N/A,0,due_diligence,2026-08-03,2022-10-28,1,,422162.29,12,SYNTHETIC_NO_PII
+CUST-000508,Mei Costa IN706 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,due_diligence,2025-01-31,2019-11-13,1,,1307259.4,31,SYNTHETIC_NO_PII
+CUST-000509,Amara Mensah SI325 Ltd,corporate,corporate,SG,Singapore,SGD,Trading,0,current,2025-05-22,2021-12-26,4,low,222085.73,61,SYNTHETIC_NO_PII
+CUST-000510,Ibrahim Rossi,retail,retail,NG,Nigeria,NGN,N/A,0,current,2025-12-14,2021-04-19,1,low,812832.51,22,SYNTHETIC_NO_PII
+CUST-000511,Hassan Tanaka,retail,retail,US,United States,USD,N/A,0,current,2025-11-18,2024-05-24,1,low,2416525.75,87,SYNTHETIC_NO_PII
+CUST-000512,Keiko Ortega,individual_high_networth,individual_high_networth,NG,Nigeria,NGN,N/A,0,enhanced,2025-01-19,2023-01-25,1,,1896588.53,65,SYNTHETIC_NO_PII
+CUST-000513,Lucas Silva,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2026-04-17,2021-12-21,1,,3655450.11,6,SYNTHETIC_NO_PII
+CUST-000514,Freya Farooq,retail,retail,IN,India,INR,N/A,0,current,2024-10-03,2025-04-07,1,,3286058.83,63,SYNTHETIC_NO_PII
+CUST-000515,Aarav Eze IN192 Ltd,sme,sme,IN,India,INR,Financial Services,0,current,2025-05-13,2023-03-14,3,,651402.32,64,SYNTHETIC_NO_PII
+CUST-000516,Mei Rahman UN479 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,due_diligence,2024-12-14,2020-06-10,1,medium,1859861.67,87,SYNTHETIC_NO_PII
+CUST-000517,Aisha Ricci,retail,retail,US,United States,USD,N/A,1,enhanced,2025-03-10,2019-09-09,1,,2303041.32,32,SYNTHETIC_NO_PII
+CUST-000518,Marco Morales IN213 Ltd,corporate,corporate,IN,India,INR,Healthcare,0,current,2025-09-07,2019-11-14,4,,2478438.13,52,SYNTHETIC_NO_PII
+CUST-000519,Ananya Ortega,retail,retail,US,United States,USD,N/A,0,current,2024-11-21,2017-09-08,1,low,1916581.39,80,SYNTHETIC_NO_PII
+CUST-000520,Amara Rahman UN481 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,current,2025-09-28,2021-09-08,1,low,1812380.54,70,SYNTHETIC_NO_PII
+CUST-000521,Noor Saleh IN809 Ltd,sme,sme,IN,India,INR,Trading,0,current,2026-03-08,2022-05-13,4,,353798.46,56,SYNTHETIC_NO_PII
+CUST-000522,Ananya Petrova IN633 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2024-12-13,2023-10-18,1,medium,95647.62,59,SYNTHETIC_NO_PII
+CUST-000523,Yuki Lindqvist,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,enhanced,2024-06-17,2021-10-02,1,low,933150.61,72,SYNTHETIC_NO_PII
+CUST-000524,Marco Conti UN642 Ltd,sme,sme,GB,United Kingdom,GBP,Education,0,current,2025-06-18,2018-05-25,4,,1219808.94,22,SYNTHETIC_NO_PII
+CUST-000525,Ingrid Okonkwo IN251 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-09-20,2020-03-18,1,,1141106.22,27,SYNTHETIC_NO_PII
+CUST-000526,Noor Kovacs IN782 Ltd,sme,sme,IN,India,INR,Manufacturing,0,due_diligence,2026-04-04,2023-08-07,2,,472084.75,46,SYNTHETIC_NO_PII
+CUST-000527,Victor Rossi UN481 Ltd,sme,sme,GB,United Kingdom,GBP,Logistics,0,current,2025-03-13,2023-05-05,2,low,2136903.61,21,SYNTHETIC_NO_PII
+CUST-000528,Rafael Nair UN659 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2025-04-15,2020-07-03,1,,1328466.18,43,SYNTHETIC_NO_PII
+CUST-000529,Keiko Nair IN590 Ltd,sme,sme,IN,India,INR,Financial Services,0,overdue,2026-04-27,2019-04-21,1,low,1235788.39,57,SYNTHETIC_NO_PII
+CUST-000530,Zara Al-Rashid IN327 Ltd,sme,sme,IN,India,INR,Technology,0,current,2026-02-28,2021-12-25,1,,338940.25,63,SYNTHETIC_NO_PII
+CUST-000531,Sana Volkov GE782 Ltd,sme,sme,DE,Germany,EUR,Agriculture,0,current,2025-08-05,2023-06-18,2,low,2865275.27,60,SYNTHETIC_NO_PII
+CUST-000532,Nadia Ahmed,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-02-08,2021-09-13,1,,2912774.16,62,SYNTHETIC_NO_PII
+CUST-000533,Rosa Kovacs UN242 Ltd,corporate,corporate,GB,United Kingdom,GBP,Trading,0,enhanced,2026-04-22,2023-10-22,2,medium,1216408.4,73,SYNTHETIC_NO_PII
+CUST-000534,Idris Diallo,individual_high_networth,individual_high_networth,IN,India,INR,N/A,1,enhanced,2025-02-12,2024-08-25,1,low,3022198.77,23,SYNTHETIC_NO_PII
+CUST-000535,Nadia Ortega,retail,retail,SG,Singapore,SGD,N/A,0,due_diligence,2025-11-09,2020-02-21,1,,1978931.44,65,SYNTHETIC_NO_PII
+CUST-000536,Priya Larsen,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2025-11-26,2022-04-11,1,medium,1671541.3,68,SYNTHETIC_NO_PII
+CUST-000537,Mei Mensah UN695 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,enhanced,2025-05-12,2017-01-24,1,medium,2264470.49,39,SYNTHETIC_NO_PII
+CUST-000538,Kwame Novak UN249 Ltd,sme,sme,GB,United Kingdom,GBP,Agriculture,0,current,2025-06-01,2019-11-23,2,low,1432754.93,12,SYNTHETIC_NO_PII
+CUST-000539,Zara Morales,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-12-12,2022-05-23,1,low,737073.75,18,SYNTHETIC_NO_PII
+CUST-000540,Leila Rahman IN471 Ltd,sme,sme,IN,India,INR,Trading,0,current,2025-03-18,2017-12-17,3,,3294142.69,7,SYNTHETIC_NO_PII
+CUST-000541,Rafael Eze,retail,retail,IN,India,INR,N/A,0,current,2024-05-18,2021-10-29,1,low,757725.06,77,SYNTHETIC_NO_PII
+CUST-000542,Andrei Saleh SI178 Ltd,sme,sme,SG,Singapore,SGD,Trading,0,current,2024-05-31,2017-08-26,2,low,3694021.96,67,SYNTHETIC_NO_PII
+CUST-000543,Yuki Fernandez,retail,retail,US,United States,USD,N/A,0,enhanced,2024-08-15,2018-12-10,1,low,3259223.56,34,SYNTHETIC_NO_PII
+CUST-000544,Amara Berger,retail,retail,US,United States,USD,N/A,0,enhanced,2026-05-25,2024-03-27,1,medium,315552.51,67,SYNTHETIC_NO_PII
+CUST-000545,Elena Haddad IN144 Ltd,corporate,corporate,IN,India,INR,Trading,0,current,2025-11-12,2016-09-30,1,high,3019428.33,21,SYNTHETIC_NO_PII
+CUST-000546,Rahul Rossi IN384 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-01-31,2018-02-14,1,,1394606.98,26,SYNTHETIC_NO_PII
+CUST-000547,Viktor Silva UN114 Ltd,nbfc,nbfc,AE,United Arab Emirates,AED,N/A,0,current,2025-03-24,2019-12-24,1,,871907.31,30,SYNTHETIC_NO_PII
+CUST-000548,Noor Sharma,individual_high_networth,individual_high_networth,IN,India,INR,N/A,0,enhanced,2025-09-06,2017-07-04,1,,2794040.96,29,SYNTHETIC_NO_PII
+CUST-000549,Sofia Ahmed,retail,retail,DE,Germany,EUR,N/A,0,current,2025-10-30,2021-05-21,1,medium,498843.53,20,SYNTHETIC_NO_PII
+CUST-000550,Victor Kovacs UN567 Ltd,sme,sme,GB,United Kingdom,GBP,Technology,0,current,2024-10-13,2019-05-24,4,low,907364.35,58,SYNTHETIC_NO_PII
+CUST-000551,Rahul Iyer,retail,retail,SG,Singapore,SGD,N/A,0,current,2024-10-28,2020-04-22,1,medium,425161.68,62,SYNTHETIC_NO_PII
+CUST-000552,Kwame Nair UN272 Ltd,sme,sme,US,United States,USD,Trading,0,current,2025-09-09,2021-03-19,2,high,1357833.43,82,SYNTHETIC_NO_PII
+CUST-000553,Amara Sato UN707 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,current,2025-12-11,2017-07-05,1,,3026430.26,88,SYNTHETIC_NO_PII
+CUST-000554,Beatriz Volkov,individual_high_networth,individual_high_networth,GB,United Kingdom,GBP,N/A,0,enhanced,2026-01-23,2020-03-17,1,low,2515342.26,23,SYNTHETIC_NO_PII
+CUST-000555,Ananya Costa,retail,retail,AE,United Arab Emirates,AED,N/A,1,enhanced,2024-12-17,2018-01-14,1,low,389852.85,15,SYNTHETIC_NO_PII
+CUST-000556,Rafael Rahman UN928 Ltd,sme,sme,GB,United Kingdom,GBP,Education,0,current,2025-03-06,2023-05-18,1,low,3810559.08,10,SYNTHETIC_NO_PII
+CUST-000557,Kwame Diallo,individual_high_networth,individual_high_networth,SG,Singapore,SGD,N/A,0,enhanced,2024-04-18,2020-08-05,1,low,3118632.97,27,SYNTHETIC_NO_PII
+CUST-000558,Aisha Costa IN801 Ltd,sme,sme,IN,India,INR,Education,0,current,2025-02-08,2017-01-27,4,,1906264.67,26,SYNTHETIC_NO_PII
+CUST-000559,Rafael Bello UN428 Ltd,sme,sme,GB,United Kingdom,GBP,Financial Services,0,current,2026-08-19,2021-05-28,1,,517151.26,52,SYNTHETIC_NO_PII
+CUST-000560,Mei Mokoena,retail,retail,AE,United Arab Emirates,AED,N/A,0,current,2025-07-22,2021-10-25,1,,1408320.7,90,SYNTHETIC_NO_PII
+CUST-000561,Jonas Bello,retail,retail,IN,India,INR,N/A,0,current,2026-08-27,2024-09-09,1,low,2155975.17,10,SYNTHETIC_NO_PII
+CUST-000562,Keiko Farooq SI424 Ltd,sme,sme,SG,Singapore,SGD,Healthcare,0,current,2025-02-09,2020-12-01,4,,1293073.37,18,SYNTHETIC_NO_PII
+CUST-000563,Chen Ricci IN472 Ltd,corporate,corporate,IN,India,INR,Healthcare,0,current,2026-02-22,2020-01-27,4,low,2543599.58,15,SYNTHETIC_NO_PII
+CUST-000564,Nadia Larsen UN739 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,current,2024-08-17,2025-02-09,1,,3831974.55,80,SYNTHETIC_NO_PII
+CUST-000565,Ananya Yamamoto,retail,retail,IN,India,INR,N/A,0,current,2024-11-18,2019-09-08,1,,3295837.1,70,SYNTHETIC_NO_PII
+CUST-000566,Noor Rahman UN660 Ltd,corporate,corporate,GB,United Kingdom,GBP,Manufacturing,0,current,2026-08-28,2023-05-26,2,medium,2309488.96,33,SYNTHETIC_NO_PII
+CUST-000567,Ibrahim Fahmy SI544 Ltd,sme,sme,SG,Singapore,SGD,Financial Services,0,current,2025-03-31,2018-06-28,2,,1460277.3,24,SYNTHETIC_NO_PII
+CUST-000568,Jonas Sato,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2025-07-21,2021-01-15,1,low,1071404.36,42,SYNTHETIC_NO_PII
+CUST-000569,Beatriz Silva IN417 Ltd,sme,sme,IN,India,INR,Logistics,0,current,2025-05-07,2021-02-02,4,medium,1690966.42,10,SYNTHETIC_NO_PII
+CUST-000570,Mei Larsen,retail,retail,IN,India,INR,N/A,0,current,2024-09-07,2016-10-14,1,medium,1945938.65,8,SYNTHETIC_NO_PII
+CUST-000571,Leila Almeida,retail,retail,SG,Singapore,SGD,N/A,0,overdue,2024-11-12,2022-04-20,1,low,3543448.81,56,SYNTHETIC_NO_PII
+CUST-000572,Yuki Silva,individual_high_networth,individual_high_networth,AE,United Arab Emirates,AED,N/A,0,enhanced,2025-01-30,2024-05-21,1,,3798949.63,73,SYNTHETIC_NO_PII
+CUST-000573,Lucas Almeida,retail,retail,SG,Singapore,SGD,N/A,0,current,2024-08-23,2024-04-09,1,,1562852.92,36,SYNTHETIC_NO_PII
+CUST-000574,Elena Rossi IN602 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-03-19,2023-03-30,1,low,1501946.41,20,SYNTHETIC_NO_PII
+CUST-000575,Lucas Fahmy,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-05-28,2016-11-05,1,,1236144.74,88,SYNTHETIC_NO_PII
+CUST-000576,Diego Silva,individual_high_networth,individual_high_networth,US,United States,USD,N/A,0,current,2026-05-15,2022-10-21,1,medium,2141968.22,36,SYNTHETIC_NO_PII
+CUST-000577,Dmitri Larsen UN264 Ltd,nbfc,nbfc,GB,United Kingdom,GBP,N/A,0,due_diligence,2025-06-24,2022-04-08,1,low,2527254.05,88,SYNTHETIC_NO_PII
+CUST-000578,Omar Costa,retail,retail,IN,India,INR,N/A,0,overdue,2024-05-30,2020-05-11,1,low,406080.29,26,SYNTHETIC_NO_PII
+CUST-000579,Zara Eze UN880 Ltd,sme,sme,GB,United Kingdom,GBP,Financial Services,0,current,2024-11-29,2018-11-21,2,medium,2522474.58,88,SYNTHETIC_NO_PII
+CUST-000580,Thandi Berger,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-07-22,2022-02-14,1,medium,3323332.42,22,SYNTHETIC_NO_PII
+CUST-000581,Leila Fernandez UN435 Ltd,nbfc,nbfc,US,United States,USD,N/A,0,current,2024-06-20,2020-04-11,1,low,1130780.33,16,SYNTHETIC_NO_PII
+CUST-000582,Aisha Yamamoto,retail,retail,IN,India,INR,N/A,1,enhanced,2026-01-25,2023-02-15,1,,3627844.9,65,SYNTHETIC_NO_PII
+CUST-000583,Tomas Morales,retail,retail,US,United States,USD,N/A,0,current,2026-03-26,2021-02-22,1,high,3789237.82,21,SYNTHETIC_NO_PII
+CUST-000584,Ibrahim Costa,retail,retail,US,United States,USD,N/A,0,current,2024-06-06,2024-04-24,1,,3129577.16,42,SYNTHETIC_NO_PII
+CUST-000585,Hiro Wei UN293 Ltd,corporate,corporate,GB,United Kingdom,GBP,Healthcare,0,due_diligence,2026-03-16,2018-11-30,4,,3170891.82,9,SYNTHETIC_NO_PII
+CUST-000586,Viktor Fernandez,retail,retail,IN,India,INR,N/A,0,current,2026-05-03,2022-11-09,1,low,3486416.68,56,SYNTHETIC_NO_PII
+CUST-000587,Hiro Almeida UN582 Ltd,sme,sme,US,United States,USD,Agriculture,0,current,2025-01-04,2022-10-08,1,high,26417.14,70,SYNTHETIC_NO_PII
+CUST-000588,Dmitri Novak IN366 Ltd,sme,sme,IN,India,INR,Manufacturing,0,current,2025-04-19,2024-02-28,4,,3721656.13,65,SYNTHETIC_NO_PII
+CUST-000589,Andrei Sato,retail,retail,IN,India,INR,N/A,0,current,2025-04-23,2024-01-20,1,,3487359.84,41,SYNTHETIC_NO_PII
+CUST-000590,Nadia Larsen NI268 Ltd,corporate,corporate,NG,Nigeria,NGN,Agriculture,0,overdue,2024-08-23,2018-10-08,4,low,3055883.28,25,SYNTHETIC_NO_PII
+CUST-000591,Thandi Fernandez NI267 Ltd,sme,sme,NG,Nigeria,NGN,Logistics,0,current,2025-06-27,2025-01-17,1,low,3980830.96,69,SYNTHETIC_NO_PII
+CUST-000592,Santiago Costa,retail,retail,GB,United Kingdom,GBP,N/A,0,due_diligence,2026-05-13,2020-07-05,1,,1401669.19,32,SYNTHETIC_NO_PII
+CUST-000593,Tomas Farooq IN104 Ltd,nbfc,nbfc,IN,India,INR,N/A,0,current,2025-03-27,2022-08-01,1,high,3068556.28,29,SYNTHETIC_NO_PII
+CUST-000594,Rafael Petrova,retail,retail,IN,India,INR,N/A,1,current,2026-05-31,2021-12-15,1,low,3348723.95,25,SYNTHETIC_NO_PII
+CUST-000595,Freya Rahman,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2024-11-14,2018-08-06,1,high,2491347.6,63,SYNTHETIC_NO_PII
+CUST-000596,Keiko Tanaka,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2024-08-16,2023-04-10,1,medium,287542.74,83,SYNTHETIC_NO_PII
+CUST-000597,Sofia Silva,retail,retail,GB,United Kingdom,GBP,N/A,0,current,2026-04-03,2016-12-30,1,,1557069.09,57,SYNTHETIC_NO_PII
+CUST-000598,Luca Nair,retail,retail,AE,United Arab Emirates,AED,N/A,0,due_diligence,2025-11-03,2024-04-16,1,,3615418.42,83,SYNTHETIC_NO_PII
+CUST-000599,Victor Farooq,retail,retail,US,United States,USD,N/A,0,due_diligence,2025-07-10,2023-05-27,1,low,365438.29,60,SYNTHETIC_NO_PII
+CUST-000600,Hiro Mokoena UN792 Ltd,corporate,corporate,US,United States,USD,Real Estate,0,current,2024-11-22,2020-11-12,2,,3723017.11,73,SYNTHETIC_NO_PII

@@ -1,0 +1,246 @@
+# Risk, Fraud & Regulatory Intelligence Copilot - governed configuration
+# Every threshold that influences a regulatory decision lives here so that a
+# compliance officer can review, version and sign off on detection logic.
+
+copilot:
+  name: risk-fraud-regulatory-copilot
+  version: 1.0.0
+  environment: synthetic          # synthetic | staging | production
+  # A finding below this confidence is never auto-escalated; it is routed to
+  # human review only. Governed AI requirement: fail safe, not fail silent.
+  min_auto_escalation_confidence: 0.70
+  min_answer_confidence: 0.55
+  # Answers below this confidence must disclose the gap rather than assert.
+  abstention_threshold: 0.45
+
+paths:
+  warehouse_db: artifacts/warehouse.db
+  raw_dir: data/raw
+  gold_dir: data/gold
+  corpus_dir: docs/corpus
+  audit_log: artifacts/audit_log.jsonl
+  evidence_dir: artifacts/evidence
+  reports_dir: artifacts/reports
+  gold_labels: data/gold/ground_truth_labels.csv
+
+detection:
+  # Composite risk score weights. Sum must equal 1.0.
+  weights:
+    structuring: 0.28
+    velocity: 0.20
+    geographic: 0.16
+    account_takeover: 0.18
+    mule_network: 0.12
+    trade_based: 0.06
+  risk_bands:
+    high: 0.70
+    medium: 0.42
+
+  # A single high-confidence typology match is sufficient on its own. The
+  # weighted composite is a ranking device; these overrides stop a confirmed
+  # structuring or takeover pattern from being buried by dilution, and the
+  # override applied is always reported on the finding.
+  typology_override:
+    - rule_code: STRUCTURING
+      min_score: 0.75
+      floor_level: high
+    - rule_code: MULE_NETWORK
+      min_score: 0.75
+      floor_level: high
+    - rule_code: ACCOUNT_TAKEOVER
+      min_score: 0.70
+      floor_level: high
+    - rule_code: TRADE_BASED
+      min_score: 0.65
+      floor_level: medium
+    - rule_code: GEOGRAPHIC
+      min_score: 0.70
+      floor_level: medium
+
+  structuring:
+    # CTR / structuring - cash deposits deliberately kept below the filing line
+    ctr_threshold: 10000.00
+    lookback_days: 7
+    min_deposit_count: 3
+    amount_ceiling: 10000.00
+    amount_floor: 2000.00
+  velocity:
+    lookback_days: 30
+    baseline_days: 90
+    zscore_threshold: 3.0
+    mad_multiplier: 4.5
+    min_transactions: 8
+  geographic:
+    lookback_days: 90
+    high_risk_share_threshold: 0.30
+    elevated_share_threshold: 0.10
+    # A concentration percentage over one or two transactions is not a signal,
+    # it is a division. The share test is only applied once there is enough
+    # cross-border volume for the share to mean anything.
+    min_cross_border_txns: 20
+    impossible_travel_hours: 24
+    # Physically impossible travel is measured as implied speed between
+    # consecutive jurisdiction changes, not as a raw country count. Scheduled
+    # commercial aviation cruises at roughly 900 km/h, so a hop faster than that
+    # cannot be explained by travel and indicates credential compromise or
+    # identity substitution. Reference coordinates are capital-city centroids.
+    impossible_travel_kmh: 900
+    min_jurisdictions_in_window: 3
+    # Elevated-risk jurisdictions for concentration and inconsistent-location
+    # tests (clause GEO-2.1.1). Kept as configuration so a compliance officer
+    # can change the list without touching detection code.
+    risk_countries:
+      - NG
+      - RU
+      - IR
+      - KP
+      - SY
+      - PA
+      - KY
+      - VG
+      - MM
+      - LB
+  account_takeover:
+    lookback_days: 14
+    dormant_days: 60
+    new_device_amount: 5000.00
+    # Jurisdictions treated as elevated origin for the compromised-credential
+    # test (clause GEO-2.2.2). Broader than the concentration list because a
+    # single login from a known high-risk origin is material on its own.
+    risk_countries:
+      - NG
+      - RU
+      - PH
+      - RO
+      - KZ
+      - IR
+      - KP
+      - SY
+      - PA
+      - KY
+      - VG
+  mule_network:
+    lookback_days: 60
+    shared_device_min: 2
+    fan_in_min: 2
+    inflow_outflow_ratio: 1.20
+    pass_through_hours: 48
+  trade_based:
+    lookback_days: 120
+    round_amount: 5000.00
+    cross_border_only: true
+    min_wires: 3
+
+liquidity:
+  # Liquidity risk - NBFC / bank ALM view
+  lcr_min: 1.0
+  nsfr_min: 1.0
+  concentration_limit_pct: 0.25     # Basel large exposure: 25% of eligible capital
+  min_liquidity_buffer_pct: 0.10
+
+credit:
+  pd_high_threshold: 0.10           # probability of default
+  watchlist_threshold: 0.05
+  ecl_12m_threshold_pct: 0.015
+
+policy:
+  # Regulatory output generation
+  sar_min_amount: 5000.00
+  sar_score_threshold: 0.60
+  ctr_min_amount: 10000.00
+  ctr_score_threshold: 0.35
+  filing_types: [SAR, CTR, STR, MIAR, LIQUIDITY]
+  require_human_approval_for: [SAR, STR, MIAR]
+  auto_filing_allowed_for: [CTR]
+
+retrieval:
+  top_k_chunks: 5
+  min_chunk_score: 0.12
+  bm25_k1: 1.5
+  bm25_b: 0.75
+
+guardrails:
+  pii_patterns:
+    - "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+    - "\\b[A-Z]{2}\\d{2}[A-Z0-9]{10,14}\\b"
+  mask_pii_in_logs: true
+  block_on_evidence_failure: true
+  require_citation_for_regulatory_claim: true
+  redact_account_numbers_in_shared_outputs: true
+
+# Reference geometry for the impossible-travel speed test. Capital-city
+# centroids, [latitude, longitude] in degrees. Approximate by design: the test
+# needs a plausibility ceiling, not survey accuracy.
+geo_reference:
+  centroids:
+    "IN": [28.61, 77.21]      # New Delhi
+    "GB": [51.51, -0.13]      # London
+    "US": [38.91, -77.04]     # Washington DC
+    "AE": [24.45, 54.38]      # Abu Dhabi
+    "SG": [1.35, 103.82]      # Singapore
+    "NG": [9.06, 7.49]        # Abuja
+    "DE": [52.52, 13.40]      # Berlin
+    "PA": [8.98, -79.52]      # Panama City
+    "KY": [19.29, -81.38]     # George Town
+    "VG": [18.43, -64.62]     # Road Town
+    "RU": [55.76, 37.62]      # Moscow
+    "IR": [35.69, 51.39]      # Tehran
+    "KP": [39.04, 125.76]     # Pyongyang
+    "SY": [33.51, 36.29]      # Damascus
+    "MM": [19.76, 96.17]      # Naypyidaw
+    "LB": [33.89, 35.50]      # Beirut
+    "PH": [14.60, 120.98]     # Manila
+    "RO": [44.43, 26.10]      # Bucharest
+    "KZ": [51.17, 71.45]      # Astana
+    "CN": [39.90, 116.41]     # Beijing
+    "HK": [22.32, 114.17]     # Hong Kong
+    "TR": [41.01, 28.98]      # Ankara
+    "AU": [-35.28, 149.13]    # Canberra
+    "ZA": [-25.75, 28.19]     # Pretoria
+    "BR": [-15.79, -47.88]    # Brasilia
+    "SA": [24.71, 46.68]      # Riyadh
+    "EG": [30.04, 31.24]      # Cairo
+    "JP": [35.68, 139.69]     # Tokyo
+    "CA": [45.42, -75.70]     # Ottawa
+    "MX": [19.43, -99.13]     # Mexico City
+    "CH": [47.38, 8.54]       # Bern
+    "IT": [41.90, 12.50]      # Rome
+    "ES": [40.42, -3.70]      # Madrid
+    "FR": [48.86, 2.35]       # Paris
+    "NL": [52.37, 4.90]       # Amsterdam
+    "ID": [-6.21, 106.85]     # Jakarta
+    "VN": [21.03, 105.85]     # Hanoi
+    "PK": [33.68, 73.05]      # Islamabad
+    "BD": [23.81, 90.41]      # Dhaka
+    "KE": [-1.29, 36.82]      # Nairobi
+    "GH": [5.60, -0.19]       # Accra
+    "CO": [4.71, -74.07]      # Bogota
+    "AR": [-34.60, -58.38]    # Buenos Aires
+    "IE": [53.35, -6.26]      # Dublin
+    "SE": [59.33, 18.07]      # Stockholm
+    "NO": [59.91, 10.75]      # Oslo
+    "PL": [52.23, 21.01]      # Warsaw
+    "GR": [37.98, 23.73]      # Athens
+    "TR2": [41.01, 28.98]     # Ankara (alias)
+
+mcp:  # All connectors fail soft in synthetic mode; no external call is attempted
+  # unless `enabled` is true and credentials are present.
+  jira:
+    enabled: false
+    base_url: ""
+    project_key: RISK
+  slack:
+    enabled: false
+    webhook_url: ""
+    channel: "#risk-alerts"
+  filesystem_evidence:
+    enabled: true
+
+snowflake:
+  # DDL in sql/ is dialect-portable; the local runtime executes the same
+  # logic through sqlite so the full flow runs without a warehouse.
+  account: ""
+  warehouse: RISK_WH
+  database: RISK_INTELLIGENCE
+  schema: CORE
+  role: RISK_COPILOT_ROLE

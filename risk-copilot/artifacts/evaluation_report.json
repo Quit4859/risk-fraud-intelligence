@@ -1,0 +1,255 @@
+{
+  "generated_at": "2026-09-27T08:49:09Z",
+  "run_id": "run-20260927T084820-a6bbdf",
+  "dataset_fingerprint": "2b059994fc464c45",
+  "as_of_date": "2026-09-26",
+  "population": 600,
+  "planted_fraud_cases": 81,
+  "control_cases": 519,
+  "thresholds": {
+    "high": 0.7,
+    "medium": 0.42
+  },
+  "detect_high_only": {
+    "tp": 56,
+    "fp": 28,
+    "fn": 25,
+    "precision": 0.6667,
+    "recall": 0.6914,
+    "f1": 0.6788,
+    "tn": 491,
+    "false_positive_rate": 0.0539,
+    "flagged": 84
+  },
+  "detect_medium_or_high": {
+    "tp": 77,
+    "fp": 34,
+    "fn": 4,
+    "precision": 0.6937,
+    "recall": 0.9506,
+    "f1": 0.8021,
+    "tn": 485,
+    "false_positive_rate": 0.0655,
+    "flagged": 111
+  },
+  "by_scenario": {
+    "structuring": {
+      "planted": 14,
+      "detected_high": 14,
+      "detected_medium_plus": 14,
+      "correct_rule_fired": 14,
+      "wrong_or_no_rule": 0,
+      "misses": [],
+      "recall_high": 1.0,
+      "recall_medium_plus": 1.0,
+      "rule_attribution": 1.0
+    },
+    "account_takeover": {
+      "planted": 16,
+      "detected_high": 16,
+      "detected_medium_plus": 16,
+      "correct_rule_fired": 16,
+      "wrong_or_no_rule": 0,
+      "misses": [],
+      "recall_high": 1.0,
+      "recall_medium_plus": 1.0,
+      "rule_attribution": 1.0
+    },
+    "geographic": {
+      "planted": 18,
+      "detected_high": 1,
+      "detected_medium_plus": 14,
+      "correct_rule_fired": 18,
+      "wrong_or_no_rule": 0,
+      "misses": [],
+      "recall_high": 0.0556,
+      "recall_medium_plus": 0.7778,
+      "rule_attribution": 1.0
+    },
+    "trade_based": {
+      "planted": 10,
+      "detected_high": 2,
+      "detected_medium_plus": 10,
+      "correct_rule_fired": 10,
+      "wrong_or_no_rule": 0,
+      "misses": [],
+      "recall_high": 0.2,
+      "recall_medium_plus": 1.0,
+      "rule_attribution": 1.0
+    },
+    "mule_network": {
+      "planted": 23,
+      "detected_high": 23,
+      "detected_medium_plus": 23,
+      "correct_rule_fired": 23,
+      "wrong_or_no_rule": 0,
+      "misses": [],
+      "recall_high": 1.0,
+      "recall_medium_plus": 1.0,
+      "rule_attribution": 1.0
+    },
+    "benign_control": {
+      "planted": 0,
+      "detected_high": 0,
+      "detected_medium_plus": 0,
+      "correct_rule_fired": 0,
+      "wrong_or_no_rule": 0,
+      "misses": []
+    }
+  },
+  "false_positive_sample": [
+    {
+      "customer_id": "CUST-000146",
+      "risk_level": "medium",
+      "score": 0.4867,
+      "fired_rules": [
+        "VELOCITY",
+        "STRUCTURING",
+        "GEOGRAPHIC"
+      ],
+      "primary_reason": "Daily spend on 2026-09-25 of USD 653,108 is 21.2 robust z-scores above the 90-day median of USD 26,232 (1 transactions)."
+    },
+    {
+      "customer_id": "CUST-000044",
+      "risk_level": "high",
+      "score": 0.4017,
+      "fired_rules": [
+        "STRUCTURING",
+        "VELOCITY"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 17,332 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000255",
+      "risk_level": "high",
+      "score": 0.3556,
+      "fired_rules": [
+        "STRUCTURING",
+        "VELOCITY"
+      ],
+      "primary_reason": "4 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 16,232 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000466",
+      "risk_level": "high",
+      "score": 0.3104,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "4 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 31,127 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000199",
+      "risk_level": "medium",
+      "score": 0.3,
+      "fired_rules": [
+        "VELOCITY",
+        "GEOGRAPHIC"
+      ],
+      "primary_reason": "Daily spend on 2026-09-24 of USD 23,669 is 7.0 robust z-scores above the 90-day median of USD 3,069 (2 transactions)."
+    },
+    {
+      "customer_id": "CUST-000170",
+      "risk_level": "high",
+      "score": 0.2921,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 23,455 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000189",
+      "risk_level": "high",
+      "score": 0.2783,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 23,401 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000559",
+      "risk_level": "high",
+      "score": 0.2758,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 23,913 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000445",
+      "risk_level": "high",
+      "score": 0.2721,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 16,215 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000016",
+      "risk_level": "high",
+      "score": 0.2656,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 16,086 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000303",
+      "risk_level": "high",
+      "score": 0.2533,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "4 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 15,524 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000325",
+      "risk_level": "high",
+      "score": 0.2529,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "4 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 17,752 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000014",
+      "risk_level": "high",
+      "score": 0.2516,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "5 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 14,365 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000527",
+      "risk_level": "high",
+      "score": 0.2509,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 21,157 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    },
+    {
+      "customer_id": "CUST-000408",
+      "risk_level": "high",
+      "score": 0.2478,
+      "fired_rules": [
+        "STRUCTURING"
+      ],
+      "primary_reason": "3 cash deposits, each below the USD 10,000 reporting threshold (largest USD 9,800), aggregated to USD 18,654 within 72 hours - threshold avoidance under clause STR-2.1.2."
+    }
+  ],
+  "false_positive_count": 34,
+  "performance": {
+    "customers_scored": 600,
+    "wall_clock_seconds": 48.68,
+    "ms_per_customer": 81.13
+  },
+  "detection_thresholds_configured": {
+    "structuring_ctr_amount": 10000.0,
+    "structuring_window_days": 7,
+    "velocity_zscore": 3.0,
+    "geographic_high_risk_share": 0.3,
+    "impossible_travel_hours": 24
+  }
+}
