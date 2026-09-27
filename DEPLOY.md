@@ -6,7 +6,7 @@ and nothing to install locally before deploying.
 
 ## 1. Deploy
 
-From the repository root (`risk-copilot/`):
+From the repository root:
 
 ```bash
 npm i -g vercel          # once
