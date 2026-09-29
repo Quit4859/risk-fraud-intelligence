@@ -4,3 +4,4 @@
 # bloat the function bundle and slow every cold start.
 pyyaml>=6.0
 requests>=2.31
+gunicorn>=23.0

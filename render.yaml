@@ -1,0 +1,32 @@
+# Render deployment (free web service, auto-deploys from GitHub)
+#
+# 1. Sign up at render.com, connect this repo.
+# 2. Click "Add Web Service", pick this repo, and Render fills the defaults
+#    from this file:
+#      Build Command  -> pip install -r requirements.txt
+#      Start Command  -> gunicorn wsgi:app --workers 1 --threads 4 \
+#                        --timeout 300 --bind 0.0.0.0:$PORT
+#      Instance Type  -> Free (Standard)
+#      Region         -> any
+# 3. Deploy. On the first request the copilot bootstraps the synthetic
+#    dataset into /tmp (~2.6 s cold start), then every request is <50 ms.
+#
+# No Vercel account, no Next.js build step, no framework. The same Python
+# code path that Vercel used serves both the API and the static frontend.
+
+serviceType: web
+name: risk-fraud-intelligence
+envFiles:
+  - .env.render
+build:
+  command: pip install -r requirements.txt
+runCommand: gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:$PORT
+plan: free
+region: oregon
+branch: main
+env:
+  - key: PYTHON_VERSION
+    value: 3.11
+  - key: RISK_PROFILE
+    value: demo
+autoDeploy: true

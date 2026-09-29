@@ -1,32 +1,22 @@
-# Deploying to Vercel
+# Deploying
 
-The Vercel deployment is a **Python serverless function** (`api/index.py`) plus a
-**dependency-free static UI** (`public/index.html`). No build step, no framework,
-and nothing to install locally before deploying.
+The project is a **Python backend** (the governed copilot) plus a **static
+frontend** (`public/index.html`). One Python server serves both — no Node,
+no framework, no build step. Deploy on the free tier of **Render.com**:
 
-## 1. Deploy
+## 1. Deploy (free, from GitHub)
 
-From the repository root:
-
-```bash
-npm i -g vercel          # once
-vercel                   # preview
-vercel --prod            # production
-```
-
-`vercel.json` is committed, so the build config, the function memory/duration
-and the daily cron are applied automatically. There is nothing else to configure.
-
-Verify the build configuration is being picked up:
-
-```bash
-vercel build --prod && vercel deploy --prebuilt --prod
-```
+1. Sign up at [render.com](https://render.com), connect this repo.
+2. Click **Add Web Service**, pick this repo, and Render reads `render.yaml`:
+   - Build command: `pip install -r requirements.txt`
+   - Start command: `gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:$PORT`
+   - Instance type: **Free** (Standard)
+3. Deploy.
 
 ## 2. What happens on the first request
 
-Vercel's filesystem is read-only apart from `/tmp`, so the function bootstraps
-itself on the cold start of each warm instance:
+Render's filesystem is read-only apart from `/tmp`, so the copilot
+bootstraps itself on the cold start of each warm instance:
 
 | Step | Cost |
 |---|---|
@@ -35,10 +25,6 @@ itself on the cold start of each warm instance:
 | Warm the detector on one customer | ~0.1 s |
 
 Measured cold start: **2.6 s**. Warm requests: **<50 ms**.
-
-Nothing is generated on a schedule in the repository and no 44 MB extract is
-uploaded — the bundle is **0.5 MB**, verified by
-`python scripts/verify_bundle.py`.
 
 Set `RISK_PROFILE=full` to generate the full 600-customer / 400-day dataset
 instead of the compact demo profile (cold start rises to ~8 s).
@@ -68,7 +54,7 @@ packs.
 | `GET` | `/api?action=findings&limit=25` | ranked findings |
 | `GET` | `/api?action=policy&q=structuring` | citable clauses |
 | `POST` | `{"action":"file","customer_id":"...","filing_type":"SAR"}` | draft filing (always `PENDING_REVIEW`) |
-| `POST` | `{"action":"approve","filing_id":"...","approver":"name@bank"}` | record human approval |
+| `POST` | `{"action":"approve","filing_id":"...","approver":"name@bank.com"}` | record human approval |
 | `POST` | `{"action":"escalate","customer_id":"..."}` | MCP escalation ladder |
 | `POST` | `{"action":"board_pack"}` / `{"action":"liquidity"}` | MIAR / prudential packs |
 | `GET` | `/api?action=audit&limit=50` | audit trail |
@@ -88,7 +74,14 @@ require `POST` and are written to the audit log.
 
 ## 6. Local development
 
-The serverless layer is fully runnable without Vercel:
+The server is fully runnable without any host:
+
+```bash
+pip install -r requirements.txt
+PORT=5000 gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:5000
+```
+
+Or exercise the exact handler code path without a server:
 
 ```bash
 python scripts/verify_vercel.py    # exercises the exact handler code path
