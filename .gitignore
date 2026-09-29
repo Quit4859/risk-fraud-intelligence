@@ -6,4 +6,6 @@ __pycache__/
 *.pyc
 node_modules/
 .vercel/
-.env*
+.env
+.env.*
+!.env.example
