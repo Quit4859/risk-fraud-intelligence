@@ -1,0 +1,20 @@
+[generate_synthetic_data] as_of=2026-09-28 seed=42
+  customers                     200
+  accounts                      310
+  transactions               33,606
+  ground_truth_labels           200
+  credit_portfolio              200
+  liquidity_metrics              90
+  counterparties                 40
+  entity_exposures              120
+  alert_log                      34
+  planted: {"account_takeover": 16, "benign_control": 119, "geographic": 18, "mule_network": 23, "structuring": 14, "trade_based": 10}
+BEFORE (git f3a4a90, old report_formatter.approve):
+  self-approval by preparer 'risk-fraud-regulatory-copilot' -> SUCCESS / APPROVED
+  second approval 'c.d@bank.com' over 'a.b@bank.com'      -> SUCCESS, approver overwritten
+
+AFTER (four-eyes enforced in backend/governance/filings.py):
+  self-approval by preparer 'analyst@bank.com'             -> four_eyes_violation
+  approval with empty comment                              -> comment_required
+  approval by distinct approver with comment               -> APPROVED
+  duplicate approval                                       -> already_approved

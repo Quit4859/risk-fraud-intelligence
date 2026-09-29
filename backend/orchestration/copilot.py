@@ -186,7 +186,8 @@ class RiskCopilot:
         }
 
     # -------------------------------------------------------------- filings
-    def generate_filing(self, customer_id: str, filing_type: str = "SAR") -> Dict[str, Any]:
+    def generate_filing(self, customer_id: str, filing_type: str = "SAR",
+                         preparer: str = "analyst") -> Dict[str, Any]:
         case = self.analyze_customer(customer_id, persist=True)
         finding, match, evidence = case["finding"], case["policy"], case["evidence"]
         if case["status"] == "BLOCKED":
@@ -226,7 +227,7 @@ class RiskCopilot:
         report = self.reporter.build(
             filing_type, self.run_id, self.wh,
             finding=finding, evidence=evidence, policy=match,
-            triggered=case["triggered_obligations"])
+            triggered=case["triggered_obligations"], preparer=preparer)
         report["governance"]["filing_gate"] = {
             "filing_type": filing_type,
             "satisfied_by": gate_basis or ["cash aggregation threshold met"],
@@ -244,12 +245,16 @@ class RiskCopilot:
         return {"success": True, "filing_id": report["report_id"], "path": path,
                 "report": report}
 
-    def approve_filing(self, filing_id: str, approver: str) -> Dict[str, Any]:
-        out = self.reporter.approve(filing_id, approver, self.wh)
-        self.audit.record("filing.approve", filing_id,
-                          "APPROVED" if out.get("success") else "REJECTED",
-                          out.get("error", f"approved by {approver}"),
-                          {"approver": approver})
+    def approve_filing(self, filing_id: str, approver: str,
+                       comment: str = "", action: str = "approve") -> Dict[str, Any]:
+        out = self.reporter.approve(filing_id, approver, self.wh,
+                                    comment=comment, action=action)
+        self.audit.record(f"filing.{action}", filing_id,
+                          "APPROVED" if out.get("success") else "REFUSED",
+                          out.get("reason") or out.get("error")
+                          or f"{action}d by {approver}",
+                          {"approver": approver, "comment": comment,
+                           "error": out.get("error"), "preparer": out.get("preparer")})
         return out
 
     def build_board_pack(self) -> Dict[str, Any]:

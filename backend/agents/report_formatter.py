@@ -30,6 +30,11 @@ STATUS_DRAFT = "PENDING_REVIEW"
 STATUS_APPROVED = "APPROVED"
 STATUS_FILED = "FILED"
 
+#: Preparer identity used when no analyst is supplied. Filings prepared by the
+#: system still require a *named human* to approve them; the system can never be
+#: that human.
+PREPARER_SYSTEM = "risk-fraud-regulatory-copilot"
+
 
 def _body_hash(body: Dict[str, Any]) -> str:
     return hashlib.sha256(
@@ -49,10 +54,16 @@ class ReportFormatterAgent:
 
     # -- provenance ---------------------------------------------------------
     def _stamp(self, run_id: str, warehouse, report_type: str,
-                customer_id: Optional[str]) -> Dict[str, Any]:
+                customer_id: Optional[str],
+                preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         return {
             "generated_at": datetime.utcnow().isoformat(timespec="seconds") + "Z",
             "generated_by": "risk-fraud-regulatory-copilot",
+            # The human on whose behalf the copilot drafted. Four-eyes compares
+            # the approver against this, so it must be a real principal and not
+            # just the copilot's own name.
+            "preparer": preparer,
+            "preparer_is_system": preparer == PREPARER_SYSTEM,
             "copilot_version": self.cfg["copilot"]["version"],
             "config_version": self.cfg["copilot"]["version"],
             "environment": self.cfg["copilot"]["environment"],
@@ -64,7 +75,8 @@ class ReportFormatterAgent:
     # -- SAR ----------------------------------------------------------------
     def build_sar(self, finding: Dict[str, Any], evidence: Dict[str, Any],
                   policy: Dict[str, Any], run_id: str, warehouse,
-                  triggered: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+                  triggered: Optional[List[Dict[str, Any]]] = None,
+                  preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         signals = finding.get("signals") or {}
         clauses = policy.get("governing_clauses", [])
         txns = [i for i in evidence.get("items", [])
@@ -153,12 +165,13 @@ class ReportFormatterAgent:
                               "named compliance officer."),
             },
         }
-        return self._finalise(body, run_id, warehouse, finding, evidence)
+        return self._finalise(body, run_id, warehouse, finding, evidence, preparer)
 
     # -- CTR ----------------------------------------------------------------
     def build_ctr(self, finding: Dict[str, Any], evidence: Dict[str, Any],
                   policy: Dict[str, Any], run_id: str, warehouse,
-                  triggered: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+                  triggered: Optional[List[Dict[str, Any]]] = None,
+                  preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         cash_items = [i for i in evidence.get("items", []) if i["source"] == "TRANSACTION"]
         rows = []
         for item in cash_items:
@@ -220,13 +233,15 @@ class ReportFormatterAgent:
                 "approval_clause": "FILE-2.1.1",
             },
         }
-        return self._finalise(body, run_id, warehouse, finding, evidence)
+        return self._finalise(body, run_id, warehouse, finding, evidence, preparer)
 
     # -- STR (India) --------------------------------------------------------
     def build_str(self, finding: Dict[str, Any], evidence: Dict[str, Any],
                   policy: Dict[str, Any], run_id: str, warehouse,
-                  triggered: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
-        sar = self.build_sar(finding, evidence, policy, run_id, warehouse, triggered)
+                  triggered: Optional[List[Dict[str, Any]]] = None,
+                  preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
+        sar = self.build_sar(finding, evidence, policy, run_id, warehouse,
+                             triggered, preparer)
         deadline = (datetime.utcnow() + timedelta(hours=24)).isoformat(timespec="seconds") + "Z"
         sar["report_type"] = "STR"
         sar["report_id"] = self._report_id("STR", finding.get("customer_id"), run_id)
@@ -237,7 +252,8 @@ class ReportFormatterAgent:
 
     # -- MIAR (management information about risk) ---------------------------
     def build_miar(self, findings: List[Dict[str, Any]], warehouse, run_id: str,
-                   period_days: int = 30) -> Dict[str, Any]:
+                   period_days: int = 30,
+                   preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         as_of = warehouse.as_of()
         dist = {"high": 0, "medium": 0, "low": 0, "unknown": 0}
         for f in findings:
@@ -283,10 +299,11 @@ class ReportFormatterAgent:
                              "Compliance Officer before circulation.",
             },
         }
-        return self._finalise(body, run_id, warehouse, None, None)
+        return self._finalise(body, run_id, warehouse, None, None, preparer)
 
     # -- Liquidity / prudential report --------------------------------------
-    def build_liquidity(self, warehouse, run_id: str) -> Dict[str, Any]:
+    def build_liquidity(self, warehouse, run_id: str,
+                        preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         positions = warehouse.query("SELECT * FROM sem_liquidity_position")
         breaches = warehouse.query(
             "SELECT * FROM sem_large_exposures WHERE limit_status != 'WITHIN_LIMIT'")
@@ -321,11 +338,12 @@ class ReportFormatterAgent:
                 "statement": "Prudential position report for the board risk committee.",
             },
         }
-        return self._finalise(body, run_id, warehouse, None, None)
+        return self._finalise(body, run_id, warehouse, None, None, preparer)
 
     # -- Case file (investigation working paper) -----------------------------
     def build_investigation(self, finding: Dict[str, Any], evidence: Dict[str, Any],
-                            policy: Dict[str, Any], run_id: str, warehouse) -> Dict[str, Any]:
+                            policy: Dict[str, Any], run_id: str, warehouse,
+                            preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         body = {
             "report_type": "INVESTIGATION",
             "report_id": self._report_id("INV", finding.get("customer_id"), run_id),
@@ -349,7 +367,7 @@ class ReportFormatterAgent:
             ],
             "attestation": {"approval_required": True, "approval_clause": "FILE-2.1.1"},
         }
-        return self._finalise(body, run_id, warehouse, finding, evidence)
+        return self._finalise(body, run_id, warehouse, finding, evidence, preparer)
 
     # -- generic ------------------------------------------------------------
     def build(self, report_type: str, run_id: str, warehouse, **kwargs) -> Dict[str, Any]:
@@ -366,19 +384,24 @@ class ReportFormatterAgent:
             raise ValueError(f"unsupported report type: {report_type}. "
                              f"Supported: {', '.join(sorted(table))}")
         # run_id and warehouse are passed by keyword so the per-report
-        # signatures can stay in the order that reads best.
+        # signatures can stay in the order that reads best. `preparer` names the
+        # human on whose behalf the copilot drafted the filing; four-eyes
+        # compares it against the approver later.
+        kwargs.setdefault("preparer", PREPARER_SYSTEM)
         return fn(run_id=run_id, warehouse=warehouse, **kwargs)
 
     # -- helpers ------------------------------------------------------------
     def _finalise(self, body: Dict[str, Any], run_id: str, warehouse,
                   finding: Optional[Dict[str, Any]],
-                  evidence: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+                  evidence: Optional[Dict[str, Any]],
+                  preparer: str = PREPARER_SYSTEM) -> Dict[str, Any]:
         claims = _count_claims(body)
         coverage = claims["with_citation"] / claims["total"] if claims["total"] else 1.0
         body["governance"] = {
             **self._stamp(run_id, warehouse, body["report_type"],
                           body.get("subject", {}).get("customer_id")
-                          if isinstance(body.get("subject"), dict) else None),
+                          if isinstance(body.get("subject"), dict) else None,
+                          preparer),
             "content_hash": _body_hash(body),
             "regulatory_claims_total": claims["total"],
             "regulatory_claims_cited": claims["with_citation"],
@@ -448,25 +471,17 @@ class ReportFormatterAgent:
             json.dump(filing, fh, indent=2, default=str)
         return path
 
-    def approve(self, filing_id: str, approver: str, warehouse) -> Dict[str, Any]:
-        """The only path that may move a filing out of PENDING_REVIEW."""
-        row = warehouse.one("SELECT report_json FROM filings WHERE filing_id = ?", (filing_id,))
-        if not row:
-            return {"success": False, "error": f"unknown filing {filing_id}"}
-        if not approver or approver.strip().lower() in ("", "bot", "copilot", "auto"):
-            return {"success": False,
-                    "error": "a named human approver is required (clause FILE-2.1.1)"}
-        report = json.loads(row["report_json"])
-        report["governance"]["status"] = STATUS_APPROVED
-        report["governance"]["approver"] = approver
-        report["governance"]["approved_at"] = datetime.utcnow().isoformat(timespec="seconds") + "Z"
-        warehouse.execute(
-            "UPDATE filings SET report_json = ?, status = ?, approver = ?, approved_at = ?"
-            " WHERE filing_id = ?",
-            (json.dumps(report, default=str), STATUS_APPROVED, approver,
-             report["governance"]["approved_at"], filing_id))
-        return {"success": True, "filing_id": filing_id, "approver": approver,
-                "status": STATUS_APPROVED}
+    def approve(self, filing_id: str, approver: str, warehouse,
+                comment: str = "", action: str = "approve") -> Dict[str, Any]:
+        """The only path that may move a filing out of PENDING_REVIEW.
+
+        All four-eyes and state-transition rules live in
+        :class:`backend.governance.filings.FilingGovernance` so they can be
+        tested in isolation. This method is the reporter's adapter onto them.
+        """
+        from backend.governance.filings import FilingStore
+
+        return FilingStore.decide(warehouse, filing_id, approver, comment, action)
 
 
 # --------------------------------------------------------------------------

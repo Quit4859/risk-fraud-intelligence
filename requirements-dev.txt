@@ -1,0 +1,14 @@
+# Development and CI dependencies. The runtime itself needs only pyyaml,
+# requests and gunicorn (requirements.txt) so the deployed function bundle and
+# cold start stay small.
+pytest>=8.0
+pytest-timeout>=2.2
+# Optional extras used only when Snowflake is actually configured. Imported
+# lazily by backend/engine/snowflake_warehouse.py, so the local fallback path
+# and CI never need these installed.
+#   snowflake-connector-python>=3.12
+#   snowflake-sqlalchemy>=1.6
+# Offline Snowflake dialect validation for sql/ without a live account:
+#   sqlglot>=25.0
+# Local Streamlit mirror (Phase 5):
+#   streamlit>=1.40
