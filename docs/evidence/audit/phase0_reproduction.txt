@@ -1,0 +1,59 @@
+========================================================================
+PHASE 0 REPRODUCTION LOG - risk-fraud-intelligence
+profile: demo (200 customers, 150 days, seed 42)
+========================================================================
+
+--- B3 fraud prevalence ---
+population 200 fraud 81
+Counter({'benign_control': 119, 'mule_network': 23, 'geographic': 18, 'account_takeover': 16, 'structuring': 14, 'trade_based': 10})
+prevalence = 40.5%
+
+--- B1 example questions on cold start (findings table empty) ---
+findings rows at boot: 1
+  conf=0.81 guard=PASS rows= 30 intent=structuring_exposure   | which customers are structuring cash to avoid the 
+  conf=0.99 guard=PASS rows=  1 intent=top_risks              | show the top 10 highest risk customers
+  conf=0.99 guard=PASS rows=  1 intent=customer_risk_profile  | assess the risk profile of customer CUST-000123
+  conf=0.87 guard=PASS rows=  1 intent=explain_signal         | why was CUST-000123 flagged?
+  conf=0.92 guard=PASS rows=  5 intent=filing_obligation      | do I need to file a SAR for CUST-000123?
+  conf=0.92 guard=PASS rows=  1 intent=mule_network           | which mule network clusters are active?
+  conf=0.92 guard=PASS rows=  1 intent=policy_question        | what does the regulation say about politically exp
+  conf=0.81 guard=PASS rows=  3 intent=liquidity_position     | what is our liquidity position and are there large
+  conf=0.92 guard=PASS rows=  3 intent=rule_explanation       | explain the structuring rule
+  conf=0.66 guard=PASS rows=  5 intent=policy_question        | show vulnerable obligors above the 10% PD threshol
+  conf=0.45 guard=WARN rows=  3 intent=policy_question        | where are we geographically concentrated in elevat
+  conf=0.28 guard=FAIL rows=  1 intent=portfolio_summary      | what is the current portfolio risk position?
+      violations: ['confidence_below_abstention_threshold']
+FAILING EXAMPLES: 1/12
+
+--- B2 structuring precision ---
+rows=30/200 (15.0%)  TP=14 FP=16 FN=0 P=0.467 R=1.000 F1=0.636
+root cause - candidate band 2000-10000:
+  customers with >=3 cash deposits in band: 170
+  of which benign controls: 101 of 119
+
+--- B-new four-eyes approval (brief claims this exists) ---
+generated_by: risk-fraud-regulatory-copilot status: PENDING_REVIEW
+approver == preparer -> {'success': True, 'filing_id': 'SAR-20260929-000123-b35047', 'approver': 'risk-fraud-regulatory-copilot', 'status': 'APPROVED'}
+approver == 'bot'    -> {'success': False, 'error': 'a named human approver is required (clause FILE-2.1.1)'}
+named approver       -> {'success': True, 'filing_id': 'SAR-20260929-000123-b35047', 'approver': 'a.b@bank.com', 'status': 'APPROVED'}
+re-approve APPROVED  -> {'success': True, 'filing_id': 'SAR-20260929-000123-b35047', 'approver': 'c.d@bank.com', 'status': 'APPROVED'}
+DEFECT: no preparer!=approver check, no status guard, no duplicate-approval guard
+
+--- B6 api/index.py::_json string truncation ---
+valid JSON: NO -> Unterminated string starting at: line 1 column 199184 (char 199183)  (len=200000, truncated at 200000)
+
+--- B7 wsgi.py::_serve_static path traversal ---
+  /../wsgi.py                         -> SERVED [('Content-Type', 'application/octet-stream'), ('Content-Length', '5263')]
+  /../../etc/passwd                   -> None
+  /..%2fwsgi.py                       -> None
+  /index.html                         -> SERVED [('Content-Type', 'text/html; charset=utf-8'), ('Content-Length', '14187')]
+  /../config/settings.yaml            -> SERVED [('Content-Type', 'application/octet-stream'), ('Content-Length', '7896')]
+DEFECT: no realpath containment; _STATIC_EXTS defined at wsgi.py:31 but never used
+
+--- B5 structuring window config vs code ---
+settings.yaml detection.structuring.lookback_days = 7
+fraud_detector.py:128 hardcodes 'if gap > 72' (72h aggregation)
+README.md:204 says 'rolling 72 hours'
+DEFECT: three values, two meanings; the tunable one is the no-op
+
+========================================================================
