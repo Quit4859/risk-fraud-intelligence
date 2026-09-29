@@ -95,14 +95,32 @@ class StructuringDetector(BaseDetector):
 
     Implements the 72-hour rolling aggregation of clause STR-2.1.2 rather than
     the naive same-day test, because that is what the regulation actually says.
+    The window is read from ``aggregation_window_hours`` rather than hardcoded,
+    so the number quoted in the narrative cannot drift from the number applied.
+
+    Three tests make the difference between this and a false-positive machine:
+
+    1. every candidate deposit must sit in the *avoidance band* - a configured
+       fraction (default 85-99.9%) of the reporting threshold. A 2,100 deposit
+       is ordinary cash use; a 9,400 deposit three days running is not.
+    2. at least ``min_deposit_count`` of them must fall inside one
+       aggregation window and sum above the threshold.
+    3. HIGH additionally requires corroboration (clause STR-2.2.1): a
+       pass-through withdrawal or a new counterparty in the window. Without it
+       the case is capped below the HIGH band, because an aggregation alone is
+       weak evidence.
     """
 
     rule_code = "STRUCTURING"
 
     def run(self, customer_id: str) -> Dict[str, Any]:
         c = self.det["structuring"]
-        days = c["lookback_days"]
-        start = self._window_start(days)
+        threshold = float(c["ctr_threshold"])
+        window_hours = float(c["aggregation_window_hours"])
+        band_low = threshold * float(c.get("band_low_ratio", 0.85))
+        band_high = threshold * float(c.get("band_high_ratio", 0.999))
+        start = self._window_start(int(c["candidate_lookback_days"]))
+
         rows = _rows(self.wh, """
             SELECT transaction_id, transaction_ts, business_date, amount, channel, currency
             FROM transactions
@@ -113,19 +131,21 @@ class StructuringDetector(BaseDetector):
               AND amount >= ?
               AND business_date >= ?
             ORDER BY transaction_ts
-        """, (customer_id, c["amount_ceiling"], c["amount_floor"], start))
+        """, (customer_id, band_high, band_low, start))
 
         if len(rows) < c["min_deposit_count"]:
-            return self.empty(customer_id, f"fewer_than_{c['min_deposit_count']}_sub_threshold_cash_deposits")
+            return self.empty(
+                customer_id,
+                f"fewer_than_{c['min_deposit_count']}_cash_deposits_in_the_"
+                f"avoidance_band_{band_low:,.0f}-{band_high:,.0f}")
 
-        threshold = c["ctr_threshold"]
         rolling = []
         for i, r in enumerate(rows):
             j = i
             total = 0.0
             while j < len(rows):
                 gap = _hours_between(rows[i]["transaction_ts"], rows[j]["transaction_ts"])
-                if gap > 72:
+                if gap > window_hours:
                     break
                 total += rows[j]["amount"]
                 j += 1
@@ -141,55 +161,122 @@ class StructuringDetector(BaseDetector):
         reasons, evidence, metrics = [], [], {}
         score = 0.0
         confidence = 0.40 + self._evidence_bonus(len(rows))
+        corroboration: List[str] = []
 
         if rolling:
             worst = max(rolling, key=lambda w: w["aggregate"])
-            evidence = worst["txn_ids"]
-            # Score rises with how badly the aggregate clears the line and how
-            # many deposits were needed to hide it.
+            evidence = list(worst["txn_ids"])
             ratio = worst["aggregate"] / threshold
             count_penalty = 1 + min(0.2, 0.02 * worst["deposit_count"])
-            score = min(0.97, (0.62 + min(0.3, 0.12 * (ratio - 1))) * count_penalty)
+            score = min(0.97, (0.55 + min(0.28, 0.12 * (ratio - 1))) * count_penalty)
             reasons.append(
-                f"{worst['deposit_count']} cash deposits, each below the "
-                f"USD {threshold:,.0f} reporting threshold (largest "
-                f"USD {threshold * 0.98:,.0f}), aggregated to "
-                f"USD {worst['aggregate']:,.0f} within 72 hours - threshold "
-                "avoidance under clause STR-2.1.2.")
+                f"{worst['deposit_count']} cash deposits, each between "
+                f"USD {band_low:,.0f} and USD {band_high:,.0f} - deliberately "
+                f"inside the USD {threshold:,.0f} reporting line - aggregated to "
+                f"USD {worst['aggregate']:,.0f} within {int(window_hours)} hours. "
+                f"Threshold avoidance under clause STR-2.1.2.")
             confidence = min(0.95, confidence + 0.25)
             metrics = {
                 "worst_window": worst,
                 "window_count": len(rolling),
                 "deposits_in_window": len(rows),
                 "reporting_threshold": threshold,
-                "aggregation_rule": "72h rolling, sub-threshold cash only",
+                "avoidance_band": [round(band_low, 2), round(band_high, 2)],
+                "aggregation_window_hours": int(window_hours),
+                "aggregation_rule": (
+                    f"{int(window_hours)}h rolling, sub-threshold cash only"),
             }
 
-        # Downstream pass-through indicator: large cash out shortly after.
-        if evidence:
-            after = _rows(self.wh, """
-                SELECT transaction_id, transaction_ts, amount FROM transactions
-                WHERE customer_id = ? AND status = 'posted' AND is_cash = 1
-                  AND amount >= ? AND transaction_ts > (
-                      SELECT MIN(transaction_ts) FROM transactions
-                      WHERE customer_id = ? AND transaction_id IN (
-                          SELECT transaction_id FROM transactions WHERE customer_id = ?
-                      ))
-                ORDER BY transaction_ts LIMIT 3
-            """, (customer_id, threshold * 0.8, customer_id, customer_id))
-            if after:
-                evidence.extend(r["transaction_id"] for r in after)
-                score = min(0.99, score + 0.08)
+        # -- corroboration (clause STR-2.2.1) -----------------------------
+        if evidence and c.get("require_corroboration_for_high", True):
+            corroboration, pass_through_id, counterparty_id = self._corroboration(
+                customer_id, evidence, threshold, c, window_hours)
+            if pass_through_id:
+                evidence.append(pass_through_id)
+            if counterparty_id:
+                evidence.extend(counterparty_id)
+            if corroboration:
+                score = min(0.99, score + 0.15)
+                reasons.extend(corroboration)
+                metrics["corroboration"] = corroboration
+                metrics["corroborated"] = True
+            else:
+                # Aggregation without corroboration stays a MEDIUM signal. It is
+                # reported and reviewable, but it does not clear the HIGH band.
+                score = min(score, 0.60)
                 reasons.append(
-                    f"Large cash out of USD {after[0]['amount']:,.0f} followed the structured "
-                    "deposits, consistent with pass-through (clause STR-2.2.1).")
-                metrics["pass_through_txn_id"] = after[0]["transaction_id"]
+                    "No pass-through withdrawal or new counterparty in the "
+                    f"{int(window_hours)}-hour window, so this aggregation is "
+                    "reported as a medium signal pending review rather than "
+                    "threshold avoidance (clause STR-2.2.1).")
+                metrics["corroborated"] = False
 
         if score == 0.0:
-            reasons.append("cash activity present but no sub-threshold aggregation above the filing line")
+            reasons.append(
+                f"cash activity present but no aggregation of "
+                f"{c['min_deposit_count']}+ deposits inside the "
+                f"USD {band_low:,.0f}-{band_high:,.0f} avoidance band above the "
+                f"filing line within {int(window_hours)} hours")
             return self.result(customer_id, 0.0, confidence, reasons, [], metrics, fired=False)
 
         return self.result(customer_id, score, confidence, reasons, evidence, metrics)
+
+    def _corroboration(self, customer_id: str, evidence: List[str],
+                       threshold: float, c: Dict[str, Any],
+                       window_hours: float):
+        """Look for a pass-through withdrawal and new counterparties.
+
+        Returns (messages, pass_through_txn_id, new_counterparty_txn_ids).
+        """
+        messages: List[str] = []
+        if not evidence:
+            return messages, None, []
+
+        placeholders = ",".join("?" for _ in evidence)
+        stamps = self.wh.query(
+            f"SELECT transaction_ts FROM transactions"
+            f" WHERE transaction_id IN ({placeholders})", tuple(evidence))
+        window_start = (min(r["transaction_ts"] for r in stamps)
+                        if stamps else "1970-01-01 00:00:00")
+
+        # Pass-through: a cash outflow after the deposits.
+        pass_id = None
+        out = self.wh.one(f"""
+            SELECT transaction_id, transaction_ts, amount FROM transactions
+            WHERE customer_id = ? AND status = 'posted'
+              AND is_cash = 1 AND amount >= ? AND amount < ?
+              AND transaction_ts > ?
+            ORDER BY transaction_ts LIMIT 1
+        """, (customer_id, threshold * float(c.get("pass_through_ratio", 0.80)),
+              threshold, window_start))
+        if out:
+            pass_id = out["transaction_id"]
+            messages.append(
+                f"Cash outflow of USD {float(out['amount']):,.0f} followed the "
+                f"structured deposits, consistent with pass-through "
+                f"(clause STR-2.2.1).")
+
+        # New counterparty: outbound wires to parties not transacted with before.
+        new_cps = self.wh.query(f"""
+            SELECT t.transaction_id FROM transactions t
+            WHERE t.customer_id = ? AND t.status = 'posted'
+              AND t.transaction_ts > ?
+              AND t.amount >= ?
+              AND t.merchant_name IS NOT NULL
+              AND NOT EXISTS (
+                  SELECT 1 FROM transactions p
+                  WHERE p.customer_id = t.customer_id
+                    AND p.merchant_name = t.merchant_name
+                    AND p.transaction_ts < t.transaction_ts)
+            ORDER BY t.transaction_ts LIMIT 3
+        """, (customer_id, window_start, threshold * 0.5))
+        cp_ids = [r["transaction_id"] for r in new_cps]
+        if cp_ids:
+            messages.append(
+                f"{len(cp_ids)} payment(s) to previously unseen counterparties "
+                f"in the window, consistent with dispersal of the aggregated "
+                f"funds (clause STR-2.2.1).")
+        return messages, pass_id, cp_ids
 
 
 class VelocityDetector(BaseDetector):

@@ -1,85 +1,85 @@
 customer_id,is_fraud,scenario,planted,planted_on,expected_risk_level,narrative
-CUST-000579,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000404,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000182,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000048,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000451,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000538,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000004,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000364,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000302,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000042,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000565,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000499,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000591,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000355,1,structuring,1,2026-09-26,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
-CUST-000107,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000207,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000425,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000563,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000178,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000082,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000459,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000340,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000336,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000266,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000402,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000210,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000387,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000473,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000008,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000009,1,account_takeover,1,2026-09-26,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
-CUST-000113,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000556,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000054,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000432,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000542,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000026,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000103,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000428,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000162,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000344,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000010,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000024,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000132,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000288,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000216,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000218,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000441,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000140,1,geographic,1,2026-09-26,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
-CUST-000077,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000583,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000544,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000529,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000329,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000305,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000475,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000443,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000509,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000067,1,trade_based,1,2026-09-26,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
-CUST-000167,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000204,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000430,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000002,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000492,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000399,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000437,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000254,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000458,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000452,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000136,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000092,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000471,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000277,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000435,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000105,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000301,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000056,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000454,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000187,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000417,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000257,1,mule_network,1,2026-09-26,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
-CUST-000376,1,mule_network,1,2026-09-26,high,Receives fan-in from 20+ senders and passes ~88% of the inflow onward within a day.
+CUST-000579,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000404,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000182,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000048,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000451,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000538,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000004,1,structuring,1,2026-09-28,high,"0Daily sub-USD10k cash deposits aggregating above the CTR threshold, followed by a large branch cash withdrawal."
+CUST-000364,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000302,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000042,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000565,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000499,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000591,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000355,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000107,1,account_takeover,1,2026-09-28,high,Dormant account wakes on an unseen device from an elevated-risk IP and immediately books large online card spend.
+CUST-000207,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000425,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000563,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000178,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000082,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000459,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000340,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000336,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000266,1,geographic,1,2026-09-28,medium,Physical presence inconsistent with transaction geography: three or more jurisdictions inside 24 hours including an elevated-risk one.
+CUST-000402,1,trade_based,1,2026-09-28,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
+CUST-000210,1,trade_based,1,2026-09-28,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
+CUST-000387,1,trade_based,1,2026-09-28,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
+CUST-000473,1,trade_based,1,2026-09-28,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
+CUST-000008,1,trade_based,1,2026-09-28,medium,Repeated round-value cross-border wires with no matching inbound trade settlement - classic invoice-mismatch / TBML pattern.
+CUST-000113,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000556,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000054,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000432,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000542,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000026,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000103,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000428,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000162,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000344,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000010,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000024,1,mule_network,1,2026-09-28,medium,Receives inbound wires from many senders on a shared device and forwards funds onward within 24 hours - pass-through mule.
+CUST-000009,1,mule_network,1,2026-09-28,high,Receives fan-in from 20+ senders and passes ~88% of the inflow onward within a day.
+CUST-000132,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000288,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000216,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000218,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000441,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000140,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000077,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000583,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000544,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000529,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000329,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000305,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000475,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000443,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000509,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000067,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000376,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000167,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000204,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000430,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000002,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000492,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000399,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000437,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000254,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000458,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000452,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000136,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000092,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000471,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000277,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000435,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000105,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000301,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000056,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000454,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000187,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000417,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
+CUST-000257,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
 CUST-000152,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
 CUST-000331,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."
 CUST-000440,0,benign_control,0,,low,"Control group: ordinary customer behaviour, no planted scenario."

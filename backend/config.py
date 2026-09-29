@@ -32,7 +32,7 @@ def load_config(path: str = CONFIG_PATH) -> Dict[str, Any]:
 #: never overridable this way - they are configuration, not deployment config.
 ENV_OVERRIDABLE_PATHS = {
     "RISK_ARTIFACT_DIR": ("warehouse_db", "audit_log", "evidence_dir", "reports_dir"),
-    "RISK_DATA_DIR": ("raw_dir", "gold_dir"),
+    "RISK_DATA_DIR": ("raw_dir", "gold_dir", "gold_labels"),
     "RISK_CORPUS_DIR": ("corpus_dir",),
 }
 
@@ -44,10 +44,11 @@ def _apply_env_overrides(cfg: Dict[str, Any]) -> Dict[str, Any]:
             continue
         for key in keys:
             rel = cfg["paths"][key]
-            if key == "warehouse_db" or key == "audit_log":
-                cfg["paths"][key] = os.path.join(base, os.path.basename(rel))
-            else:
-                cfg["paths"][key] = os.path.join(base, os.path.basename(rel))
+            # gold_labels is a filename, not a directory: keep the basename so
+            # the labels always sit beside the data they describe. Pointing the
+            # data directory somewhere else without moving the labels with it
+            # silently scores the detector against another population.
+            cfg["paths"][key] = os.path.join(base, os.path.basename(rel))
     return cfg
 
 

@@ -1,27 +1,27 @@
 {
-  "as_of_date": "2026-09-26",
-  "window_start": "2025-08-22",
-  "window_end": "2026-09-26",
+  "as_of_date": "2026-09-28",
+  "window_start": "2025-08-24",
+  "window_end": "2026-09-28",
   "seed": 42,
   "horizon_days": 400,
   "row_counts": {
     "customers": 600,
     "accounts": 881,
-    "transactions": 258285,
+    "transactions": 256941,
     "ground_truth_labels": 600,
     "credit_portfolio": 600,
     "liquidity_metrics": 90,
     "counterparties": 40,
     "entity_exposures": 120,
-    "alert_log": 96
+    "alert_log": 90
   },
   "planted_counts": {
-    "account_takeover": 16,
-    "benign_control": 519,
-    "geographic": 18,
-    "mule_network": 23,
-    "structuring": 14,
-    "trade_based": 10
+    "account_takeover": 8,
+    "benign_control": 558,
+    "geographic": 9,
+    "mule_network": 13,
+    "structuring": 7,
+    "trade_based": 5
   },
   "data_classification": "SYNTHETIC_NO_PII",
   "generator_version": "1.0.0"

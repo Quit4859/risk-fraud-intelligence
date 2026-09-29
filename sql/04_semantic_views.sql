@@ -108,10 +108,15 @@ CREATE VIEW sem_cash_72h_aggregation AS
 WITH cash AS (
   SELECT customer_id, transaction_id, transaction_ts, amount
   FROM transactions
+  -- The avoidance band: 85-99.9% of the 10,000 reporting line. A deposit of
+  -- 2,100 is ordinary cash use, not threshold avoidance. This band must stay
+  -- identical to detection.structuring in config/settings.yaml - a divergence
+  -- between the detector and the view is what made the copilot answer
+  -- "30 customers are structuring" while the detector itself fired twice.
   WHERE status = 'posted'
     AND is_cash = 1
-    AND amount < 10000
-    AND amount >= 2000
+    AND amount < 9990
+    AND amount >= 8500
     AND business_date >= DATE((SELECT as_of_date FROM sem_dataset_clock), '-7 day')
 ),
 windows AS (

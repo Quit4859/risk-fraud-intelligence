@@ -55,6 +55,7 @@ def _prf(tp: int, fp: int, fn: int) -> Dict[str, float]:
 
 def evaluate_and_report(copilot, out_path: str | None = None) -> Dict[str, Any]:
     cfg = copilot.cfg
+    st = cfg["detection"]["structuring"]
     labels = load_labels(cfg)
     detector = copilot.detector
     bands = cfg["detection"]["risk_bands"]
@@ -145,6 +146,8 @@ def evaluate_and_report(copilot, out_path: str | None = None) -> Dict[str, Any]:
         "dataset_fingerprint": copilot.wh.source_fingerprint(),
         "as_of_date": copilot.wh.as_of(),
         "population": n,
+        "fraud_prevalence": round(
+            sum(1 for l in labels.values() if int(l["is_fraud"]) == 1) / n, 4),
         "planted_fraud_cases": sum(1 for l in labels.values() if int(l["is_fraud"]) == 1),
         "control_cases": sum(1 for l in labels.values() if int(l["is_fraud"]) == 0),
         "thresholds": bands,
@@ -160,7 +163,17 @@ def evaluate_and_report(copilot, out_path: str | None = None) -> Dict[str, Any]:
         },
         "detection_thresholds_configured": {
             "structuring_ctr_amount": cfg["detection"]["structuring"]["ctr_threshold"],
-            "structuring_window_days": cfg["detection"]["structuring"]["lookback_days"],
+            # Reported defensively so the harness can run against an older
+            # config to produce a genuine before/after comparison.
+            "structuring_candidate_lookback_days":
+                st.get("candidate_lookback_days", st.get("lookback_days")),
+            "structuring_aggregation_window_hours":
+                st.get("aggregation_window_hours", 72),
+            "structuring_avoidance_band": [
+                round(st["ctr_threshold"] * st.get("band_low_ratio", 0.20), 2),
+                round(st["ctr_threshold"] * st.get("band_high_ratio", 1.0), 2)],
+            "structuring_require_corroboration":
+                st.get("require_corroboration_for_high", False),
             "velocity_zscore": cfg["detection"]["velocity"]["zscore_threshold"],
             "geographic_high_risk_share": cfg["detection"]["geographic"]["high_risk_share_threshold"],
             "impossible_travel_hours": cfg["detection"]["geographic"]["impossible_travel_hours"],
@@ -241,8 +254,27 @@ def render_markdown(r: Dict[str, Any]) -> str:
 
 
 def main(argv=None) -> int:
+    from backend.agents.retrieval import RetrievalService
+    from backend.config import load_config
     from backend.orchestration.copilot import RiskCopilot
-    copilot = RiskCopilot()
+    from backend.warehouse import Warehouse
+
+    # Build the warehouse the same way the runtime does. Previously this called
+    # RiskCopilot() with no warehouse, which creates an *empty* sqlite database:
+    # every customer scored 0 and the report read P=0 R=0 while looking healthy.
+    cfg = load_config()
+    wh = Warehouse(config=cfg)
+    counts = wh.load_raw_dir()
+    if not counts.get("customers"):
+        raise SystemExit(
+            f"No customer data in {cfg['paths']['raw_dir']}. "
+            "Generate it first: python scripts/generate_synthetic_data.py")
+    RetrievalService(wh, config=cfg).load()
+    wh.load_sql_file(os.path.join(ROOT, "sql", "04_semantic_views.sql"))
+    wh.execute("DELETE FROM mule_clusters")
+    wh.execute("INSERT INTO mule_clusters SELECT * FROM sem_mule_network_clusters")
+
+    copilot = RiskCopilot(warehouse=wh, config=cfg)
     try:
         report = evaluate_and_report(copilot)
     finally:

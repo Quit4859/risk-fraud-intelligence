@@ -58,12 +58,34 @@ detection:
       floor_level: medium
 
   structuring:
-    # CTR / structuring - cash deposits deliberately kept below the filing line
+    # CTR / structuring - cash deposits deliberately kept below the filing line.
+    #
+    # Two distinct numbers, previously conflated. `candidate_lookback_days` is
+    # only how far back we *pull* candidate rows; the clause-bound aggregation
+    # window is `aggregation_window_hours`. The old single `lookback_days: 7`
+    # was the pull window while README and clause STR-2.1.2 said 72 hours, so a
+    # compliance officer tuning "the structuring window" changed nothing.
     ctr_threshold: 10000.00
-    lookback_days: 7
+    candidate_lookback_days: 7
+    aggregation_window_hours: 72
     min_deposit_count: 3
     amount_ceiling: 10000.00
-    amount_floor: 2000.00
+    # Structuring is *deliberately* just-below-threshold behaviour, so the
+    # candidate band is a fraction of the reporting line rather than an
+    # arbitrary floor. At 10000 the band is 8500-9999: a deposit at 2100 is
+    # ordinary cash use, not threshold avoidance.
+    band_low_ratio: 0.85
+    band_high_ratio: 0.999
+    # A rolling aggregation alone is weak evidence, so HIGH additionally
+    # requires corroboration: a pass-through withdrawal or a new counterparty
+    # in the window. Both are governed by clause STR-2.2.1.
+    require_corroboration_for_high: true
+    pass_through_ratio: 0.80
+    pass_through_window_hours: 72
+    new_counterparty_window_hours: 72
+    # Populated by the generator so benign cash activity can never sit inside
+    # the avoidance band. Asserted in tests/test_detector_precision.py.
+    benign_max_deposit_ratio: 0.70
   velocity:
     lookback_days: 30
     baseline_days: 90
