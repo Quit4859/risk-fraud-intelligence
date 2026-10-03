@@ -1,3 +1,5 @@
+## Snowflake CoCo CLI GCC Edition Hackathon 
+
 # Risk, Fraud and Regulatory Intelligence Copilot
 
 A copilot for bank and NBFC risk teams. It reads transaction and account data
