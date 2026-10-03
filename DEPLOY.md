@@ -1,92 +1,186 @@
-# Deploying
+# Deploying the Risk, Fraud & Regulatory Intelligence Copilot
 
-The project is a **Python backend** (the governed copilot) plus a **static
-frontend** (`public/index.html`). One Python server serves both — no Node,
-no framework, no build step. Deploy on the free tier of **Render.com**:
+The app is a single WSGI service: `wsgi.py` serves the JSON API and the static
+console from one process. There is no build step for the frontend, no Node
+toolchain, and no framework. Everything runs on the Python standard library plus
+three small packages.
 
-## 1. Deploy (free, from GitHub)
+- [Deployment shape](#deployment-shape)
+- [Render (the deployed target)](#render-the-deployed-target)
+- [Running locally](#running-locally)
+- [Snowflake](#snowflake)
+- [Keeping a free instance awake](#keeping-a-free-instance-awake)
+- [What is where](#what-is-where)
 
-1. Sign up at [render.com](https://render.com), connect this repo.
-2. Click **Add Web Service**, pick this repo, and Render reads `render.yaml`:
-   - Build command: `pip install -r requirements.txt`
-   - Start command: `gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:$PORT`
-   - Instance type: **Free** (Standard)
-3. Deploy.
+---
 
-## 2. What happens on the first request
+## Deployment shape
 
-Render's filesystem is read-only apart from `/tmp`, so the copilot
-bootstraps itself on the cold start of each warm instance:
+```
+browser ──▶ gunicorn wsgi:app ──▶ /healthz            (instant, never builds)
+                               ├─▶ /api?action=...    (JSON)
+                               └─▶ /*                 (public/, allowlisted)
+```
 
-| Step | Cost |
+`wsgi.py` is a plain WSGI callable, so it runs on Render, Fly.io, Railway,
+Cloud Run, Heroku or anything else that can start a process.
+
+**Everything degrades.** With no Snowflake credentials the service starts
+normally, selects the local sqlite engine, and the UI header reads
+`Fallback mode: local engine`. Cortex features that are unreachable are labelled
+individually rather than failing the whole app.
+
+---
+
+## Render (the deployed target)
+
+`render.yaml` is a valid [Render Blueprint](https://render.com/docs/blueprint-spec).
+Point Render at the repo and it fills the form automatically.
+
+| Setting | Value |
 |---|---|
-| Generate the synthetic dataset into `/tmp` (200 customers, 150 days) | ~2.0 s |
-| Ingest CSVs into the sqlite warehouse, parse the policy corpus, create the 10 semantic views | ~0.5 s |
-| Warm the detector on one customer | ~0.1 s |
+| Build command | `pip install -r requirements.txt` |
+| Start command | `gunicorn wsgi:app --preload --workers 1 --threads 8 --timeout 300 --bind 0.0.0.0:$PORT` |
+| Health check path | `/healthz` |
+| Instance | Free |
 
-Measured cold start: **2.6 s**. Warm requests: **<50 ms**.
+### Why `--preload`
 
-Set `RISK_PROFILE=full` to generate the full 600-customer / 400-day dataset
-instead of the compact demo profile (cold start rises to ~8 s).
+Without `--preload` each gunicorn worker builds its own warehouse, racing on the
+same sqlite file. With `--preload` the engine is built once in the master before
+workers fork. `--workers 1` is deliberate: the engine holds a single sqlite
+connection, and one worker with 8 threads is both simpler and faster for this
+workload than several processes contending for it.
 
-## 3. Check the deployment
+### Why the health check matters
 
-```bash
-curl -s "$URL/api?action=health" | jq
-curl -s -X POST "$URL/api" -H 'Content-Type: application/json' \
-  -d '{"action":"ask","question":"which customers are structuring cash?"}' | jq .answer_text
+`/healthz` answers **immediately** and never triggers a build. A health check
+that called the full engine status would start a multi-second warehouse build on
+every probe, and Render would kill the instance for being slow to respond. While
+the engine builds, the endpoint returns `{"status": "warming_up"}` and the UI
+shows a warm-up screen with an elapsed counter.
+
+### Secrets
+
+Secrets are **not** in `render.yaml`. Set them in the Render dashboard under
+*Environment*, or they will end up in git:
+
+```
+SNOWFLAKE_ACCOUNT   SNOWFLAKE_USER   SNOWFLAKE_TOKEN
+SNOWFLAKE_PRIVATE_KEY_PATH   SNOWFLAKE_PRIVATE_KEY_PASSPHRASE
+JIRA_BASE_URL  JIRA_EMAIL  JIRA_API_TOKEN
+SLACK_WEBHOOK_URL
+RISK_ALLOWED_ORIGIN     # your deployed origin, e.g. https://risk-fraud-intelligence.onrender.com
 ```
 
-Or just open `$URL` — the UI polls `health`, shows the runtime fingerprint and
-lets you ask questions, run a portfolio scan and build the board and liquidity
-packs.
+`.env.example` documents every variable. `.env` itself is gitignored, and CI
+fails the build if one is ever committed.
 
-## 4. API surface
+---
 
-| Method | Route | Purpose |
-|---|---|---|
-| `GET` | `/api?action=health` | readiness, cold-start time, runtime status |
-| `GET` | `/api?action=status` | warehouse, corpus and configured thresholds |
-| `GET` | `/api?action=examples` | suggested questions |
-| `POST` | `{"action":"ask","question":"..."}` | governed answer + citations + SQL + guardrail |
-| `POST` | `{"action":"detect","customer_id":"CUST-000123"}` | full explainable case |
-| `POST` | `{"action":"scan","limit":200}` | portfolio scan, persists findings |
-| `GET` | `/api?action=findings&limit=25` | ranked findings |
-| `GET` | `/api?action=policy&q=structuring` | citable clauses |
-| `POST` | `{"action":"file","customer_id":"...","filing_type":"SAR"}` | draft filing (always `PENDING_REVIEW`) |
-| `POST` | `{"action":"approve","filing_id":"...","approver":"name@bank.com"}` | record human approval |
-| `POST` | `{"action":"escalate","customer_id":"..."}` | MCP escalation ladder |
-| `POST` | `{"action":"board_pack"}` / `{"action":"liquidity"}` | MIAR / prudential packs |
-| `GET` | `/api?action=audit&limit=50` | audit trail |
-| `GET` | `/api?action=mcp` | MCP tool manifest and connector status |
-
-`GET` and `POST` are equivalent for every read action. State-changing actions
-require `POST` and are written to the audit log.
-
-## 5. Governance that holds in production
-
-* Draft filings are **always** `PENDING_REVIEW`. `approve` rejects an approver
-  named `bot`/`copilot`/`auto` or an empty string, so the four-eyes control
-  (clause `FILE-2.1.1`) cannot be bypassed through the API.
-* A filing with `citation_coverage < 1.0` is refused by the submission gateway.
-* Answers below the abstention threshold refuse to assert and state the gap.
-* Synthetic data only. No production or personal data reaches the bundle.
-
-## 6. Local development
-
-The server is fully runnable without any host:
+## Running locally
 
 ```bash
-pip install -r requirements.txt
-PORT=5000 gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:5000
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt -r requirements-dev.txt
+
+# optional: a gitignored .env with Snowflake credentials
+cp .env.example .env
+
+# generate the dataset and start the console
+python scripts/generate_synthetic_data.py --customers 200 --horizon-days 150
+gunicorn wsgi:app --preload --workers 1 --threads 8 --bind 0.0.0.0:8000
 ```
 
-Or exercise the exact handler code path without a server:
+Then open <http://localhost:8000>.
+
+Verify the install:
 
 ```bash
-python scripts/verify_vercel.py    # exercises the exact handler code path
-python scripts/verify_bundle.py    # builds the real upload bundle and re-tests it
+curl -s localhost:8000/healthz | python3 -m json.tool
+python3 -m pytest tests/ -q
 ```
 
-Both scripts run a genuine cold start in a fresh `/tmp` directory, so a broken
-import or a missing file fails locally rather than in production.
+### Common commands
+
+```bash
+python scripts/generate_synthetic_data.py --help      # dataset options
+python scripts/evaluate.py                            # detection metrics
+python -m backend.cli --help                          # CLI surface
+python -m backend.cli scan --limit 200                # run a portfolio scan
+```
+
+---
+
+## Snowflake
+
+The warehouse is optional. Supply credentials through the environment and the
+engine factory selects Snowflake automatically; leave them unset and it selects
+sqlite. Selection is reported at `/api?action=health` under `runtime.engine` as
+`snowflake` or `local-fallback`.
+
+Auth methods, in order of preference:
+
+1. **Programmatic OAuth token** — `SNOWFLAKE_TOKEN`. Shortest lived.
+2. **Key-pair** — `SNOWFLAKE_PRIVATE_KEY_PATH` (a `.p8` file) plus
+   `SNOWFLAKE_PRIVATE_KEY_PASSPHRASE`.
+3. **Password** — `SNOWFLAKE_PASSWORD`. Demo accounts only; the UI labels which
+   method is active.
+
+See `docs/PLAN.md` §9 and `docs/SNOWFLAKE_RUNBOOK.md` for provisioning order.
+
+---
+
+## Keeping a free instance awake
+
+Render's free tier sleeps an idle instance after 15 minutes, so the first visit
+after a gap pays a cold start. `/healthz` returns instantly and is the right
+target for a keep-alive ping.
+
+The cheapest option is a free scheduled job (GitHub Actions, cron-job.org):
+
+```yaml
+# .github/workflows/keepalive.yml
+name: keepalive
+on:
+  schedule: [{cron: "*/10 * * * *"}]
+  workflow_dispatch:
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - run: curl -fsS --max-time 20 "${{ secrets.KEEPALIVE_URL }}/healthz"
+```
+
+Set `KEEPALIVE_URL` to the deployed origin in repository secrets.
+
+A second option is a `Vercel`/`cron-job.org` GET against `/healthz` every 10
+minutes. Note that the **warm-up screen** handles the sleep gracefully either
+way; the keep-alive is an optimisation, not a requirement.
+
+---
+
+## What is where
+
+| Path | Purpose |
+|---|---|
+| `wsgi.py` | WSGI entrypoint: `/healthz`, `/api`, static files |
+| `api/index.py` | HTTP routing, pagination, CORS, RBAC |
+| `api/_runtime.py` | Engine bootstrap, boot scan, warm-up state |
+| `backend/warehouse.py` | Local sqlite warehouse |
+| `backend/engine/` | Warehouse interface, Snowflake implementation |
+| `backend/governance/` | Filing lifecycle, four-eyes approval, RBAC |
+| `backend/agents/` | Detectors, router, executors, retrieval, composer |
+| `backend/orchestration/` | Copilot workflow, guardrails, audit log, MCP |
+| `config/settings.yaml` | Every decision threshold, reviewable in a diff |
+| `sql/` | Snowflake DDL: schema, dynamic tables, tasks, semantic views |
+| `public/` | Static console (vanilla JS/CSS, no build step) |
+| `tests/` | pytest suites |
+| `docs/` | Plan, CoCo log, demo script, evidence |
+
+### Removed
+
+The Next.js scaffold (`package.json`, `next.config.js`, `pages/`), `vercel.json`,
+`.vercelignore`, `Procfile` and the `verify_vercel.py` / `verify_bundle.py`
+scripts are gone. They described a Vercel deployment this project no longer
+targets, and their presence made it ambiguous which entrypoint was real.

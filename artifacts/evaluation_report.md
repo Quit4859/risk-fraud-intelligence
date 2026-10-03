@@ -1,9 +1,9 @@
 # Detection evaluation
 
-- Generated: 2026-09-29T14:25:55Z  
+- Generated: 2026-10-03T13:40:03Z  
 - Dataset fingerprint: `865ba9b57f509224` (as of 2026-09-28)  
 - Population: 600 customers (42 planted fraud, 558 benign control)
-- Throughput: 83.56 ms/customer
+- Throughput: 77.75 ms/customer
 
 ## Aggregate
 

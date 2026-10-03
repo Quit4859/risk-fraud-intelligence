@@ -1,32 +1,59 @@
-# Render deployment (free web service, auto-deploys from GitHub)
-#
-# 1. Sign up at render.com, connect this repo.
-# 2. Click "Add Web Service", pick this repo, and Render fills the defaults
-#    from this file:
-#      Build Command  -> pip install -r requirements.txt
-#      Start Command  -> gunicorn wsgi:app --workers 1 --threads 4 \
-#                        --timeout 300 --bind 0.0.0.0:$PORT
-#      Instance Type  -> Free (Standard)
-#      Region         -> any
-# 3. Deploy. On the first request the copilot bootstraps the synthetic
-#    dataset into /tmp (~2.6 s cold start), then every request is <50 ms.
-#
-# No Vercel account, no Next.js build step, no framework. The same Python
-# code path that Vercel used serves both the API and the static frontend.
-
-serviceType: web
-name: risk-fraud-intelligence
-envFiles:
-  - .env.render
-build:
-  command: pip install -r requirements.txt
-runCommand: gunicorn wsgi:app --workers 1 --threads 4 --timeout 300 --bind 0.0.0.0:$PORT
-plan: free
-region: oregon
-branch: main
-env:
-  - key: PYTHON_VERSION
-    value: 3.11
-  - key: RISK_PROFILE
-    value: demo
-autoDeploy: true
+# Render blueprint. Schema: https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: risk-fraud-intelligence
+    runtime: python
+    plan: free
+    region: oregon
+    branch: main
+    autoDeploy: true
+    buildCommand: pip install -r requirements.txt
+    # --preload builds the warehouse and kicks off the portfolio scan in the
+    # master process before forking, so the first request does not pay the
+    # cold-start cost. Must stay in sync with render.yaml's healthCheckPath.
+    startCommand: >-
+      gunicorn wsgi:app
+      --workers 2
+      --threads 4
+      --timeout 300
+      --preload
+      --bind 0.0.0.0:$PORT
+      --access-logfile -
+    healthCheckPath: /healthz
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: RISK_PROFILE
+        value: demo
+      - key: RISK_SEED
+        value: "42"
+      # Snowflake credentials are read from the environment. Set them in the
+      # Render dashboard as encrypted vars; never commit them. With no
+      # credentials the app selects the sqlite engine and the UI shows
+      # "Fallback mode: local engine".
+      - key: SNOWFLAKE_ACCOUNT
+        sync: false
+      - key: SNOWFLAKE_USER
+        sync: false
+      - key: SNOWFLAKE_ROLE
+        value: RISK_COPILOT_ROLE
+      - key: SNOWFLAKE_WAREHOUSE
+        value: RISK_WH
+      - key: SNOWFLAKE_DATABASE
+        value: RISK_INTELLIGENCE
+      - key: SNOWFLAKE_TOKEN
+        sync: false
+      # Demo RBAC session signing key. Generate with:
+      #   python -c "import secrets;print(secrets.token_urlsafe(48))"
+      - key: RISK_SESSION_SECRET
+        generateValue: true
+      - key: SLACK_ENABLED
+        value: "false"
+      - key: SLACK_WEBHOOK_URL
+        sync: false
+      - key: JIRA_ENABLED
+        value: "false"
+      - key: JIRA_BASE_URL
+        sync: false
+      - key: JIRA_API_TOKEN
+        sync: false

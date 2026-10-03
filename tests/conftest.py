@@ -23,10 +23,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-#: Small profile: enough rows for every typology to plant, small enough that the
-#: whole suite stays under a few seconds. The demo (200) and full (600) profiles
-#: are exercised by the evaluation harness, not by every unit test.
-TEST_CUSTOMERS = 120
+#: The deployed demo profile. The suite deliberately runs the *same* dataset the
+#: app serves, because several contracts only hold at realistic prevalence: at
+#: 120 customers the generator plants so few mule victims that no shared-device
+#: cluster forms, and the "which mule clusters are active" example correctly
+#: abstains for want of data. Testing a smaller population would test a
+#: configuration nobody deploys.
+TEST_CUSTOMERS = 200
 TEST_HORIZON_DAYS = 150
 
 

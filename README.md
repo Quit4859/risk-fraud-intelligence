@@ -122,9 +122,9 @@ and the scheduled Snowflake task. There is one implementation, not three.
     generate_corpus.py
     run_pipeline.py
     evaluate.py
-    verify_vercel.py
-    verify_bundle.py
-  api/                        Vercel serverless function
+  api/                        WSGI request handling
+  backend/governance/
+    rbac.py                   demo roles, signed sessions, permission matrix
   public/index.html           static UI
 ```
 
@@ -238,28 +238,47 @@ records which rule did it.
 
 ## Results
 
-Scored against the planted labels over all 600 customers
-(`python scripts/evaluate.py`, full report in `artifacts/evaluation_report.md`):
+**These are the numbers for the profile the app actually deploys** — 200
+customers, 150 days, seed 42 (`RISK_PROFILE=demo`). The previous figures in
+this README came from a 600-customer run that no deployment uses, which is the
+whole of bug B4. Both were measured on the same code; see
+`docs/evidence/audit/b4_deployed_profile_metrics.txt`.
+
+```bash
+RISK_DATA_DIR=/tmp/deployed-profile python scripts/evaluate.py
+```
 
 | Operating point | Precision | Recall | F1 | False positive rate |
 |---|---:|---:|---:|---:|
-| High only | 0.667 | 0.691 | 0.679 | 0.054 |
-| Medium or high | 0.694 | 0.951 | 0.802 | 0.066 |
+| High only | 1.000 | 0.357 | 0.526 | 0.000 |
+| Medium or high | 0.917 | 0.786 | 0.846 | 0.005 |
 
-Recall by typology, and how often the expected rule was the one that fired:
+Population 200 (14 planted fraud cases, 186 benign controls). Throughput is
+61 ms per customer on the local runtime.
+
+Recall by typology on the deployed profile:
 
 | Typology | Planted | Recall at medium+ | Correct rule fired |
 |---|---:|---:|---:|
-| structuring | 14 | 1.00 | 1.00 |
-| account takeover | 16 | 1.00 | 1.00 |
-| mule network | 23 | 1.00 | 1.00 |
-| trade based | 10 | 1.00 | 1.00 |
-| geographic | 18 | 0.78 | 1.00 |
+| structuring | 2 | 1.00 | 1.00 |
+| account takeover | 3 | 1.00 | 1.00 |
+| mule network | 4 | **0.25** | 1.00 |
+| trade based | 2 | 1.00 | 1.00 |
+| geographic | 3 | 1.00 | 1.00 |
 
-Throughput is 81 ms per customer on the local runtime. The geographic typology
-misses are planted chains that landed outside the 90-day window or produced no
-impossible leg; the report lists them individually rather than rounding them
-away.
+**Read the mule-network number honestly.** The demo profile plants only four
+mule cases and the detector catches one. On the 600-customer profile, where it
+plants thirteen, recall is 1.00. At n=4 this is a sample-size artefact rather
+than a detector defect, and the right response is to say so — not to quietly
+enlarge the demo profile until the number looks good. Use `RISK_PROFILE=full`
+for a statistically meaningful read; the live numbers behind the badge in the
+console come from the `evaluate` API action and describe the running dataset.
+
+Comparing like for like with the 600-customer profile, the B2 structuring fix
+raised precision from 0.475 to 1.000 at high-only and 0.500 to 0.830 at
+medium+ **at identical recall**. The deployed profile is a different population,
+so the two tables are not directly comparable; the before/after pair that
+isolates the fix is in `docs/evidence/audit/b2_before_after.md`.
 
 These numbers are against synthetic data with known labels, which is a lower bar
 than a live deployment. They show the detectors work and the plumbing is honest.
@@ -311,25 +330,27 @@ python -m backend.cli policy "structuring threshold"
 python -m backend.cli audit --limit 40
 ```
 
-### Vercel
+### Render
 
 ```bash
-npm i -g vercel
-vercel --prod
+# Point Render at the repo; it reads render.yaml as a Blueprint.
+# Secrets are set in the dashboard, never committed.
 ```
 
-One Python serverless function and a static UI, no framework. Cold start 2.6 s,
-warm under 50 ms, upload bundle 0.49 MB. The synthetic dataset is generated
-into `/tmp` on each cold start because Vercel's filesystem is read-only
-elsewhere.
+One WSGI process serving the API and the static console. `render.yaml` uses
+`--preload` so the engine is built once in the master before workers fork,
+and `/healthz` as the health check so probing never triggers a build. The
+synthetic dataset is generated into `/tmp` on each cold start.
 
 ```bash
-curl -s "$URL/api?action=health"
-curl -X POST "$URL/api" -H 'Content-Type: application/json' \
-  -d '{"action":"ask","question":"which customers are structuring cash?"}'
+curl -s "$URL/healthz"
+curl -s -X POST "$URL/api" -H 'Content-Type: application/json' \
+  -d '{"action":"login","role":"analyst"}'
+curl -s -X POST "$URL/api" -H 'Content-Type: application/json' \
+  -d '{"action":"ask","question":"which customers are structuring cash?","token":"<token>"}'
 ```
 
-Full route table in `DEPLOY.md`.
+Read actions need a session token since B8. Full route table in `DEPLOY.md`.
 
 ### Snowflake
 
@@ -370,8 +391,11 @@ python -m backend.cli ask "show the top 10 highest risk customers"
 python scripts/evaluate.py               # score against ground truth
 ```
 
-For the Streamlit app, `pip install -r requirements-app.txt` and
-`streamlit run app/streamlit_app.py`.
+Every surface needs a session now. `python -m backend.cli login --role analyst`
+prints a token to export as `RISK_TOKEN`.
+
+The Streamlit app referenced in earlier revisions of this README was never
+built. It is listed under Known limits rather than linked as though it existed.
 
 ---
 
@@ -384,7 +408,18 @@ For the Streamlit app, `pip install -r requirements-app.txt` and
   point is a reasonable default rather than a chosen one.
 - Document parsing handles the markdown the corpus ships in. Scanned PDFs would
   need OCR first.
-- The streamlit app is not finished. The CLI, the serverless API and the static
-  UI are the working surfaces.
-- `RISK_PROFILE=full` builds the 600-customer dataset on Vercel at a cold start
-  cost of about 8 s. The default demo profile is smaller and faster.
+- **No Streamlit app exists.** Earlier revisions of this README linked one. The
+  CLI, the WSGI API and the static console are the working surfaces; building
+  the Streamlit-in-Snowflake app is open work, listed in `docs/PLAN.md`.
+- **RBAC is a demonstration, not an identity provider.** Three roles and an
+  HMAC-signed session token. With `RISK_SESSION_SECRET` unset the key is
+  per-process, so sessions do not survive a restart. It is access control that
+  makes the four-eyes rule meaningful, not a substitute for corporate SSO.
+- **Snowflake and Cortex are unverified.** No credentials were available in the
+  environment this was built in, so nothing in `sql/01`–`sql/03`, the semantic
+  view, or any Cortex call has been executed. The app runs on the sqlite
+  fallback. Syntax was checked against the official documentation; behaviour
+  was not observed. `docs/COCO_LOG.md` records this rather than implying
+  otherwise.
+- `RISK_PROFILE=full` builds the 600-customer dataset at a cold start cost of
+  about 8 s. The deployed default is `demo` (200 customers, 150 days).

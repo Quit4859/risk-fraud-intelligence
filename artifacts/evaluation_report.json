@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-09-29T14:25:55Z",
-  "run_id": "run-20260929T142505-9df319",
+  "generated_at": "2026-10-03T13:40:03Z",
+  "run_id": "run-20261003T133916-435922",
   "dataset_fingerprint": "865ba9b57f509224",
   "as_of_date": "2026-09-28",
   "population": 600,
@@ -175,8 +175,8 @@
   "false_positive_count": 8,
   "performance": {
     "customers_scored": 600,
-    "wall_clock_seconds": 50.14,
-    "ms_per_customer": 83.56
+    "wall_clock_seconds": 46.65,
+    "ms_per_customer": 77.75
   },
   "detection_thresholds_configured": {
     "structuring_ctr_amount": 10000.0,

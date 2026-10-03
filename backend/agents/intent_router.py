@@ -118,6 +118,15 @@ class ExecutionResult:
     row_count: int = 0
     error: Optional[str] = None
 
+    def __post_init__(self):
+        # Keep row_count honest. Several executors construct the result without
+        # passing it, and a stale 0 alongside populated ``rows`` made the
+        # composer halve the confidence of a perfectly supported answer, which
+        # then tripped the abstention threshold. Deriving it here means a new
+        # executor cannot reintroduce that class of bug by forgetting a field.
+        if not self.row_count and self.rows:
+            self.row_count = len(self.rows)
+
 
 # --------------------------------------------------------------------------
 # Router

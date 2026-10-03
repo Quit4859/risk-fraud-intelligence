@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import threading
 import time
 from datetime import datetime
 from typing import Any, Dict, Iterable, List, Optional
@@ -50,9 +51,27 @@ class RiskCopilot:
         self.executor = IntentExecutor(
             self.wh, self.retrieval,
             {"fraud_detector": self.detector, "policy_matcher": self.policy,
-             "evidence": self.evidence, "reporter": self.reporter},
+             "evidence": self.evidence, "reporter": self.reporter,
+             # The executor delegates lazy population scans here so they share
+             # one lock with the boot scan.
+             "copilot": self},
             self.cfg)
+        # A lazy population scan triggered by a question is attributed to this
+        # run, so the audit trail shows which request caused the work.
+        self.executor.intent_run_id = self.run_id
+        self.executor.population_limit = int(
+            self.cfg.get("copilot", {}).get("boot_scan_limit", 200))
         self._findings_cache: List[Dict[str, Any]] = []
+        # One population scan at a time. The boot thread and a question-triggered
+        # lazy scan can otherwise run concurrently against the same sqlite
+        # connection, which raised inside the detector and left the findings
+        # table half-populated.
+        self._scan_lock = threading.Lock()
+        # Readiness is an explicit event, NOT `findings is non-empty`: the scan
+        # persists each customer's finding as it goes, so a row-count check
+        # reported "ready" while the population was still being written, and the
+        # question answered from a half-populated table.
+        self._scan_done = threading.Event()
         self.audit.record("session.start", self.run_id, "OK",
                           "Copilot session initialised",
                           {"data_fingerprint": self.wh.source_fingerprint(),
@@ -111,6 +130,54 @@ class RiskCopilot:
         return answer
 
     # ------------------------------------------------------------- analysis
+    def ensure_populated(self, limit: Optional[int] = None,
+                         min_level: str = "low",
+                         timeout: float = 90.0) -> bool:
+        """Scan the portfolio once if findings are still empty.
+
+        The single coordination point for every path that needs findings: the
+        boot thread, and the executor's lazy call when a question arrives before
+        the boot scan has finished.
+
+        The lock is taken with a bounded **blocking** wait, not a non-blocking
+        one. A question that arrives mid-boot must wait for the scan and answer
+        from the results; bailing out immediately would reintroduce exactly the
+        abstention this method exists to prevent. The timeout bounds the worst
+        case, after which the caller's guardrail abstains and states the gap.
+
+        Returns True if this call performed the scan.
+        """
+        # Ready only when a scan has completed *and* left findings behind. An
+        # event alone is not enough: if the table is cleared (a fresh warehouse,
+        # or a test simulating a cold start) the executor must rescan rather
+        # than serve an empty portfolio.
+        if self._scan_done.is_set() and self.wh.table_count("findings") > 0:
+            return False
+        acquired = self._scan_lock.acquire(timeout=timeout)
+        if not acquired:
+            return False
+        try:
+            if self._scan_done.is_set() and self.wh.table_count("findings") > 0:
+                return False
+            t0 = time.time()
+            self.run_population(
+                limit=limit or int(self.cfg.get("copilot", {}).get("boot_scan_limit", 200)),
+                min_level=min_level)
+            self.audit.record("detect.population", self.run_id, "OK",
+                              "lazy population scan triggered by a question",
+                              {"seconds": round(time.time() - t0, 2)})
+            return True
+        except Exception as exc:
+            # A failed scan must not raise into the caller. The question's
+            # guardrail will abstain and state the gap, which is the honest
+            # outcome.
+            self.audit.record("detect.population", self.run_id, "ERROR",
+                              f"lazy population scan failed: {exc}", {})
+            return False
+        finally:
+            self._scan_done.set()
+            self._scan_lock.release()
+
     def analyze_customer(self, customer_id: str, persist: bool = True) -> Dict[str, Any]:
         t0 = time.time()
         self.audit.record("detect.customer", customer_id, "START",

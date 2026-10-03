@@ -7,6 +7,7 @@ here and never hardcodes a regulatory number.
 
 from __future__ import annotations
 
+import copy
 import functools
 import os
 from typing import Any, Dict
@@ -18,9 +19,29 @@ CONFIG_PATH = os.path.join(ROOT, "config", "settings.yaml")
 
 
 @functools.lru_cache(maxsize=4)
-def load_config(path: str = CONFIG_PATH) -> Dict[str, Any]:
+def _read_settings(path: str = CONFIG_PATH) -> Dict[str, Any]:
+    """Raw YAML, cached: the file is read at most once per path.
+
+    This is intentionally separate from :func:`load_config` so that the
+    deployment-time env overrides below are re-applied on every call.
+    """
     with open(path, "r", encoding="utf-8") as fh:
-        cfg = yaml.safe_load(fh)
+        return yaml.safe_load(fh)
+
+
+def load_config(path: str = CONFIG_PATH) -> Dict[str, Any]:
+    """Load governed configuration, applying deployment env overrides.
+
+    The file is cached, but :func:`_apply_env_overrides` runs on every call so
+    that redirecting ``RISK_DATA_DIR`` / ``RISK_ARTIFACT_DIR`` takes effect even
+    after a first load. ``api._runtime`` sets those redirects at import time,
+    i.e. before the copilot reads any path, so the engine never evaluates against
+    a stale location.
+
+    A fresh dict is returned per call so callers can never mutate shared state -
+    the cache holds only the immutable YAML text, not the env-applied result.
+    """
+    cfg = copy.deepcopy(_read_settings(path))
     cfg["_root"] = ROOT
     _apply_env_overrides(cfg)
     return cfg
@@ -44,11 +65,17 @@ def _apply_env_overrides(cfg: Dict[str, Any]) -> Dict[str, Any]:
             continue
         for key in keys:
             rel = cfg["paths"][key]
-            # gold_labels is a filename, not a directory: keep the basename so
-            # the labels always sit beside the data they describe. Pointing the
-            # data directory somewhere else without moving the labels with it
-            # silently scores the detector against another population.
-            cfg["paths"][key] = os.path.join(base, os.path.basename(rel))
+            if key == "gold_labels":
+                # A *file* inside gold_dir, not a sibling of it. Redirecting the
+                # data directory must move the labels with the data they
+                # describe: evaluating the detector against a different
+                # population's labels is worse than failing outright. Deriving
+                # the location from the already-redirected gold_dir keeps the
+                # two in step whatever the layout.
+                cfg["paths"][key] = os.path.join(
+                    cfg["paths"]["gold_dir"], os.path.basename(rel))
+            else:
+                cfg["paths"][key] = os.path.join(base, os.path.basename(rel))
     return cfg
 
 

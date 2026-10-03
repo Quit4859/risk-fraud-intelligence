@@ -12,6 +12,12 @@ copilot:
   min_answer_confidence: 0.55
   # Answers below this confidence must disclose the gap rather than assert.
   abstention_threshold: 0.45
+  # Portfolio scanned at boot (background thread) and lazily by the executor if
+  # the findings table is still empty when a question needs it. Without this the
+  # first question on a cold instance abstained, because top_risks and
+  # portfolio_summary read FROM findings and nothing had produced any.
+  boot_scan_limit: 200
+  boot_scan_enabled: true
 
 paths:
   warehouse_db: artifacts/warehouse.db

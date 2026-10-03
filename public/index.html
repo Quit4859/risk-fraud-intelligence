@@ -70,6 +70,15 @@
     <div class="sub">Governed, evidence-backed answers &middot; signal &rarr; evidence &rarr; finding &rarr; filing</div>
   </div>
   <div class="row" style="margin:0">
+    <label class="pill" for="who" style="display:flex;gap:7px;align-items:center;cursor:pointer">
+      signed in as
+      <select id="who" style="background:transparent;border:0;color:var(--ink);font:inherit;cursor:pointer">
+        <option value="a.analyst@bank.com">analyst &middot; a.analyst</option>
+        <option value="k.approver@bank.com">approver &middot; k.approver</option>
+        <option value="s.admin@bank.com">admin &middot; s.admin</option>
+      </select>
+    </label>
+    <span class="pill" id="p-role">role &mdash;</span>
     <span class="pill" id="p-status">connecting&hellip;</span>
     <span class="pill" id="p-asof">as-of &mdash;</span>
     <span class="pill" id="p-build">cold start &mdash;</span>
@@ -101,6 +110,18 @@
       <h2>Policy corpus</h2>
       <div class="kv" id="corpus"><span>documents</span><span>&mdash;</span></div>
     </div>
+    <div class="card" style="margin-top:18px">
+      <h2>Four-eyes queue</h2>
+      <p style="color:var(--muted);font-size:12px;margin:0 0 10px">
+        A draft can never be approved by the person who prepared it. Switch
+        identity above to walk both sides of the control.
+      </p>
+      <div class="row">
+        <button class="ghost" id="draft">Draft SAR for top risk</button>
+        <button class="ghost" id="refresh-f">Refresh queue</button>
+      </div>
+      <div id="filings" style="margin-top:12px"><div class="cite">no filings drafted this session</div></div>
+    </div>
   </aside>
 </main>
 
@@ -115,13 +136,43 @@
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
-async function api(action, payload){
+// The session token. The server refuses every action without one (B8), so the
+// console signs in once as a demo analyst and replays the token. Role changes
+// go through signIn(); see the role picker in the header.
+let SESSION = sessionStorage.getItem('risk_token') || '';
+let SESSION_USER = sessionStorage.getItem('risk_user') || '';
+
+async function signIn(role){
   const res = await fetch('/api', {
     method:'POST',
     headers:{'Content-Type':'application/json'},
-    body: JSON.stringify({action, ...(payload||{})})
+    credentials:'same-origin',
+    body: JSON.stringify({action:'login', role: role || 'analyst'})
+  });
+  const body = await res.json();
+  SESSION = body.token || '';
+  SESSION_USER = body.user || '';
+  if(SESSION) sessionStorage.setItem('risk_token', SESSION);
+  else sessionStorage.removeItem('risk_token');
+  if(body.role) sessionStorage.setItem('risk_role', body.role);
+  if(body.user) sessionStorage.setItem('risk_user', body.user);
+  return body;
+}
+
+async function api(action, payload){
+  if(!SESSION && action !== 'login' && action !== 'health') await signIn();
+  const res = await fetch('/api', {
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    credentials:'same-origin',
+    body: JSON.stringify({action, ...(payload||{}), token: SESSION})
   });
   const body = await res.json().catch(()=>({error:'bad response'}));
+  if(res.status === 401 && body.error === 'authentication_required'){
+    // Token expired or the server restarted with a new ephemeral key.
+    await signIn();
+    return api(action, payload);
+  }
   if(!res.ok && !body.answer_text) throw new Error(body.error || res.statusText);
   return body;
 }
@@ -247,6 +298,93 @@ async function ask(){
   finally{ btn.disabled = false; }
 }
 
+// -- four-eyes queue ---------------------------------------------------------
+// Filings live for the length of the browser session; the authoritative record
+// is the append-only audit log, which the copilot writes on every state change.
+
+let DRAFTED = [];
+
+function roleFor(email){
+  return { 'a.analyst@bank.com':'analyst', 'k.approver@bank.com':'approver',
+           's.admin@bank.com':'admin' }[email] || 'analyst';
+}
+
+async function switchIdentity(email){
+  const who = await signIn(roleFor(email));
+  $('p-role').textContent = 'role: ' + (who.role || '?');
+  $('p-role').className = 'pill ok';
+  renderFilings();
+}
+
+function renderFilings(){
+  const box = $('filings');
+  if(!DRAFTED.length){
+    box.innerHTML = '<div class="cite">no filings drafted this session</div>';
+    return;
+  }
+  box.innerHTML = DRAFTED.map(f => {
+    const decided = f.status !== 'PENDING_REVIEW';
+    return `<div style="border:1px solid var(--line);border-radius:9px;padding:11px;margin-bottom:9px;background:var(--panel2)">
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center">
+        <code style="font-size:11px;color:var(--muted)">${esc(f.filing_id)}</code>
+        <span class="tag">${esc(f.status)}</span>
+      </div>
+      <div style="font-size:12.5px;margin:6px 0">${esc(f.customer_id)} &middot; ${esc(f.filing_type)}
+        &middot; preparer <b>${esc(f.preparer)}</b></div>
+      ${decided ? `<div class="cite">decided by ${esc(f.decided_by)}: ${esc(f.decision_comment)}</div>` : `
+        <input id="c-${esc(f.filing_id)}" placeholder="mandatory review comment"
+               style="width:100%;background:#0f1628;color:var(--ink);border:1px solid var(--line);border-radius:7px;padding:7px;font:inherit;margin-bottom:7px">
+        <div class="row" style="margin:0">
+          <button data-ok="${esc(f.filing_id)}" data-dec="approve">Approve</button>
+          <button class="ghost" data-ok="${esc(f.filing_id)}" data-dec="reject">Reject</button>
+        </div>`}
+    </div>`;
+  }).join('');
+
+  box.querySelectorAll('button[data-ok]').forEach(b => b.onclick = () => decide(b.dataset.ok, b.dataset.dec));
+}
+
+async function decide(filingId, decision){
+  const f = DRAFTED.find(x => x.filing_id === filingId);
+  const field = $('c-' + filingId);
+  const comment = field ? field.value.trim() : '';
+  if(!comment){
+    $('filings').insertAdjacentHTML('afterbegin',
+      '<div class="err">A review comment is mandatory. The four-eyes control records the reasoning, not just the signature.</div>');
+    return;
+  }
+  try{
+    const out = await api(decision, {filing_id: filingId, comment});
+    if(!out.success) throw new Error(out.reason || out.error || 'decision refused');
+    f.status = out.report.status;
+    f.decided_by = SESSION_USER;
+    f.decision_comment = comment;
+    renderFilings();
+  }catch(e){
+    $('filings').insertAdjacentHTML('afterbegin', `<div class="err">${esc(e.message)}</div>`);
+  }
+}
+
+$('draft').onclick = async () => {
+  try{
+    const cases = await api('findings', {limit:1, min_level:'high'});
+    const rows = cases.rows || cases.cases || [];
+    if(!rows.length) throw new Error('no high-risk customer available to draft against');
+    const cid = rows[0].customer_id;
+    const out = await api('file', {customer_id: cid, filing_type:'SAR'});
+    if(!out.success) throw new Error(out.error || 'filing refused');
+    DRAFTED.push({filing_id: out.filing_id, customer_id: cid, filing_type:'SAR',
+                  status: out.report.status, preparer: out.report.preparer,
+                  decided_by: null, decision_comment: null});
+    renderFilings();
+  }catch(e){
+    $('filings').insertAdjacentHTML('afterbegin', `<div class="err">${esc(e.message)}</div>`);
+  }
+};
+
+$('refresh-f').onclick = renderFilings;
+$('who').onchange = e => switchIdentity(e.target.value);
+
 $('go').onclick = ask;
 $('q').addEventListener('keydown', e => { if(e.key==='Enter' && (e.metaKey||e.ctrlKey)) ask(); });
 $('scan').onclick = async () => { $('out').innerHTML='<div class="cite">Scoring portfolio…</div>';
@@ -256,6 +394,7 @@ $('board').onclick = async () => { $('out').innerHTML='<div class="cite">Buildin
 $('liq').onclick = async () => { $('out').innerHTML='<div class="cite">Building liquidity pack…</div>';
   try{ renderReport(await api('liquidity'), 'Liquidity & prudential'); }catch(e){ $('out').innerHTML=`<div class="err">${esc(e.message)}</div>`; } };
 
+switchIdentity($('who').value);
 boot();
 </script>
 </body>

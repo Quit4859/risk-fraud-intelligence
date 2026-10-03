@@ -1,0 +1,30 @@
+B4: README metrics did not describe the deployed profile
+Generated: 2026-09-29T15:20:08Z
+
+The README reported the 600-customer profile. The deployed app runs the
+200-customer demo profile (api/_runtime.py::_dataset_profile, RISK_PROFILE=demo).
+Both were measured on the same code, seed 42.
+
+=== 600-customer (repo data/raw) ===
+population            600
+planted / control     42 / 558
+high-only   P=1.000 R=0.667 F1=0.800 FPR=0.000
+medium+     P=0.830 R=0.929 F1=0.876 FPR=0.014
+  mule_network     1.00 med+  1.00 correct-rule
+
+=== 200-customer (the DEPLOYED profile) ===
+population            200
+planted / control     14 / 186
+high-only   P=1.000 R=0.357 F1=0.526 FPR=0.000
+medium+     P=0.917 R=0.786 F1=0.846 FPR=0.005
+  mule_network     0.25 med+  1.00 correct-rule
+
+Findings:
+  1. Precision is HIGHER on the deployed profile (0.917 vs 0.830 at
+     medium+) - the B2 fix holds at the smaller population.
+  2. Recall is much LOWER: 0.786 vs 0.929. The old README number was not
+     merely stale, it described a population nobody deploys.
+  3. mule_network recall collapses to 0.25. The demo profile plants only
+     4 mule cases; 3 are missed. With n=4 this is a sample-size signal, not
+     a detector defect - the 600-customer run catches 13/13. Reported as found
+     rather than fixed by quietly resizing the demo profile.

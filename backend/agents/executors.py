@@ -36,6 +36,10 @@ class IntentExecutor:
         self.cfg = config or load_config()
         self.detector = self.agents.get("fraud_detector")
         self.policy = self.agents.get("policy_matcher")
+        # Set by RiskCopilot so a lazy population scan is attributed to the
+        # same run as the question that triggered it.
+        self.intent_run_id: Optional[str] = None
+        self.population_limit: int = 200
         self._registry: Dict[str, Callable[[Intent], ExecutionResult]] = {
             "portfolio_summary": self.portfolio_summary,
             "top_risks": self.top_risks,
@@ -101,7 +105,32 @@ class IntentExecutor:
         return (as_of - timedelta(days=days)).date().isoformat()
 
     # -- portfolio ---------------------------------------------------------
+    def _ensure_populated(self) -> bool:
+        """Populate the findings table on demand if it is empty.
+
+        Three intents (``top_risks``, ``portfolio_summary``, ``explain_signal``)
+        read ``FROM findings``. Before a scan has run that table is empty, so
+        they returned no rows, which tripped guardrail A3
+        (``answer_has_no_supporting_rows``) and forced an abstention. Abstaining
+        was correct - asserting a portfolio position from no findings is not -
+        but shipping an app whose headline questions abstain on a cold start is
+        a defect. So the executor scans lazily rather than abstaining.
+
+        Guarded by a lock and a no-op when findings already exist, so it costs
+        nothing on a warm instance. Returns True if a scan was run.
+        """
+        copilot = self.agents.get("copilot")
+        if copilot is not None:
+            # Single lock shared with the boot thread, so the two paths cannot
+            # race on the same connection.
+            return copilot.ensure_populated(limit=self.population_limit)
+        from backend.orchestration.copilot import RiskCopilot
+        copilot = RiskCopilot(warehouse=self.wh, config=self.cfg,
+                              run_id=self.intent_run_id or "RUN-LAZY")
+        return copilot.ensure_populated(limit=self.population_limit)
+
     def portfolio_summary(self, intent: Intent) -> ExecutionResult:
+        self._ensure_populated()
         sql1 = "SELECT risk_level, COUNT(*) n FROM findings GROUP BY risk_level"
         rows = self.wh.query(sql1)
         res = ExecutionResult(intent=intent, sql=[sql1], rows=rows)
@@ -132,6 +161,7 @@ class IntentExecutor:
         return res
 
     def top_risks(self, intent: Intent) -> ExecutionResult:
+        self._ensure_populated()
         limit = int(intent.slots.get("limit") or 10)
         sql = """SELECT customer_id, composite_risk_score, risk_level, confidence,
                         guardrail_status, summary

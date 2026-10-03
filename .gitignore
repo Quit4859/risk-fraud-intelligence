@@ -6,6 +6,12 @@ __pycache__/
 *.pyc
 node_modules/
 .vercel/
+.next/
+.venv/
+venv/
 .env
 .env.*
 !.env.example
+.pytest_cache/
+.coverage
+htmlcov/

@@ -13,6 +13,7 @@ the warehouse bootstrap.
 from __future__ import annotations
 
 import html
+import json
 import os
 import sys
 from urllib.parse import urlparse
@@ -22,7 +23,7 @@ if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
 from api.index import handler, _json  # noqa: E402
-from api._runtime import get_copilot, health  # noqa: E402
+from api._runtime import get_copilot, health, healthz  # noqa: E402
 
 STATIC_DIR = os.path.join(ROOT, "public")
 PAGE_DIR = os.path.join(ROOT, "pages")
@@ -34,13 +35,52 @@ _STATIC_EXTS = {
 }
 
 
+def _within(base: str, candidate: str) -> bool:
+    """True when ``candidate`` resolves inside ``base``.
+
+    realpath is what makes this safe: it collapses ``..`` *before* the prefix
+    check, so ``/public/../config/settings.yaml`` is rejected rather than
+    string-matched against ``/public``. ``os.path.commonpath`` is used instead
+    of ``startswith`` so ``/public_evil`` cannot pass as a child of ``/public``.
+    """
+    try:
+        base_real = os.path.realpath(base)
+        cand_real = os.path.realpath(candidate)
+        return os.path.commonpath([base_real, cand_real]) == base_real
+    except ValueError:
+        # Different drives on Windows, or a malformed path.
+        return False
+
+
 def _serve_static(path: str):
-    """Serve a file from public/ or pages/ if it exists."""
-    path = path.lstrip("/")
-    if path in ("", "/"):
-        path = "index.html"
+    """Serve a file from public/ or pages/ if it exists.
+
+    Two independent controls, because either alone is insufficient:
+
+    * **realpath containment** - the resolved file must sit inside one of the
+      two served roots. Without it, ``/../config/settings.yaml`` disclosed every
+      detection threshold to any visitor, which is the exact information a
+      threshold-evasion attacker needs.
+    * **extension allowlist** - ``_STATIC_EXTS`` was declared but never applied,
+      so any file type could be served verbatim.
+    """
+    rel = path.lstrip("/")
+    if rel in ("", "/"):
+        rel = "index.html"
+    # Reject before touching the filesystem: NUL and traversal segments.
+    if "\x00" in rel:
+        return None
+    if os.path.isabs(rel) or ".." in rel.replace("\\", "/").split("/"):
+        return None
+
+    ext = os.path.splitext(rel)[1].lower()
+    if ext not in _STATIC_EXTS:
+        return None
+
     for base in (STATIC_DIR, PAGE_DIR):
-        candidate = os.path.join(base, path)
+        candidate = os.path.join(base, rel)
+        if not _within(base, candidate):
+            continue
         if os.path.isfile(candidate):
             return _static_response(candidate)
     return None
@@ -75,10 +115,22 @@ def _static_response(file_path: str):
 
 
 def app(environ, start_response):
-    """WSGI application: API first, static files second, SPA fallback last."""
+    """WSGI application: API first, health check, static files, SPA fallback."""
     method = environ.get("REQUEST_METHOD", "GET").upper()
     path = environ.get("PATH_INFO", "/")
     query_string = environ.get("QUERY_STRING", "")
+
+    # --- Health check: instant, never builds the engine ------------------
+    # Render's health check must get an immediate answer. Calling the full
+    # health() here would start a multi-second warehouse build and the platform
+    # would kill the instance for not responding.
+    if path.rstrip("/") in ("/healthz", "/health"):
+        body = json.dumps(healthz()).encode("utf-8")
+        start_response("200 OK",
+                       [("Content-Type", "application/json"),
+                        ("Cache-Control", "no-store"),
+                        ("Content-Length", str(len(body)))])
+        return [body]
 
     # --- API routes -----------------------------------------------------
     if path.startswith("/api"):
