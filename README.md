@@ -1,5 +1,4 @@
-# Snowflake CoCo CLI GCC Edition Hackathon 
----
+**Snowflake CoCo CLI GCC Edition Hackathon**
 
 ## Risk, Fraud and Regulatory Intelligence Copilot
 
